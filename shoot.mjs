@@ -47,6 +47,10 @@ const SHOTS = [
   { path: '/creators-lab/i1', label: 'creators-lab', theme: 'dark' },
   { path: '/details/i1', label: 'idea-details', theme: 'dark' },
   { path: '/onboarding', label: 'onboarding', theme: 'dark' },
+  // 390px mobile sweep
+  { path: '/manage-team/i1', label: 'manage-overview', w: 390, h: 844 },
+  { path: '/admin', label: 'admin', w: 390, h: 844 },
+  { path: '/details/i1', label: 'idea-details', w: 390, h: 844 },
 ];
 
 const shots = SHOTS.filter((s) => !filter || s.label.includes(filter) || s.path.includes(filter));
