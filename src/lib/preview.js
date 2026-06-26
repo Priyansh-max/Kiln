@@ -109,14 +109,40 @@ const applicationsReceived = [
   { id: 'r3', status: 'rejected', pitch: 'Keen to help, mostly backend. Comfortable with Postgres and queues, can take on the sync layer.', created_at: '2026-06-18T10:00:00Z', profile: { full_name: 'Tom Becker', avatar_url: AV('tom'), github_url: 'https://github.com/tombecker', skills: 'Go, Postgres', description: 'Backend engineer.' } },
 ];
 
+const team = {
+  id: 't1',
+  repo_name: 'ledgerlite',
+  repo_url: 'https://github.com/averystone/ledgerlite',
+  repo_owner: 'averystone',
+  updated_at: '2026-06-25T10:00:00Z',
+  member_profiles: [
+    { id: 'm1', full_name: 'Avery Stone', email: 'avery@kiln.dev', avatar_url: AV('avery'), joined_at: '2026-04-01', github_url: 'https://github.com/averystone' },
+    { id: 'm2', full_name: 'Priya Nair', email: 'priya@kiln.dev', avatar_url: AV('priya'), joined_at: '2026-04-15', github_url: 'https://github.com/priyanair' },
+    { id: 'm3', full_name: 'Marco Diaz', email: 'marco@kiln.dev', avatar_url: AV('marco'), joined_at: '2026-05-02', github_url: 'https://github.com/marcodiaz' },
+  ],
+};
+
+const repoStats = {
+  commitCount: 1284,
+  issueCount: 86,
+  pullCount: 312,
+  isCached: false,
+  lastUpdated: '2026-06-26T18:30:00Z',
+  dailyCommits: {
+    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+    datasets: [{ label: 'Commits', data: [12, 19, 8, 22, 15, 6, 17], backgroundColor: '#9DCB1A', borderRadius: 6 }],
+  },
+};
+
 // ---------- endpoint router ----------
 function matchMock(url, method) {
   const u = url;
   if (u.includes('/idealist/verify-onboarding')) return { success: true, onboarding: true };
   if (u.includes('/data/application-stats/')) return { success: true, data: { total: 3, accepted: 1, pending: 1, rejected: 1 } };
   if (u.includes('/application/details/')) return { success: true, data: applicationsReceived };
-  if (u.includes('/manage-team/check-team/')) return { success: true, exists: false };
-  if (u.includes('/manage-team/get-team/')) return { success: true, data: { repo_name: null, members: [] } };
+  if (u.includes('/manage-team/check-team/')) return { success: true, exists: true, data: team };
+  if (u.includes('/manage-team/get-team/')) return { success: true, data: team };
+  if (u.includes('/github/repo-stats/')) return { success: true, data: repoStats };
   if (u.includes('/manage-team/')) return { success: true };
   if (u.includes('/profile/get-project-details')) return { success: true, data: [...authoredProjects, ...contributedProjects] };
   if (u.includes('/profile/get-project-stats')) return { success: true, data: projectStats };
@@ -133,6 +159,7 @@ function matchMock(url, method) {
 export function installPreview() {
   // mark <html> so styles/components can react if needed
   document.documentElement.setAttribute('data-preview', '1');
+  try { localStorage.setItem('provider_token', 'preview-gh-token'); } catch {}
 
   // --- stub Supabase auth ---
   supabase.auth.getSession = async () => ({ data: { session: FAKE_SESSION }, error: null });
