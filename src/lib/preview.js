@@ -134,9 +134,35 @@ const repoStats = {
   },
 };
 
+const adminSubmissions = [
+  {
+    id: 's1', idea_id: 'i1', title: 'Ledgerlite', repo_name: 'ledgerlite',
+    description: 'A dead-simple double-entry ledger for indie founders. Submitting for review — logo, README, demo video and live link are all attached.',
+    logo_url: '', project_link: 'https://ledgerlite.app', repo_url: 'https://github.com/averystone/ledgerlite',
+    video_url: 'https://www.youtube.com/embed/aqz-KE-bpKQ', start_date: '2026-02-01',
+    repo_stats: { commitCount: 1284, issueCount: 86, pullCount: 312 },
+    mem_stats: [
+      { full_name: 'Avery Stone', avatar_url: AV('avery'), github_username: 'averystone', commits: 642, open_pull_requests: 3, closed_pull_requests: 12, merged_pull_requests: 128, open_issues: 2, closed_issues: 44, inactive_days: 0, joined_at: '2026-04-01' },
+      { full_name: 'Priya Nair', avatar_url: AV('priya'), github_username: 'priyanair', commits: 318, open_pull_requests: 1, closed_pull_requests: 8, merged_pull_requests: 96, open_issues: 0, closed_issues: 21, inactive_days: 2, joined_at: '2026-04-15' },
+      { full_name: 'Marco Diaz', avatar_url: AV('marco'), github_username: 'marcodiaz', commits: 224, open_pull_requests: 0, closed_pull_requests: 5, merged_pull_requests: 58, open_issues: 1, closed_issues: 17, inactive_days: 0, joined_at: '2026-05-02' },
+    ],
+  },
+  {
+    id: 's2', idea_id: 'i6', title: 'Practa', repo_name: 'practa',
+    description: 'Spaced-repetition for engineering interviews built on real PRs. README and demo attached, no open blocking issues.',
+    logo_url: '', project_link: 'https://practa.dev', repo_url: 'https://github.com/liamshaw/practa',
+    video_url: '', start_date: '2026-03-10',
+    repo_stats: { commitCount: 540, issueCount: 12, pullCount: 88 },
+    mem_stats: [
+      { full_name: 'Liam Shaw', avatar_url: AV('liam'), github_username: 'liamshaw', commits: 410, open_pull_requests: 2, closed_pull_requests: 6, merged_pull_requests: 64, open_issues: 1, closed_issues: 9, inactive_days: 5, joined_at: '2026-03-10' },
+    ],
+  },
+];
+
 // ---------- endpoint router ----------
 function matchMock(url, method) {
   const u = url;
+  if (u.includes('/admin/submissions') && method === 'get') return { success: true, data: adminSubmissions };
   if (u.includes('/idealist/verify-onboarding')) return { success: true, onboarding: true };
   if (u.includes('/data/application-stats/')) return { success: true, data: { total: 3, accepted: 1, pending: 1, rejected: 1 } };
   if (u.includes('/application/details/')) return { success: true, data: applicationsReceived };
