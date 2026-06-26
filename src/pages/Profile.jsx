@@ -315,7 +315,7 @@ function Profile() {
     <div className="max-w-8xl mx-auto px-2 sm:px-4 py-4 sm:py-8">
       <div className="flex flex-col lg:flex-row gap-4 lg:gap-8">
         <div className='w-full lg:w-1/3 flex flex-col h-fit lg:sticky lg:top-8'>
-          <div className="bg-card text-card-foreground p-4 sm:p-6 rounded-lg shadow-md dark:shadow-primary/10 border border-border">
+          <div className="bg-card text-card-foreground p-4 sm:p-6 rounded-2xl shadow-sm dark:shadow-primary/10 border border-border">
             {/* Profile Header */}
             <div className='flex justify-content'>
               <div className='mr-3 sm:mr-4'>
@@ -352,7 +352,7 @@ function Profile() {
 
             {/* Edit Profile Button */}
             <button 
-              className="w-full mt-3 sm:mt-4 bg-primary hover:bg-primary/90 text-primary-foreground font-medium py-2 rounded-md transition-colors text-sm"
+              className="w-full mt-3 sm:mt-4 bg-primary hover:opacity-90 text-primary-foreground font-medium py-2 rounded-md transition-colors text-sm"
               onClick={handleOverlay}
             >
               Edit Profile
@@ -369,7 +369,7 @@ function Profile() {
                     className="flex items-center space-x-2 hover:text-primary transition-colors text-xs sm:text-sm"
                   >
                     <Github className="w-4 h-4" />
-                    <span>{new URL(profile.github_url).pathname.substring(1)}</span>
+                    <span className="font-mono">{new URL(profile.github_url).pathname.substring(1)}</span>
                   </a>
                 </div>
               )}
@@ -405,7 +405,7 @@ function Profile() {
           <div className="h-4 sm:h-6"></div>
 
           {/* Numbers */}
-          <div className='bg-card text-card-foreground flex flex-col shadow-md dark:shadow-primary/10 p-3 sm:p-4 md:p-6 rounded-xl border border-border'>
+          <div className='bg-card text-card-foreground flex flex-col shadow-sm dark:shadow-primary/10 p-3 sm:p-4 md:p-6 rounded-2xl border border-border'>
             <h2 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4 flex items-center text-foreground">
               <ScrollText className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-primary" />
               Overview
@@ -426,14 +426,14 @@ function Profile() {
                   {/* Hover Stats - Mobile: Bottom, Desktop: Right */}
                   <div className="absolute sm:top-0 sm:left-full top-full left-1/2 -translate-x-1/2 sm:translate-x-0 w-auto opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                     <div className="flex flex-col gap-1 sm:ml-2 mt-2 sm:mt-0">
-                      <div className="bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-100 px-2 py-1 rounded text-sm whitespace-nowrap">
-                        Accepted: {stats.applications_sent.accepted}
+                      <div className="bg-primary/10 text-primary border border-primary/20 px-2 py-1 rounded text-sm whitespace-nowrap">
+                        Accepted: <span className="font-mono tnum">{stats.applications_sent.accepted}</span>
                       </div>
-                      <div className="bg-yellow-100 dark:bg-yellow-900/50 text-yellow-800 dark:text-yellow-100 px-2 py-1 rounded text-sm whitespace-nowrap">
-                        Pending: {stats.applications_sent.pending}
+                      <div className="bg-warning/10 text-warning border border-warning/20 px-2 py-1 rounded text-sm whitespace-nowrap">
+                        Pending: <span className="font-mono tnum">{stats.applications_sent.pending}</span>
                       </div>
-                      <div className="bg-red-100 dark:bg-red-900/50 text-red-800 dark:text-red-100 px-2 py-1 rounded text-sm whitespace-nowrap">
-                        Rejected: {stats.applications_sent.rejected}
+                      <div className="bg-destructive/10 text-destructive border border-destructive/20 px-2 py-1 rounded text-sm whitespace-nowrap">
+                        Rejected: <span className="font-mono tnum">{stats.applications_sent.rejected}</span>
                       </div>
                     </div>
                   </div>
@@ -456,14 +456,14 @@ function Profile() {
                   {/* Hover Stats - Mobile: Bottom, Desktop: Right */}
                   <div className="absolute sm:top-0 sm:left-full top-full left-1/2 -translate-x-1/2 sm:translate-x-0 w-auto opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                     <div className="flex flex-col gap-1 sm:ml-2 mt-2 sm:mt-0">
-                      <div className="bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-100 px-2 py-1 rounded text-sm whitespace-nowrap">
-                        Accepted: {stats.applications_received.accepted}
+                      <div className="bg-primary/10 text-primary border border-primary/20 px-2 py-1 rounded text-sm whitespace-nowrap">
+                        Accepted: <span className="font-mono tnum">{stats.applications_received.accepted}</span>
                       </div>
-                      <div className="bg-yellow-100 dark:bg-yellow-900/50 text-yellow-800 dark:text-yellow-100 px-2 py-1 rounded text-sm whitespace-nowrap">
-                        Pending: {stats.applications_received.pending}
+                      <div className="bg-warning/10 text-warning border border-warning/20 px-2 py-1 rounded text-sm whitespace-nowrap">
+                        Pending: <span className="font-mono tnum">{stats.applications_received.pending}</span>
                       </div>
-                      <div className="bg-red-100 dark:bg-red-900/50 text-red-800 dark:text-red-100 px-2 py-1 rounded text-sm whitespace-nowrap">
-                        Rejected: {stats.applications_received.rejected}
+                      <div className="bg-destructive/10 text-destructive border border-destructive/20 px-2 py-1 rounded text-sm whitespace-nowrap">
+                        Rejected: <span className="font-mono tnum">{stats.applications_received.rejected}</span>
                       </div>
                     </div>
                   </div>
@@ -476,28 +476,28 @@ function Profile() {
 
             {/* Stats Section */}
             <div className="grid grid-cols-3 gap-2">
-              <div className="bg-muted-foreground/10 rounded-lg p-3 flex flex-col items-center">
+              <div className="bg-muted rounded-lg p-3 flex flex-col items-center">
                 <div className="flex items-center justify-center gap-2">
                   <Lightbulb className="w-4 h-4 text-primary" />
                   <span className="text-sm font-medium text-muted-foreground">Ideas</span>
                 </div>
-                <span className="text-xl font-bold text-foreground mt-1">{stats.ideas_posted}</span>
+                <span className="text-xl font-bold text-foreground mt-1 font-mono tnum">{stats.ideas_posted}</span>
               </div>
 
-              <div className="bg-muted-foreground/10 rounded-lg p-3 flex flex-col items-center">
+              <div className="bg-muted rounded-lg p-3 flex flex-col items-center">
                 <div className="flex items-center justify-center gap-2">
                   <Users className="w-4 h-4 text-primary" />
                   <span className="text-sm font-medium text-muted-foreground">Contacts</span>
                 </div>
-                <span className="text-xl font-bold text-foreground mt-1">{stats.applications_sent.pending}</span>
+                <span className="text-xl font-bold text-foreground mt-1 font-mono tnum">{stats.applications_sent.pending}</span>
               </div>
 
-              <div className="bg-muted-foreground/10 rounded-lg p-3 flex flex-col items-center">
+              <div className="bg-muted rounded-lg p-3 flex flex-col items-center">
                 <div className="flex items-center justify-center gap-2">
                   <Heart className="w-4 h-4 text-primary" />
                   <span className="text-sm font-medium text-muted-foreground">Likes</span>
                 </div>
-                <span className="text-xl font-bold text-foreground mt-1">{stats.applications_received.rejected}</span>
+                <span className="text-xl font-bold text-foreground mt-1 font-mono tnum">{stats.applications_received.rejected}</span>
               </div>
             </div>
           </div>
@@ -510,44 +510,44 @@ function Profile() {
 
           {/* Stats Cards */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
-            <div className="bg-card text-card-foreground p-2.5 sm:p-3 rounded-lg border border-border shadow-sm hover:shadow-md transition-all">
+            <div className="bg-card text-card-foreground p-2.5 sm:p-3 rounded-2xl border border-border shadow-sm hover:shadow-md transition-all">
               <div className="flex items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
                 <div className="p-1 sm:p-1.5 bg-primary/10 rounded-full">
                   <GitPullRequest className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary" />
                 </div>
                 <h3 className="text-xs sm:text-sm font-medium">Total Commits</h3>
               </div>
-              <p className="text-lg sm:text-xl font-bold text-foreground">{projectStats.totalCommits || 0}</p>
+              <p className="text-lg sm:text-xl font-bold text-foreground font-mono tnum">{projectStats.totalCommits || 0}</p>
             </div>
 
-            <div className="bg-card text-card-foreground p-2.5 sm:p-3 rounded-lg border border-border shadow-sm hover:shadow-md transition-all">
+            <div className="bg-card text-card-foreground p-2.5 sm:p-3 rounded-2xl border border-border shadow-sm hover:shadow-md transition-all">
               <div className="flex items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
-                <div className="p-1 sm:p-1.5 bg-yellow-500/10 rounded-full">
-                  <AlertTriangle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-yellow-500" />
+                <div className="p-1 sm:p-1.5 bg-warning/10 rounded-full">
+                  <AlertTriangle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-warning" />
                 </div>
                 <h3 className="text-xs sm:text-sm font-medium">Total Issues</h3>
               </div>
-              <p className="text-lg sm:text-xl font-bold text-foreground">{projectStats.totalIssues || 0}</p>
+              <p className="text-lg sm:text-xl font-bold text-foreground font-mono tnum">{projectStats.totalIssues || 0}</p>
             </div>
 
-            <div className="bg-card text-card-foreground p-2.5 sm:p-3 rounded-lg border border-border shadow-sm hover:shadow-md transition-all">
+            <div className="bg-card text-card-foreground p-2.5 sm:p-3 rounded-2xl border border-border shadow-sm hover:shadow-md transition-all">
               <div className="flex items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
-                <div className="p-1 sm:p-1.5 bg-blue-500/10 rounded-full">
-                  <GitPullRequest className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-500" />
+                <div className="p-1 sm:p-1.5 bg-info/10 rounded-full">
+                  <GitPullRequest className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-info" />
                 </div>
                 <h3 className="text-xs sm:text-sm font-medium">Total PRs</h3>
               </div>
-              <p className="text-lg sm:text-xl font-bold text-foreground">{projectStats.totalPRs || 0}</p>
+              <p className="text-lg sm:text-xl font-bold text-foreground font-mono tnum">{projectStats.totalPRs || 0}</p>
             </div>
 
-            <div className="bg-card text-card-foreground p-2.5 sm:p-3 rounded-lg border border-border shadow-sm hover:shadow-md transition-all">
+            <div className="bg-card text-card-foreground p-2.5 sm:p-3 rounded-2xl border border-border shadow-sm hover:shadow-md transition-all">
               <div className="flex items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
-                <div className="p-1 sm:p-1.5 bg-green-500/10 rounded-full">
-                  <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-500" />
+                <div className="p-1 sm:p-1.5 bg-success/10 rounded-full">
+                  <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-success" />
                 </div>
                 <h3 className="text-xs sm:text-sm font-medium">Merged PRs</h3>
               </div>
-              <p className="text-lg sm:text-xl font-bold text-foreground">{projectStats.mergedPRs || 0}</p>
+              <p className="text-lg sm:text-xl font-bold text-foreground font-mono tnum">{projectStats.mergedPRs || 0}</p>
             </div>
           </div>
 
@@ -613,7 +613,7 @@ function Profile() {
 
           {/* Tab Content */}
           {activeTab === 'applications' && (
-            <div className="bg-card text-card-foreground p-3 sm:p-4 md:p-6 rounded-xl shadow-md dark:shadow-primary/10 border border-border">
+            <div className="bg-card text-card-foreground p-3 sm:p-4 md:p-6 rounded-2xl shadow-sm dark:shadow-primary/10 border border-border">
               <div className="flex items-center justify-between">
                 <h2 className="mb-4 text-lg sm:text-xl font-bold text-foreground">Your Applications</h2>
                 <select
@@ -636,7 +636,7 @@ function Profile() {
           )}
 
           {activeTab === 'posted' && (
-            <div className="bg-card text-card-foreground p-3 sm:p-4 md:p-6 rounded-xl shadow-md dark:shadow-primary/10 border border-border">
+            <div className="bg-card text-card-foreground p-3 sm:p-4 md:p-6 rounded-2xl shadow-sm dark:shadow-primary/10 border border-border">
               <h2 className="text-lg sm:text-xl font-bold mb-4 text-foreground">Your Posted Ideas</h2>
               <PostedTab ideas={ideas} session={session}/>
               {ideas.length === 0 && (
@@ -652,7 +652,7 @@ function Profile() {
           )}
 
           {activeTab === 'authored' && (
-            <div className="bg-card text-card-foreground p-3 sm:p-4 md:p-6 rounded-xl shadow-md dark:shadow-primary/10 border border-border">
+            <div className="bg-card text-card-foreground p-3 sm:p-4 md:p-6 rounded-2xl shadow-sm dark:shadow-primary/10 border border-border">
               <h2 className="text-lg sm:text-xl font-bold mb-4 text-foreground">Projects You Created</h2>
               {loadingProjects ? (
                 <div className="flex justify-center items-center py-8">
@@ -673,7 +673,7 @@ function Profile() {
           )}
 
           {activeTab === 'contributed' && (
-            <div className="bg-card text-card-foreground p-3 sm:p-4 md:p-6 rounded-xl shadow-md dark:shadow-primary/10 border border-border">
+            <div className="bg-card text-card-foreground p-3 sm:p-4 md:p-6 rounded-2xl shadow-sm dark:shadow-primary/10 border border-border">
               <h2 className="text-lg sm:text-xl font-bold mb-4 text-foreground">Projects You Contributed To</h2>
               {loadingProjects ? (
                 <div className="flex justify-center items-center py-8">
@@ -702,7 +702,7 @@ function Profile() {
       {EditprofileOverlay && (
       <div className="fixed inset-0 flex items-center justify-center bg-background/80 backdrop-blur-sm z-[1000] p-10">
         <div
-          className="bg-card text-card-foreground my-20 p-6 rounded-lg shadow-lg dark:shadow-primary/10 w-[650px] max-h-[90vh] relative overflow-y-auto modern-scrollbar border border-border"
+          className="bg-popover text-popover-foreground my-20 p-6 rounded-2xl shadow-lg dark:shadow-primary/10 w-[650px] max-h-[90vh] relative overflow-y-auto modern-scrollbar border border-border"
           onClick={(e) => e.stopPropagation()}
         >
           <button

@@ -1,104 +1,363 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* ============================================================
+   CoFoundry — "Foundry" design system
+   Acid lime accent on warm casting-sand neutrals.
+   Display: Space Grotesk · Body: Geist · Data: JetBrains Mono
+   ============================================================ */
+
 @layer base {
   :root {
-    --background: 0 0% 98%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 221.2 83.2% 53.3%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
-    --radius: 0.5rem
+    /* warm casting sand */
+    --background: 40 28% 90%;
+    --foreground: 36 10% 10%;
+    --card: 40 43% 95%;
+    --card-foreground: 36 10% 10%;
+    --popover: 40 43% 95%;
+    --popover-foreground: 36 10% 10%;
+
+    /* lime — the live/action accent */
+    --primary: 73 78% 46%;
+    --primary-foreground: 66 45% 8%;
+
+    --secondary: 43 28% 85%;
+    --secondary-foreground: 34 14% 18%;
+    --muted: 43 26% 89%;
+    --muted-foreground: 35 12% 39%;
+    --accent: 43 30% 86%;
+    --accent-foreground: 34 14% 18%;
+
+    --destructive: 9 63% 48%;
+    --destructive-foreground: 40 43% 96%;
+
+    /* semantic status (accepted / pending / info) */
+    --success: 141 43% 40%;
+    --success-foreground: 141 50% 96%;
+    --warning: 38 70% 48%;
+    --warning-foreground: 38 60% 8%;
+    --info: 195 48% 42%;
+    --info-foreground: 195 60% 96%;
+
+    --border: 39 24% 81%;
+    --input: 39 24% 81%;
+    --ring: 73 78% 46%;
+
+    --chart-1: 73 78% 46%;
+    --chart-2: 168 55% 36%;
+    --chart-3: 38 70% 50%;
+    --chart-4: 9 63% 48%;
+    --chart-5: 34 14% 45%;
+
+    --radius: 0.75rem;
   }
+
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 84%, 60%;
-    --destructive-foreground: 0 85.7% 97.3%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 224.3 76.3% 48%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%
+    /* warm forge charcoal */
+    --background: 34 18% 7%;
+    --foreground: 40 33% 89%;
+    --card: 33 18% 10%;
+    --card-foreground: 40 33% 89%;
+    --popover: 33 18% 10%;
+    --popover-foreground: 40 33% 89%;
+
+    --primary: 73 90% 59%;
+    --primary-foreground: 72 61% 6%;
+
+    --secondary: 34 16% 14%;
+    --secondary-foreground: 40 33% 89%;
+    --muted: 33 17% 12%;
+    --muted-foreground: 36 15% 56%;
+    --accent: 34 16% 16%;
+    --accent-foreground: 40 33% 89%;
+
+    --destructive: 9 70% 56%;
+    --destructive-foreground: 40 43% 96%;
+
+    --success: 141 50% 50%;
+    --success-foreground: 141 55% 8%;
+    --warning: 38 82% 58%;
+    --warning-foreground: 38 60% 8%;
+    --info: 195 55% 56%;
+    --info-foreground: 195 60% 10%;
+
+    --border: 34 19% 16%;
+    --input: 34 19% 18%;
+    --ring: 73 90% 59%;
+
+    --chart-1: 73 90% 59%;
+    --chart-2: 168 60% 50%;
+    --chart-3: 38 82% 58%;
+    --chart-4: 9 70% 58%;
+    --chart-5: 36 18% 60%;
   }
 }
+
 @layer base {
   * {
     @apply border-border;
   }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply bg-background text-foreground;
+    font-family: "Geist", "Inter", ui-sans-serif, system-ui, sans-serif;
+    font-feature-settings: "cv11", "ss01";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
-}
 
-.modern-scrollbar {
-  scrollbar-width: thin;
-  scrollbar-color: #4B5563 transparent;
-}
+  /* headings carry the personality — Space Grotesk */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "Space Grotesk", "Geist", sans-serif;
+    letter-spacing: -0.02em;
+    font-weight: 600;
+  }
 
-.modern-scrollbar::-webkit-scrollbar {
-  width: 6px;
-}
+  /* casting-sand grain over everything */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0.7;
+    mix-blend-mode: soft-light;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .dark body::before {
+    opacity: 0.4;
+    mix-blend-mode: overlay;
+  }
 
-.modern-scrollbar::-webkit-scrollbar-track {
-  background: transparent;
-}
+  ::selection {
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+  }
 
-.modern-scrollbar::-webkit-scrollbar-thumb {
-  background-color: #4B5563;
-  border-radius: 3px;
-}
+  :focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+  }
 
-.dark .modern-scrollbar {
-  scrollbar-color: #9CA3AF transparent;
-}
-
-.dark .modern-scrollbar::-webkit-scrollbar-thumb {
-  background-color: #9CA3AF;
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
 }
 
 @layer utilities {
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
+  .font-display { font-family: "Space Grotesk", sans-serif; }
+  .font-mono { font-family: "JetBrains Mono", ui-monospace, monospace; }
+
+  /* lime/ember radial glow for hero & accent surfaces */
+  .foundry-glow {
+    background: radial-gradient(circle, hsl(var(--primary) / 0.30), hsl(var(--primary) / 0) 68%);
   }
-  .no-scrollbar {
-    -ms-overflow-x: hidden;
-    scrollbar-width: none;
-  }
+
+  /* numeric tabular alignment for data readouts */
+  .tnum { font-variant-numeric: tabular-nums; }
+
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 }
 
+/* refined scrollbar, palette-aware */
+.modern-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--muted-foreground) / 0.5) transparent;
+}
+.modern-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+.modern-scrollbar::-webkit-scrollbar-track { background: transparent; }
+.modern-scrollbar::-webkit-scrollbar-thumb {
+  background-color: hsl(var(--muted-foreground) / 0.45);
+  border-radius: 3px;
+}
+.modern-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: hsl(var(--primary));
+}
 
+/* ============ Animated landing components ============ */
+
+/* rising forge embers */
+.ember {
+  position: absolute;
+  bottom: -12px;
+  border-radius: 9999px;
+  background: hsl(var(--primary));
+  box-shadow: 0 0 7px 1px hsl(var(--primary) / 0.75);
+  opacity: 0;
+  animation-name: ember-rise;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform, opacity;
+}
+@keyframes ember-rise {
+  0%   { transform: translateY(0) translateX(0) scale(1); opacity: 0; }
+  12%  { opacity: var(--ember-opacity, 0.6); }
+  88%  { opacity: var(--ember-opacity, 0.6); }
+  100% { transform: translateY(-78vh) translateX(var(--drift, 0)) scale(0.25); opacity: 0; }
+}
+
+/* infinite marquee */
+.marquee { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.marquee-track { display: flex; width: max-content; animation: marquee-scroll linear infinite; }
+.marquee-group { display: flex; flex-shrink: 0; }
+.marquee:hover .marquee-track { animation-play-state: paused; }
+@keyframes marquee-scroll { from { transform: translateX(0); } to { transform: translateX(calc(-50% - 0.625rem)); } }
+
+/* cursor-follow spotlight on cards */
+.spotlight-card { position: relative; }
+.spotlight-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(220px circle at var(--mx, 50%) var(--my, 50%), hsl(var(--primary) / 0.16), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+.spotlight-card:hover::after { opacity: 1; }
+
+/* hero atmosphere: animated aurora + dot grid + vignette */
+.hero-aurora {
+  position: absolute;
+  inset: -20% -10% auto -10%;
+  height: 80%;
+  pointer-events: none;
+  background:
+    radial-gradient(40% 50% at 30% 30%, hsl(var(--primary) / 0.18), transparent 70%),
+    radial-gradient(35% 45% at 75% 20%, hsl(var(--chart-3) / 0.14), transparent 70%),
+    radial-gradient(45% 55% at 60% 60%, hsl(var(--primary) / 0.12), transparent 70%);
+  filter: blur(40px);
+  animation: aurora-drift 16s ease-in-out infinite alternate;
+}
+@keyframes aurora-drift {
+  0%   { transform: translate3d(-3%, -2%, 0) scale(1); }
+  50%  { transform: translate3d(2%, 3%, 0) scale(1.08); }
+  100% { transform: translate3d(4%, -3%, 0) scale(1.04); }
+}
+/* concentric kiln heat-rings emanating behind the hero */
+.hero-rings {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transform-origin: 50% 28%;
+  background: repeating-radial-gradient(
+    circle at 50% 28%,
+    hsl(var(--foreground) / 0.05) 0 1px,
+    transparent 1px 68px
+  );
+  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 28%, #000 12%, transparent 70%);
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 28%, #000 12%, transparent 70%);
+  animation: rings-breathe 9s ease-in-out infinite;
+}
+@keyframes rings-breathe {
+  0%, 100% { transform: scale(1); opacity: 0.85; }
+  50%      { transform: scale(1.05); opacity: 1; }
+}
+
+/* animated lime highlight behind the accent word */
+.ink-highlight {
+  position: relative;
+  display: inline-block;
+  color: hsl(var(--primary));
+}
+.ink-highlight::after {
+  content: "";
+  position: absolute;
+  left: -2px;
+  right: -2px;
+  bottom: 0.06em;
+  height: 0.42em;
+  background: hsl(var(--primary) / 0.22);
+  border-radius: 2px;
+  z-index: -1;
+  transform-origin: left;
+  animation: highlight-draw 0.7s ease-out 0.5s both;
+}
+@keyframes highlight-draw {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+/* giant footer wordmark — outlined letters with a transparent (see-through) fill;
+   a green torch under the cursor reveals sand texture in the theme lime */
+.kiln-outline {
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 2.5px hsl(var(--border));
+  cursor: default;
+}
+.kiln-torch {
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-size: 220px 220px, 100% 100%;
+  background-position: center, center;
+  cursor: default;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='t'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0.5'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23t)'/%3E%3C/svg%3E"),
+    linear-gradient(180deg, hsl(var(--primary)), hsl(var(--primary) / 0.82));
+  -webkit-mask-image: radial-gradient(circle 175px at var(--mx, -600px) var(--my, -600px), #000 0%, #000 30%, transparent 70%);
+  mask-image: radial-gradient(circle 175px at var(--mx, -600px) var(--my, -600px), #000 0%, #000 30%, transparent 70%);
+}
+
+/* bento ambient equalizer bars */
+.bento-eq span {
+  display: block;
+  width: 100%;
+  border-radius: 2px;
+  background: hsl(var(--primary) / 0.55);
+  transform-origin: bottom;
+  animation: eq-pulse 1.8s ease-in-out infinite;
+}
+@keyframes eq-pulse {
+  0%, 100% { transform: scaleY(0.4); opacity: 0.6; }
+  50%      { transform: scaleY(1); opacity: 1; }
+}
+
+/* CTA rotating conic glow */
+@keyframes cta-spin { to { transform: rotate(360deg); } }
+
+/* hero: shooting stars that streak down the outer ring and fade as they descend */
+.hero-star {
+  animation: star-run linear infinite;
+}
+@keyframes star-run {
+  0%   { stroke-dashoffset: 1000; opacity: 0; }
+  10%  { opacity: 0.95; }
+  55%  { opacity: 0.8; }
+  100% { stroke-dashoffset: 0; opacity: 0; }
+}
+
+/* steps: one continuous comet tracing box → connector → box, 1 to 4 */
+.steps-comet {
+  animation: comet-run 7s linear infinite;
+}
+@keyframes comet-run {
+  from { stroke-dashoffset: 1000; }
+  to   { stroke-dashoffset: 0; }
+}
+
+/* step number lights up as the comet reaches its box */
+.step-num {
+  animation: num-glow 7s linear infinite;
+}
+@keyframes num-glow {
+  0%       { color: hsl(var(--primary)); text-shadow: 0 0 14px hsl(var(--primary) / 0.7); }
+  13%, 100% { color: hsl(var(--border)); text-shadow: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bento-eq span, .hero-rings, .hero-star, .steps-comet, .step-num { animation: none; }
+}

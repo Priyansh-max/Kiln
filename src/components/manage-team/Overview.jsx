@@ -22,12 +22,12 @@ const Overview = ({session, repostats, team, dailyCommitData}) => {
 
     // UI Components
     const Card = ({ title, value, description, icon }) => (
-        <div className="bg-card text-card-foreground rounded-lg border border-border p-6 shadow-sm">
+        <div className="bg-card text-card-foreground rounded-2xl border border-border p-6 shadow-sm">
         <div className="flex flex-row items-center justify-between space-y-0 pb-2">
             <h3 className="text-sm font-medium">{title}</h3>
             {icon}
         </div>
-        <div className="text-2xl font-bold">{value}</div>
+        <div className="text-2xl font-bold font-mono tabular-nums">{value}</div>
         <p className="text-xs text-muted-foreground">{description}</p>
         </div>
     );
@@ -64,8 +64,8 @@ const Overview = ({session, repostats, team, dailyCommitData}) => {
                       <p className="text-xs text-muted-foreground">{member.email || 'No email provided'}</p>
                     </div>
                   </div>
-                  <div className="text-sm font-medium text-primary">
-                    {new Date(member.joined_at).toLocaleDateString('en-US', { 
+                  <div className="text-sm font-medium text-primary font-mono">
+                    {new Date(member.joined_at).toLocaleDateString('en-US', {
                       month: 'short',
                       day: 'numeric',
                       year: 'numeric'
@@ -87,7 +87,7 @@ const Overview = ({session, repostats, team, dailyCommitData}) => {
           legend: {
             position: 'top',
             labels: {
-              color: 'rgb(156, 163, 175)', // text-muted-foreground equivalent
+              color: '#6B6358', // muted-foreground
               font: {
                 size: 12,
                 weight: 'medium'
@@ -99,7 +99,7 @@ const Overview = ({session, repostats, team, dailyCommitData}) => {
           title: {
             display: false,
             text: 'Daily Commits (Last 7 Days)',
-            color: 'rgb(17, 24, 39)', // text-foreground equivalent
+            color: '#322B22', // foreground
             font: {
               size: 18,
               weight: 'bold',
@@ -110,10 +110,10 @@ const Overview = ({session, repostats, team, dailyCommitData}) => {
             }
           },
           tooltip: {
-            backgroundColor: 'rgb(31, 41, 55)', // bg-card equivalent
-            titleColor: 'rgb(243, 244, 246)', // text-card-foreground equivalent
-            bodyColor: 'rgb(243, 244, 246)', // text-card-foreground equivalent
-            borderColor: 'rgb(75, 85, 99)', // border-border equivalent
+            backgroundColor: '#322B22', // dark panel
+            titleColor: '#FAF7F0',
+            bodyColor: '#FAF7F0',
+            borderColor: '#DAD2C3', // border
             borderWidth: 1,
             padding: 8,
             cornerRadius: 6,
@@ -129,10 +129,10 @@ const Overview = ({session, repostats, team, dailyCommitData}) => {
           y: {
             beginAtZero: true,
             grid: {
-              color: 'rgba(156, 163, 175, 0.1)', // text-muted-foreground with opacity
+              color: 'rgba(218, 210, 195, 0.4)', // border with opacity
             },
             ticks: {
-              color: 'rgb(156, 163, 175)', // text-muted-foreground equivalent
+              color: '#6B6358', // muted-foreground
               font: {
                 size: 12,
               },
@@ -140,7 +140,7 @@ const Overview = ({session, repostats, team, dailyCommitData}) => {
             },
             title: {
               display: true,
-              color: 'rgb(156, 163, 175)', // text-muted-foreground equivalent
+              color: '#6B6358', // muted-foreground
               font: {
                 size: 13,
                 weight: 'medium'
@@ -155,7 +155,7 @@ const Overview = ({session, repostats, team, dailyCommitData}) => {
               display: false,
             },
             ticks: {
-              color: 'rgb(156, 163, 175)', // text-muted-foreground equivalent
+              color: '#6B6358', // muted-foreground
               font: {
                 size: 12,
               },
@@ -173,7 +173,7 @@ const Overview = ({session, repostats, team, dailyCommitData}) => {
     <div className="space-y-6">
         <div className="flex items-center justify-between">
             <div className="text-xs text-muted-foreground flex items-center p-2 bg-muted/20 rounded-md border border-border w-full">
-                <span className={`inline-block w-2 h-2 rounded-full mr-2 ${repostats?.isCached ? 'bg-yellow-400' : 'bg-green-400'}`}></span>
+                <span className={`inline-block w-2 h-2 rounded-full mr-2 ${repostats?.isCached ? 'bg-warning' : 'bg-success'}`}></span>
                 <span>
                     {formattedLastUpdate ? 
                         (repostats?.isCached 
@@ -194,15 +194,15 @@ const Overview = ({session, repostats, team, dailyCommitData}) => {
         />
         {!team?.repo_name ? (
           <>
-            <div className="bg-card text-card-foreground rounded-lg border border-border p-6 shadow-sm flex flex-col items-center justify-center">
+            <div className="bg-card text-card-foreground rounded-2xl border border-border p-6 shadow-sm flex flex-col items-center justify-center">
               <Github className="h-8 w-8 text-muted-foreground mb-2" />
               <p className="text-sm text-muted-foreground text-center">Connect a repository to view commit statistics</p>
             </div>
-            <div className="bg-card text-card-foreground rounded-lg border border-border p-6 shadow-sm flex flex-col items-center justify-center">
+            <div className="bg-card text-card-foreground rounded-2xl border border-border p-6 shadow-sm flex flex-col items-center justify-center">
               <Github className="h-8 w-8 text-muted-foreground mb-2" />
               <p className="text-sm text-muted-foreground text-center">Connect a repository to view issue statistics</p>
             </div>
-            <div className="bg-card text-card-foreground rounded-lg border border-border p-6 shadow-sm flex flex-col items-center justify-center">
+            <div className="bg-card text-card-foreground rounded-2xl border border-border p-6 shadow-sm flex flex-col items-center justify-center">
               <Github className="h-8 w-8 text-muted-foreground mb-2" />
               <p className="text-sm text-muted-foreground text-center">Connect a repository to view PR statistics</p>
             </div>
@@ -233,7 +233,7 @@ const Overview = ({session, repostats, team, dailyCommitData}) => {
       
       {/* Charts and Recent Members - Side by Side */}
       <div className="grid gap-6 md:grid-cols-7">
-        <div className="md:col-span-4 bg-card text-card-foreground rounded-lg border border-border p-6 shadow-sm">
+        <div className="md:col-span-4 bg-card text-card-foreground rounded-2xl border border-border p-6 shadow-sm">
           <div className="flex items-center justify-between">
               <h3 className="text-lg font-semibold">Commit History</h3>
 
@@ -253,7 +253,7 @@ const Overview = ({session, repostats, team, dailyCommitData}) => {
           )}
         </div>
         
-        <div className="md:col-span-3 bg-card text-card-foreground rounded-lg border border-border p-6 shadow-sm">
+        <div className="md:col-span-3 bg-card text-card-foreground rounded-2xl border border-border p-6 shadow-sm">
           <RecentMembersList members={team?.member_profiles || []} />
         </div>
       </div>

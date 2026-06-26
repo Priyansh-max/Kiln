@@ -113,7 +113,7 @@ const EditIdea = () => {
               onChange={handleChange}
               required
               placeholder="Enter the title of your idea"
-              className="w-full bg-white dark:bg-background border-border"
+              className="w-full bg-background border-border"
             />
           </div>
 
@@ -128,9 +128,9 @@ const EditIdea = () => {
               onChange={handleChange}
               required
               placeholder="Describe your startup idea in detail"
-              className="w-full min-h-32 bg-white dark:bg-background border-border"
+              className="w-full min-h-32 bg-background border-border"
             />
-            <span className={`absolute bottom-2 italic right-2 text-sm ${
+            <span className={`absolute bottom-2 italic right-2 text-sm font-mono tnum ${
               formData.ideaDescription.length < 100 ? "text-destructive" : "text-primary"
             }`}>
               {formData.ideaDescription.length}/100
@@ -159,7 +159,7 @@ const EditIdea = () => {
               value={formData.additionalDetails}
               onChange={handleChange}
               placeholder="Describe any additional information here"
-              className="w-full min-h-24 bg-white dark:bg-background border-border"
+              className="w-full min-h-24 bg-background border-border"
             />
           </div>
         </div>
@@ -167,7 +167,7 @@ const EditIdea = () => {
         <button
           type="submit"
           disabled={loading}
-          className="w-full px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors flex items-center justify-center gap-2"
+          className="w-full px-4 py-2 bg-primary text-primary-foreground rounded-md hover:opacity-90 transition-colors flex items-center justify-center gap-2"
         >
           {loading ? (
             <>

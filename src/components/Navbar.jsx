@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaUser, FaLightbulb, FaSignOutAlt, FaGithub, FaHandshake } from 'react-icons/fa';
+import { FaUser, FaLightbulb, FaSignOutAlt, FaGithub } from 'react-icons/fa';
 import { Moon, Sun, Menu, X } from 'lucide-react';
 import supabase from "../lib/supabase";
 import { toast } from 'react-hot-toast';
 import { useTheme } from '../context/ThemeContext';
 import { cn } from "@/lib/utils";
+import { Logo } from "@/components/ui/Logo";
 
 const Navbar = ({user}) => {
   const navigate = useNavigate();
@@ -94,64 +95,66 @@ const Navbar = ({user}) => {
   };
 
   return (
-    <nav className="bg-white dark:bg-gray-900 shadow-lg w-full z-50 relative transition-colors duration-200">
+    <nav className="sticky top-0 w-full z-50 bg-background/80 backdrop-blur-md border-b border-border transition-colors duration-200">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center text-base sm:text-xl font-bold text-gray-800 dark:text-white">
-            <FaHandshake className="w-6 h-6 sm:w-8 sm:h-8 mr-2 sm:mr-4 text-black-600 dark:text-white hover:text-black-800" />
-            <p className='hover:underline text-base sm:text-xl'>FindMyTeam</p>
+          <Link to="/" className="group flex items-center" aria-label="Kiln home">
+            <Logo markClass="w-8 h-8" wordClass="text-lg sm:text-xl group-hover:text-primary transition-colors" />
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-6">
-            <button
-              onClick={toggleTheme}
-              className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
-            >
-              {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-            </button>
-            
+          <div className="hidden md:flex items-center gap-1">
             {user ? (
               <>
                 <button
                   onClick={handlePostIdea}
-                  className="flex items-center text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
+                  className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
                 >
-                  <FaLightbulb className="w-5 h-5 mr-2" />
+                  <FaLightbulb className="w-4 h-4" />
                   Post Idea
                 </button>
-                <Link 
-                  to="/profile" 
-                  className="flex items-center text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
+                <Link
+                  to="/profile"
+                  className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
                 >
-                  <FaUser className="w-5 h-5 mr-2" />
+                  <FaUser className="w-4 h-4" />
                   Profile
                 </Link>
                 <button
                   onClick={handleSignOut}
-                  className="flex items-center text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
+                  className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors"
                 >
-                  <FaSignOutAlt className="w-5 h-5 mr-2" />
+                  <FaSignOutAlt className="w-4 h-4" />
                   Sign Out
                 </button>
+                <span className="w-px h-6 bg-border mx-2" />
               </>
             ) : (
               <button
                 onClick={handleSignIn}
-                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-gray-800 dark:bg-gray-700 hover:bg-gray-700 dark:hover:bg-gray-600"
+                className="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-full bg-primary text-primary-foreground hover:opacity-90 shadow-sm shadow-primary/20 transition-opacity mr-2"
               >
-                <FaGithub className="w-5 h-5 mr-2" />
+                <FaGithub className="w-4 h-4" />
                 Sign in with GitHub
               </button>
             )}
+
+            <button
+              onClick={toggleTheme}
+              aria-label="Toggle theme"
+              className="p-2 rounded-full text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+            >
+              {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+            </button>
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="flex items-center md:hidden space-x-4">
+          <div className="flex items-center md:hidden gap-2">
             <button
               onClick={toggleTheme}
-              className="p-1.5 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
+              aria-label="Toggle theme"
+              className="p-2 rounded-full text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
             >
               {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
             </button>
@@ -160,13 +163,10 @@ const Navbar = ({user}) => {
                 e.stopPropagation();
                 setIsOpen(!isOpen);
               }}
-              className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white focus:outline-none"
+              aria-label="Open menu"
+              className="p-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
             >
-              {isOpen ? (
-                <X className="w-6 h-6" />
-              ) : (
-                <Menu className="w-6 h-6" />
-              )}
+              {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
@@ -174,41 +174,41 @@ const Navbar = ({user}) => {
         {/* Mobile Menu */}
         <div
           className={cn(
-            "md:hidden absolute left-0 right-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 shadow-lg transition-all duration-300 ease-in-out",
-            isOpen ? "opacity-100 visible" : "opacity-0 invisible h-0"
+            "md:hidden absolute left-0 right-0 bg-background/95 backdrop-blur-md border-t border-border shadow-lg transition-all duration-300 ease-in-out overflow-hidden",
+            isOpen ? "opacity-100 visible max-h-72" : "opacity-0 invisible max-h-0"
           )}
         >
-          <div className="px-4 py-3 space-y-3">
+          <div className="px-4 py-3 space-y-1">
             {user ? (
               <>
                 <button
                   onClick={handlePostIdea}
-                  className="flex items-center w-full text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white text-sm py-2"
+                  className="flex items-center gap-3 w-full text-muted-foreground hover:text-foreground hover:bg-accent text-sm font-medium py-2.5 px-3 rounded-md transition-colors"
                 >
-                  <FaLightbulb className="w-4 h-4 mr-3" />
+                  <FaLightbulb className="w-4 h-4" />
                   Post Idea
                 </button>
-                <Link 
-                  to="/profile" 
-                  className="flex items-center w-full text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white text-sm py-2"
+                <Link
+                  to="/profile"
+                  className="flex items-center gap-3 w-full text-muted-foreground hover:text-foreground hover:bg-accent text-sm font-medium py-2.5 px-3 rounded-md transition-colors"
                 >
-                  <FaUser className="w-4 h-4 mr-3" />
+                  <FaUser className="w-4 h-4" />
                   Profile
                 </Link>
                 <button
                   onClick={handleSignOut}
-                  className="flex items-center w-full text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white text-sm py-2 border-t border-gray-200 dark:border-gray-800"
+                  className="flex items-center gap-3 w-full text-muted-foreground hover:text-destructive hover:bg-destructive/10 text-sm font-medium py-2.5 px-3 rounded-md transition-colors mt-1 border-t border-border pt-3"
                 >
-                  <FaSignOutAlt className="w-4 h-4 mr-3" />
+                  <FaSignOutAlt className="w-4 h-4" />
                   Sign Out
                 </button>
               </>
             ) : (
               <button
                 onClick={handleSignIn}
-                className="flex items-center w-full px-4 py-2 text-sm font-medium text-white bg-gray-800 dark:bg-gray-700 hover:bg-gray-700 dark:hover:bg-gray-600 rounded-md"
+                className="flex items-center justify-center gap-2 w-full px-4 py-2.5 text-sm font-semibold rounded-full bg-primary text-primary-foreground hover:opacity-90 transition-opacity"
               >
-                <FaGithub className="w-4 h-4 mr-3" />
+                <FaGithub className="w-4 h-4" />
                 Sign in with GitHub
               </button>
             )}

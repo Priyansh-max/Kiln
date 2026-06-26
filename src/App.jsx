@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate, Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
 import supabase from "./lib/supabase"; // Make sure the import path is correct
 import Navbar from "./components/Navbar";
@@ -28,47 +28,61 @@ function App() {
         <AuthHandler user={user} setUser={setUser} setIsLoading={setIsLoading} />
         <div className="min-h-screen bg-background text-foreground transition-colors duration-200">
           <Navbar user={user} />
-          <main className="container mx-auto px-4 py-8">
+          <main>
             <Routes>
+              {/* Full-bleed landing */}
               <Route path="/" element={user ? <Navigate to="/idealist" /> : <LandingPage />} />
-              <Route
-                path="/idealist"
-                element={isLoading ? null : user ? <IdeasList /> : <Navigate to="/" />}
-              />
-              <Route
-                path="/post-idea"
-                element={isLoading ? null : user ? <IdeaForm /> : <Navigate to="/" />}
-              />
-              <Route
-                path="/onboarding"
-                element={isLoading ? null : user ? <OnboardingForm /> : <Navigate to="/" />}
-              />
-              <Route
-                path="/profile"
-                element={isLoading ? null : user ? <Profile /> : <Navigate to="/" />}
-              />
-              <Route
-                path="/details/:id"
-                element={isLoading ? null : user ? <IdeaDetails /> : <Navigate to="/" />}
-              />
-              <Route
-                path="/manage-team/:ideaId"
-                element={isLoading ? null : user ? <Manage /> : <Navigate to="/" />}
-              />
-              <Route
-                path="/creators-lab/:ideaId"
-                element={isLoading ? null : user ? <CreatorsLab /> : <Navigate to="/" />}
-              />
-              <Route
-                path="/admin"
-                element={isLoading ? null : user ? <Admin /> : <Navigate to="/" />}
-              />
+
+              {/* All app pages share a centered, padded container */}
+              <Route element={<ContainerLayout />}>
+                <Route
+                  path="/idealist"
+                  element={isLoading ? null : user ? <IdeasList /> : <Navigate to="/" />}
+                />
+                <Route
+                  path="/post-idea"
+                  element={isLoading ? null : user ? <IdeaForm /> : <Navigate to="/" />}
+                />
+                <Route
+                  path="/onboarding"
+                  element={isLoading ? null : user ? <OnboardingForm /> : <Navigate to="/" />}
+                />
+                <Route
+                  path="/profile"
+                  element={isLoading ? null : user ? <Profile /> : <Navigate to="/" />}
+                />
+                <Route
+                  path="/details/:id"
+                  element={isLoading ? null : user ? <IdeaDetails /> : <Navigate to="/" />}
+                />
+                <Route
+                  path="/manage-team/:ideaId"
+                  element={isLoading ? null : user ? <Manage /> : <Navigate to="/" />}
+                />
+                <Route
+                  path="/creators-lab/:ideaId"
+                  element={isLoading ? null : user ? <CreatorsLab /> : <Navigate to="/" />}
+                />
+                <Route
+                  path="/admin"
+                  element={isLoading ? null : user ? <Admin /> : <Navigate to="/" />}
+                />
+              </Route>
             </Routes>
           </main>
           <Toaster position="bottom-right" />
         </div>
       </Router>
     </ThemeProvider>
+  );
+}
+
+// Shared container for all app pages (landing renders full-bleed)
+function ContainerLayout() {
+  return (
+    <div className="container mx-auto px-4 py-8">
+      <Outlet />
+    </div>
   );
 }
 

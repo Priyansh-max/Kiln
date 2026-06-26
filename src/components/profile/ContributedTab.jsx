@@ -5,7 +5,7 @@ const ContributedTab = ({contributedProjects}) => {
     return (
         <div className="space-y-6">
             {contributedProjects.map((project, index) => (
-                <div key={index} className="border border-border rounded-xl overflow-hidden bg-background hover:border-primary/50 transition-all duration-200">
+                <div key={index} className="rounded-2xl border border-border overflow-hidden bg-card text-card-foreground shadow-sm hover:border-primary/50 transition-all duration-200">
                     <div className="p-4 sm:p-6">
                         <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-5">
                             {/* Project Logo */}
@@ -27,13 +27,13 @@ const ContributedTab = ({contributedProjects}) => {
                             <div className="flex-1 w-full">
                                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-0">
                                     <h3 className="text-sm sm:text-lg font-bold text-foreground">{project.title}</h3>
-                                    <span className="text-xs sm:text-sm px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full">
+                                    <span className="text-xs sm:text-sm px-3 py-1 bg-success/10 text-success border border-success/20 rounded-full">
                                         Approved
                                     </span>
                                 </div>
 
                                 <div className="flex flex-wrap gap-3 mt-2 text-muted-foreground">
-                                    <div className="flex items-center gap-1 text-xs sm:text-sm">
+                                    <div className="flex items-center gap-1 text-xs sm:text-sm font-mono">
                                         <Calendar className="w-4 h-4 text-primary" />
                                         {new Date(project.date).toLocaleDateString('en-US', {
                                             month: 'short',
@@ -41,7 +41,7 @@ const ContributedTab = ({contributedProjects}) => {
                                             year: 'numeric'
                                         })}
                                     </div>
-                                    <div className="flex items-center gap-1 text-xs sm:text-sm">
+                                    <div className="flex items-center gap-1 text-xs sm:text-sm font-mono">
                                         <Clock className="w-4 h-4 text-primary" />
                                         {project.duration} days
                                     </div>
@@ -85,7 +85,7 @@ const ContributedTab = ({contributedProjects}) => {
                             <div className="flex flex-row sm:flex-col items-center gap-2 mt-0 w-full sm:w-auto sm:mt-0 bg-primary/10 rounded-md">
                                 <div className="flex items-center gap-2">
                                     <span className="text-sm sm:text-base p-1 font-medium flex items-center gap-1 text-primary">
-                                        Points Acquired : {project.rating}
+                                        Points Acquired : <span className="font-mono tnum">{project.rating}</span>
                                     </span>
                                 </div>
                             </div>

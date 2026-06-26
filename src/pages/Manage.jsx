@@ -13,7 +13,7 @@ import Overview from "../components/manage-team/Overview";
 import Submit from "../components/manage-team/Submit";
 
 // Set document title
-document.title = "Team Management | CoFoundry";
+document.title = "Team Management | Kiln";
 
 export default function Manage() {
   const navigate = useNavigate();
@@ -413,9 +413,9 @@ export default function Manage() {
                         >
                           <div className="flex items-center space-x-2">
                             <Github className="h-4 w-4 text-muted-foreground" />
-                            <span className="font-medium">{repository.name}</span>
+                            <span className="font-medium font-mono">{repository.name}</span>
                             {repository.isPrivate && (
-                              <span className="text-xs bg-yellow-500/20 text-yellow-700 px-1.5 py-0.5 rounded-full">
+                              <span className="text-xs bg-warning/10 text-warning border border-warning/20 px-1.5 py-0.5 rounded-full">
                                 Private
                               </span>
                             )}
@@ -432,14 +432,14 @@ export default function Manage() {
             ) : (
               <div className="flex items-center space-x-3">
                 <div className="relative group">
-                  <div className="absolute -inset-[1px] rounded-md bg-gradient-to-r from-primary via-purple-500 to-primary opacity-75 blur-[2px] group-hover:opacity-100 transition-all duration-300 animate-border-glow"></div>
+                  <div className="absolute -inset-[1px] rounded-md bg-gradient-to-r from-primary via-primary/40 to-primary opacity-75 blur-[2px] group-hover:opacity-100 transition-all duration-300 animate-border-glow"></div>
                   <div className="relative flex items-center space-x-2 px-4 py-2 bg-background rounded-md border border-transparent">
-                    <div className="w-2 h-2 rounded-full bg-green-500"></div>
-                    <a 
-                      href={team.repo_url} 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
-                      className="text-foreground text-sm hover:text-primary transition-colors"
+                    <div className="w-2 h-2 rounded-full bg-success"></div>
+                    <a
+                      href={team.repo_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-foreground text-sm hover:text-primary transition-colors font-mono"
                     >
                       {team.repo_name}
                     </a>
@@ -473,7 +473,7 @@ export default function Manage() {
               {/* it should display 29th march like this
               add a check if updated_at is null then display "Not connected yet" */}
               {team.updated_at ? (
-              <p>ESTD : {new Date(team.updated_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}</p> ) : 
+              <p className="font-mono">ESTD : {new Date(team.updated_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}</p> ) :
               <p>Not connected yet</p>}
             </div>
           </div>

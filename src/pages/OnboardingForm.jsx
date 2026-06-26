@@ -297,7 +297,7 @@ const OnboardingForm = () => {
       return <Loader2 className="w-4 h-4 animate-spin text-primary" />;
     }
     if (status.valid === true) {
-      return <CheckCircle2 className="w-4 h-4 text-green-500" />;
+      return <CheckCircle2 className="w-4 h-4 text-success" />;
     }
     if (status.valid === false) {
       return <XCircle className="w-4 h-4 text-destructive" />;
@@ -320,7 +320,7 @@ const OnboardingForm = () => {
         transition={{ duration: 0.5 }}
       >
         {user && (
-          <div className="mb-8 bg-card text-card-foreground rounded-xl p-6 shadow-xl dark:shadow-primary/10 border border-border overflow-hidden relative">
+          <div className="mb-8 bg-card text-card-foreground rounded-2xl p-6 shadow-xl dark:shadow-primary/10 border border-border overflow-hidden relative">
             <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -translate-y-1/2 translate-x-1/2" />
             <div className="absolute bottom-0 left-0 w-24 h-24 bg-primary/5 rounded-full translate-y-1/2 -translate-x-1/2" />
             <div className="flex items-center gap-6 relative">
@@ -347,7 +347,7 @@ const OnboardingForm = () => {
           </div>
         )}
 
-        <div className="bg-card text-card-foreground rounded-xl shadow-lg dark:shadow-primary/10 p-6 sm:p-8 border border-border">
+        <div className="bg-card text-card-foreground rounded-2xl shadow-lg dark:shadow-primary/10 p-6 sm:p-8 border border-border">
           <form onSubmit={handleSubmit} className="space-y-6" autoComplete='new-off'>
             <div className="space-y-6">
               {/* Basic Information */}
@@ -360,7 +360,7 @@ const OnboardingForm = () => {
                 <div className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-foreground mb-1">
-                      Full Name <span className='text-red-500'>*</span>
+                      Full Name <span className='text-destructive'>*</span>
                     </label>
                     <div className="relative">
                       <Input
@@ -369,7 +369,7 @@ const OnboardingForm = () => {
                         onChange={handleChange}
                         required
                         placeholder="John Doe"
-                        className="w-full bg-white dark:bg-background pr-8"
+                        className="w-full bg-background pr-8"
                         autoComplete="new-off"
                       />
                       <div className="absolute right-2 top-1/2 -translate-y-1/2">
@@ -380,7 +380,7 @@ const OnboardingForm = () => {
 
                   <div>
                     <label className="block text-sm font-medium text-foreground mb-1">
-                      Email <span className='text-red-500'>*</span>
+                      Email <span className='text-destructive'>*</span>
                     </label>
                     <Input
                       name="email"
@@ -390,7 +390,7 @@ const OnboardingForm = () => {
                       required
                       disabled
                       placeholder="john@example.com"
-                      className="w-full bg-white dark:bg-background opacity-70"
+                      className="w-full bg-background opacity-70 font-mono"
                       autoComplete="off"
                     />
                   </div>
@@ -400,7 +400,7 @@ const OnboardingForm = () => {
               {/* Skills Section */}
               <div className="space-y-2">
                 <label className="text-sm font-medium text-foreground flex items-center gap-2">
-                   Skills <span className='text-red-500'>*</span>
+                   Skills <span className='text-destructive'>*</span>
                 </label>
                 <div className="relative">
                   <SkillSelect
@@ -424,14 +424,14 @@ const OnboardingForm = () => {
                 <div className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-foreground mb-1">
-                      GitHub URL <span className='text-red-500'>*</span>
+                      GitHub URL <span className='text-destructive'>*</span>
                     </label>
                     <Input
                       name="githubUrl"
                       value={formData.githubUrl}
                       onChange={handleChange}
                       placeholder="https://github.com/username"
-                      className="w-full bg-white dark:bg-background"
+                      className="w-full bg-background font-mono"
                       autoComplete="off"
                       disabled
                     />
@@ -447,7 +447,7 @@ const OnboardingForm = () => {
                         value={formData.portfolioUrl}
                         onChange={handleChange}
                         placeholder="https://yourportfolio.com"
-                        className="w-full bg-white dark:bg-background pr-8"
+                        className="w-full bg-background pr-8"
                       autoComplete="off"
                       />
                       <div className="absolute right-2 top-1/2 -translate-y-1/2">
@@ -467,7 +467,7 @@ const OnboardingForm = () => {
                 
                 <div>
                   <label className="block text-sm font-medium text-foreground mb-1">
-                    Brief Description <span className='text-red-500'>*</span>
+                    Brief Description <span className='text-destructive'>*</span>
                   </label> 
                   <div className="relative">
                     <Textarea
@@ -476,7 +476,7 @@ const OnboardingForm = () => {
                       onChange={handleChange}
                       required
                       placeholder="Tell us about yourself, your skills, and what you're looking for..."
-                      className="w-full min-h-[100px] bg-white dark:bg-background pr-8"
+                      className="w-full min-h-[100px] bg-background pr-8"
                       autoComplete="off"
                     />
                     <div className="absolute right-2 top-1/2 -translate-y-1/2">     
@@ -488,7 +488,7 @@ const OnboardingForm = () => {
 
               <div>
                 <label className="block text-sm font-medium text-foreground mb-1">
-                  Resume Upload <span className='text-red-500'>*</span>
+                  Resume Upload <span className='text-destructive'>*</span>
                 </label>
                 <div className="relative">
                   <input
@@ -507,7 +507,7 @@ const OnboardingForm = () => {
                         <motion.div
                           initial={{ scale: 0 }}
                           animate={{ scale: 1 }}
-                          className="text-green-500"
+                          className="text-success"
                         >
                           <CheckCircle2 className="w-8 h-8" />
                         </motion.div>
@@ -517,12 +517,12 @@ const OnboardingForm = () => {
                       <span className="text-sm text-muted-foreground flex items-center gap-2">
                         {resumeFile ? (
                           <>
-                            {resumeFile.name}
+                            <span className="font-mono">{resumeFile.name}</span>
                             {uploadComplete && (
                               <motion.span
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
-                                className="text-green-500 text-xs"
+                                className="text-success text-xs"
                               >
                                 (Upload Complete)
                               </motion.span>
@@ -570,7 +570,7 @@ const OnboardingForm = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors"
+              className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-sm font-medium text-primary-foreground bg-primary hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors"
             >
               {loading ? (
                 <>

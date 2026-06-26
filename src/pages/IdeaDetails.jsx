@@ -259,16 +259,16 @@ const IdeaDetails = () => {
     <div className="max-w-8xl mx-auto px-4 py-8 flex flex-col gap-8">
       {/* Warning Banner */}
       {!teamCreation && (
-        <div className="w-full bg-amber-100 dark:bg-amber-900/30 border border-amber-300 dark:border-amber-700 rounded-lg p-4 mb-2">
+        <div className="w-full bg-warning/10 border border-warning/20 rounded-lg p-4 mb-2">
           <div className="flex items-center space-x-3">
             <div className="flex-shrink-0">
-              <svg className="h-5 w-5 text-amber-500" viewBox="0 0 20 20" fill="currentColor">
+              <svg className="h-5 w-5 text-warning" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
               </svg>
             </div>
             <div className="flex-1">
-              <h3 className="text-xs sm:text-sm font-medium text-amber-800 dark:text-amber-200">Dashboard Required</h3>
-              <div className="text-xs sm:text-sm text-amber-700 dark:text-amber-300">
+              <h3 className="text-xs sm:text-sm font-medium text-warning">Dashboard Required</h3>
+              <div className="text-xs sm:text-sm text-warning">
                 You need to create your team dashboard before you can manage applications. 
               </div>
             </div>
@@ -291,10 +291,10 @@ const IdeaDetails = () => {
                             {idea.title}
                         </p>
                         <div className="flex gap-4 items-center">
-                                <span className={`flex items-center gap-2 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium 
-                                    ${idea.status === 'open' 
-                                        ? 'bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-100' 
-                                        : 'bg-red-100 dark:bg-red-900/50 text-red-800 dark:text-red-100'}`}>
+                                <span className={`flex items-center gap-2 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium border
+                                    ${idea.status === 'open'
+                                        ? 'bg-success/10 text-success border-success/20'
+                                        : 'bg-destructive/10 text-destructive border-destructive/20'}`}>
                                     {idea.status === 'open' 
                                         ? <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4" /> 
                                         : <XCircle className="w-3 h-3 sm:w-4 sm:h-4" />}
@@ -329,9 +329,9 @@ const IdeaDetails = () => {
                     {/* Posted Date */}
                     <div className="flex items-center gap-2 text-muted-foreground text-xs sm:text-sm">
                         <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
-                        <span>Posted on {idea.created_at ? new Intl.DateTimeFormat("en-US", {
+                        <span>Posted on <span className="font-mono">{idea.created_at ? new Intl.DateTimeFormat("en-US", {
                             dateStyle: "medium",
-                        }).format(new Date(idea.created_at)) : 'Date not available'}</span>
+                        }).format(new Date(idea.created_at)) : 'Date not available'}</span></span>
                     </div>
                 </div>
                 
@@ -346,24 +346,24 @@ const IdeaDetails = () => {
                 {/* Replace CircularProgress with Stat Cards */}
                 <div className='mt-8 grid grid-cols-3 sm:grid-cols-3 gap-4'>
                     {/* Accepted Applications */}
-                    <div className='bg-green-100 dark:bg-green-900/30 rounded-lg p-4'>
+                    <div className='bg-success/10 border border-success/20 rounded-lg p-4'>
                         <div className='flex flex-col items-center'>
-                            <span className='text-xl sm:text-2xl font-bold text-green-800 dark:text-green-100'>{stats.accepted}</span>
-                            <span className='text-xs sm:text-sm text-green-700 dark:text-green-200'>Accepted</span>
+                            <span className='text-xl sm:text-2xl font-bold font-mono tnum text-success'>{stats.accepted}</span>
+                            <span className='text-xs sm:text-sm text-success'>Accepted</span>
                         </div>
                     </div>
                     {/* Pending Applications */}
-                    <div className='bg-yellow-100 dark:bg-yellow-900/30 rounded-lg p-4'>
+                    <div className='bg-warning/10 border border-warning/20 rounded-lg p-4'>
                         <div className='flex flex-col items-center'>
-                            <span className='text-xl sm:text-2xl font-bold text-yellow-800 dark:text-yellow-100'>{stats.pending}</span>
-                            <span className='text-xs sm:text-sm text-yellow-700 dark:text-yellow-200'>Pending</span>
+                            <span className='text-xl sm:text-2xl font-bold font-mono tnum text-warning'>{stats.pending}</span>
+                            <span className='text-xs sm:text-sm text-warning'>Pending</span>
                         </div>
                     </div>
                     {/* Rejected Applications */}
-                    <div className='bg-red-100 dark:bg-red-900/30 rounded-lg p-4'>
+                    <div className='bg-destructive/10 border border-destructive/20 rounded-lg p-4'>
                         <div className='flex flex-col items-center'>
-                            <span className='text-xl sm:text-2xl font-bold text-red-800 dark:text-red-100'>{stats.rejected}</span>
-                            <span className='text-xs sm:text-sm text-red-700 dark:text-red-200'>Rejected</span>
+                            <span className='text-xl sm:text-2xl font-bold font-mono tnum text-destructive'>{stats.rejected}</span>
+                            <span className='text-xs sm:text-sm text-destructive'>Rejected</span>
                         </div>
                     </div>
                 </div>
@@ -452,7 +452,7 @@ const IdeaDetails = () => {
                               <div className="flex flex-col sm:flex-row items-center gap-4 p-4">
                                   {/* Profile Info */}
                                   <div className="flex items-center gap-2 w-full sm:w-auto">
-                                    <span className="text-xs sm:text-sm text-muted-foreground">{index + 1}.</span>
+                                    <span className="text-xs sm:text-sm text-muted-foreground font-mono tnum">{index + 1}.</span>
                                       <img
                                           src={app.profile?.avatar_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(app.profile?.full_name || 'User')}`}
                                           alt={app.profile?.full_name}
@@ -515,9 +515,9 @@ const IdeaDetails = () => {
                                   {/* Status Badge */}
                                   <div className={cn(
                                       "px-3 py-1 rounded-full text-xs font-medium",
-                                      app.status === "pending" && "bg-yellow-500/20 text-yellow-500",
-                                      app.status === "accepted" && "bg-green-500/20 text-green-500",
-                                      app.status === "rejected" && "bg-red-500/20 text-red-500"
+                                      app.status === "pending" && "bg-warning/10 text-warning",
+                                      app.status === "accepted" && "bg-success/10 text-success",
+                                      app.status === "rejected" && "bg-destructive/10 text-destructive"
                                   )}>
                                       {app.status}
                                   </div>
@@ -527,14 +527,14 @@ const IdeaDetails = () => {
                                       <div className="flex items-center gap-2">
                                           <button
                                               onClick={() => handleStatusUpdate(app.id, "accepted")}
-                                              className="p-2 rounded-lg text-green-500 hover:bg-green-500/20 transition-colors"
+                                              className="p-2 rounded-lg text-success hover:bg-success/10 transition-colors"
                                               title="Accept Application"
                                           >
                                               <Check className="w-4 h-4" />
                                           </button>
                                           <button
                                               onClick={() => handleStatusUpdate(app.id, "rejected")}
-                                              className="p-2 rounded-lg text-red-500 hover:bg-red-500/20 transition-colors"
+                                              className="p-2 rounded-lg text-destructive hover:bg-destructive/10 transition-colors"
                                               title="Reject Application"
                                           >
                                               <X className="w-4 h-4" />
@@ -553,7 +553,7 @@ const IdeaDetails = () => {
       {/* Edit Idea Overlay */}
       {editIdeaOverlay && (
         <div className="fixed inset-0 flex items-center justify-center bg-background/80 backdrop-blur-sm z-[1000]">
-          <div className="bg-card text-card-foreground my-20 p-6 rounded-lg shadow-lg dark:shadow-primary/10 w-[600px] max-h-[90vh] relative overflow-y-auto modern-scrollbar border border-border">
+          <div className="bg-card text-card-foreground my-20 p-6 rounded-lg shadow-lg dark:shadow-primary/10 w-full max-w-[600px] mx-4 max-h-[90vh] relative overflow-y-auto modern-scrollbar border border-border">
             <button
               onClick={() => setEditIdeaOverlay(false)}
               className="absolute top-2 right-2 text-muted-foreground hover:text-foreground transition-colors"
@@ -568,7 +568,7 @@ const IdeaDetails = () => {
       {/* Profile Overlay */}
       {selectedProfile && (
         <div className="fixed inset-0 flex items-center justify-center bg-background/80 backdrop-blur-sm z-[1000]">
-          <div className="bg-card text-card-foreground p-6 rounded-lg shadow-lg dark:shadow-primary/10 w-[400px] relative border border-border">
+          <div className="bg-card text-card-foreground p-6 rounded-lg shadow-lg dark:shadow-primary/10 w-full max-w-[400px] mx-4 relative border border-border">
             <button
               onClick={() => setSelectedProfile(null)}
               className="absolute top-2 right-2 text-muted-foreground hover:text-foreground transition-colors"
@@ -620,7 +620,7 @@ const IdeaDetails = () => {
       {/* Application Overlay */}
       {selectedApplication && (
         <div className="fixed inset-0 flex items-center justify-center bg-background/80 backdrop-blur-sm z-[1000]">
-          <div className="bg-card text-card-foreground p-6 rounded-lg shadow-lg dark:shadow-primary/10 w-[600px] relative border border-border">
+          <div className="bg-card text-card-foreground p-6 rounded-lg shadow-lg dark:shadow-primary/10 w-full max-w-[600px] mx-4 relative border border-border">
             <button
               onClick={() => setSelectedApplication(null)}
               className="absolute top-2 right-2 text-muted-foreground hover:text-foreground transition-colors"
@@ -650,9 +650,9 @@ const IdeaDetails = () => {
                 <div className="ml-auto">
                   <div className={cn(
                     "px-2 py-1 rounded-full text-xs font-medium",
-                    selectedApplication.status === "pending" && "bg-yellow-500/20 text-yellow-500",
-                    selectedApplication.status === "accepted" && "bg-green-500/20 text-green-500",
-                    selectedApplication.status === "rejected" && "bg-red-500/20 text-red-500"
+                    selectedApplication.status === "pending" && "bg-warning/10 text-warning",
+                    selectedApplication.status === "accepted" && "bg-success/10 text-success",
+                    selectedApplication.status === "rejected" && "bg-destructive/10 text-destructive"
                   )}>
                     {selectedApplication.status}
                   </div>

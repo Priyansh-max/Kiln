@@ -24,7 +24,7 @@ const Initializing = ({ onComplete }) => {
     { 
       id: 2, 
       text: "All set! Your team room is ready.", 
-      icon: <CheckCircle className="h-5 w-5 text-green-500" />,
+      icon: <CheckCircle className="h-5 w-5 text-success" />,
       duration: 500
     }
   ];
@@ -102,8 +102,8 @@ const Initializing = ({ onComplete }) => {
   }, [currentStep, steps]);
 
   return (
-    <div className="fixed inset-0 bg-black/70 backdrop-blur-md z-50 flex items-center justify-center">
-      <div className="relative w-full max-w-md mx-auto overflow-hidden bg-card border border-border rounded-xl shadow-2xl">
+    <div className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center">
+      <div className="relative w-full max-w-md mx-auto overflow-hidden bg-popover text-popover-foreground border border-border rounded-2xl shadow-2xl">
         {/* Animated gradient background */}
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-primary/10 z-0">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(var(--primary-rgb),0.08),transparent_70%)]"></div>
@@ -120,7 +120,7 @@ const Initializing = ({ onComplete }) => {
                 {!isFinished ? (
                   <Loader2 className="h-10 w-10 text-primary animate-spin" />
                 ) : (
-                  <CheckCircle className="h-10 w-10 text-green-500" />
+                  <CheckCircle className="h-10 w-10 text-success" />
                 )}
               </div>
             </div>
@@ -138,13 +138,13 @@ const Initializing = ({ onComplete }) => {
           <div className="relative h-1.5 w-full bg-muted/40 rounded-full overflow-hidden mb-8">
             <div 
               className={`h-full rounded-full transition-all duration-300 ease-out 
-                ${isFinished 
-                  ? 'bg-green-500' 
+                ${isFinished
+                  ? 'bg-success'
                   : 'bg-gradient-to-r from-primary/90 via-primary to-primary/80'
                 }`}
               style={{ width: `${progress}%` }}
             >
-              <div className={`absolute top-0 h-full w-full ${isFinished ? 'bg-white/30' : 'bg-white/30 animate-pulse'}`}></div>
+              <div className={`absolute top-0 h-full w-full ${isFinished ? 'bg-primary-foreground/30' : 'bg-primary-foreground/30 animate-pulse'}`}></div>
             </div>
           </div>
 
@@ -165,7 +165,7 @@ const Initializing = ({ onComplete }) => {
                   flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full 
                   transition-all duration-300
                   ${completedSteps.includes(index) || isFinished
-                    ? 'bg-primary/10 text-green-500'
+                    ? 'bg-success/10 text-success'
                     : index === currentStep
                     ? 'bg-primary/10 text-primary animate-pulse'
                     : 'bg-muted/70 text-muted-foreground'

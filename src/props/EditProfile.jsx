@@ -248,7 +248,7 @@ const EditProfile = () => {
       return <Loader2 className="w-4 h-4 animate-spin text-primary" />;
     }
     if (status.valid === true) {
-      return <CheckCircle2 className="w-4 h-4 text-green-500" />;
+      return <CheckCircle2 className="w-4 h-4 text-success" />;
     }
     if (status.valid === false) {
       return <XCircle className="w-4 h-4 text-destructive" />;
@@ -286,7 +286,7 @@ const EditProfile = () => {
                 onChange={handleChange}
                 required
                 placeholder="John Doe"
-                className="w-full bg-white dark:bg-background pr-8"
+                className="w-full bg-background pr-8"
               />
               <div className="absolute right-2 top-1/2 -translate-y-1/2">
                 <StatusIndicator status={fieldStatus.fullName} />
@@ -329,7 +329,7 @@ const EditProfile = () => {
                 value={formData.portfolioUrl}
                 onChange={handleChange}
                 placeholder="https://yourportfolio.com"
-                className="w-full bg-white dark:bg-background pr-8"
+                className="w-full bg-background pr-8"
               />
               <div className="absolute right-2 top-1/2 -translate-y-1/2">
                 <StatusIndicator status={fieldStatus.portfolioUrl} />
@@ -356,7 +356,7 @@ const EditProfile = () => {
                 onChange={handleChange}
                 required
                 placeholder="Tell us about yourself, your skills, and what you're looking for..."
-                className="w-full min-h-[100px] bg-white dark:bg-background pr-8"
+                className="w-full min-h-[100px] bg-background pr-8"
               />
               <div className="absolute right-2 top-4">
                 <StatusIndicator status={fieldStatus.description} />
@@ -387,7 +387,7 @@ const EditProfile = () => {
                   <motion.div
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
-                    className="text-green-500"
+                    className="text-success"
                   >
                     <CheckCircle2 className="w-8 h-8" />
                   </motion.div>
@@ -397,12 +397,12 @@ const EditProfile = () => {
                 <span className="text-sm text-muted-foreground flex items-center gap-2">
                   {resumeFile ? (
                     <>
-                      {resumeFile.name}
+                      <span className="font-mono">{resumeFile.name}</span>
                       {uploadComplete && (
                         <motion.span
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
-                          className="text-green-500 text-xs"
+                          className="text-success text-xs"
                         >
                           (Upload Complete)
                         </motion.span>
@@ -440,7 +440,7 @@ const EditProfile = () => {
         <button
           type="submit"
           disabled={loading}
-          className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors"
+          className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-sm font-medium text-primary-foreground bg-primary hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors"
         >
           {loading ? (
             <>

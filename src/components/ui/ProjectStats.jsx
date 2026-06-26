@@ -1,6 +1,11 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import ReactApexChart from 'react-apexcharts';
 
+// Read a theme token from the live CSS variables so the chart follows
+// light/dark automatically.
+const cssVar = (name) =>
+  `hsl(${getComputedStyle(document.documentElement).getPropertyValue(name).trim()})`;
+
 const ProjectStats = ({ stats }) => {
   // For client-side rendering only
   const [mounted, setMounted] = useState(false);
@@ -42,6 +47,15 @@ const ProjectStats = ({ stats }) => {
     }
   }, []);
 
+  // Resolve theme tokens for the chart + tooltip
+  const primaryColor = cssVar('--primary');
+  const infoColor = cssVar('--info');
+  const successColor = cssVar('--success');
+  const destructiveColor = cssVar('--destructive');
+  const popoverBg = cssVar('--popover');
+  const popoverFg = cssVar('--popover-foreground');
+  const mutedFgColor = cssVar('--muted-foreground');
+
   // Prepare data for ApexCharts
   const series = [{
     name: 'Project Rating',
@@ -60,16 +74,16 @@ const ProjectStats = ({ stats }) => {
         enabled: false
       },
       background: 'transparent',
-      fontFamily: 'inherit',
+      fontFamily: '"JetBrains Mono", inherit',
     },
-    colors: ['#3B82F6'], // Primary blue
+    colors: [primaryColor], // main rating series (primary/lime)
     stroke: {
       width: 2,
       curve: 'straight',
     },
     markers: {
       size: 5,
-      colors: ['#3B82F6'], // Primary blue
+      colors: [primaryColor], // primary
       strokeWidth: 0,
     },
     grid: {
@@ -98,22 +112,22 @@ const ProjectStats = ({ stats }) => {
         }
         
         return `
-          <div style="position: relative; margin-bottom: 20px;">
-            <div style="background: #0F172A; color: white; border-radius: 4px; padding: 10px 15px; min-width: 200px;">
+          <div style="position: relative; margin-bottom: 20px; font-family: 'JetBrains Mono', monospace;">
+            <div style="background: ${popoverBg}; color: ${popoverFg}; border-radius: 4px; padding: 10px 15px; min-width: 200px;">
               <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
-                <div style="font-size: 12px; color: #94A3B8;">${formattedDate}</div>
+                <div style="font-size: 12px; color: ${mutedFgColor};">${formattedDate}</div>
               </div>
-              <div style="font-size: 14px; font-weight: 500; margin-bottom: 6px; color: white;">${point.project || 'undefined'}</div>
+              <div style="font-size: 14px; font-weight: 500; margin-bottom: 6px; color: ${popoverFg};">${point.project || 'undefined'}</div>
               <div style="display: flex; font-size: 12px;">
                 <div style="margin-right: 16px;">
-                  <span style="color: #94A3B8; margin-right: 4px;">Rating</span>
-                  <span style="color: ${isNegative ? '#EF4444' : '#10B981'};">
+                  <span style="color: ${mutedFgColor}; margin-right: 4px;">Rating</span>
+                  <span style="color: ${isNegative ? destructiveColor : successColor};">
                     ${isNegative ? '' : '+'}${ratingGained}
                   </span>
                 </div>
                 <div>
-                  <span style="color: #94A3B8; margin-right: 4px;">Role</span>
-                  <span style="color: #3B82F6;">
+                  <span style="color: ${mutedFgColor}; margin-right: 4px;">Role</span>
+                  <span style="color: ${infoColor};">
                     ${point.role ? point.role.charAt(0).toUpperCase() + point.role.slice(1) : 'Contributor'}
                   </span>
                 </div>
@@ -130,7 +144,7 @@ const ProjectStats = ({ stats }) => {
       },
       style: {
         fontSize: '12px',
-        fontFamily: 'inherit'
+        fontFamily: '"JetBrains Mono", monospace'
       }
     },
     xaxis: {
