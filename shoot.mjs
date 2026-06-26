@@ -41,6 +41,12 @@ const SHOTS = [
   { path: '/details/i1', label: 'modal-edit-idea', clicks: ['Edit Idea'] },
   { path: '/idealist', label: 'overlay-apply', clicks: ['Apply Now'] },
   { path: '/idealist', label: 'overlay-apply', theme: 'dark', clicks: ['Apply Now'] },
+  // dark-mode sweep
+  { path: '/manage-team/i1', label: 'manage-overview', theme: 'dark' },
+  { path: '/admin', label: 'admin', theme: 'dark' },
+  { path: '/creators-lab/i1', label: 'creators-lab', theme: 'dark' },
+  { path: '/details/i1', label: 'idea-details', theme: 'dark' },
+  { path: '/onboarding', label: 'onboarding', theme: 'dark' },
 ];
 
 const shots = SHOTS.filter((s) => !filter || s.label.includes(filter) || s.path.includes(filter));
