@@ -555,21 +555,12 @@ export default function Manage() {
         }
         
         .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: rgba(var(--primary-rgb), 0.2);
+          background: hsl(var(--primary) / 0.2);
           border-radius: 4px;
         }
-        
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: rgba(var(--primary-rgb), 0.3);
-        }
 
-        .bg-gradient {
-          background: linear-gradient(to right, 
-            rgba(var(--primary-rgb), 0.8),
-            rgba(147, 51, 234, 0.8),
-            rgba(var(--primary-rgb), 0.8)
-          );
-          background-size: 200% 100%;
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: hsl(var(--primary) / 0.3);
         }
       `}</style>
     </div>

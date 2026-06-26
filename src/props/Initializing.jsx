@@ -106,8 +106,8 @@ const Initializing = ({ onComplete }) => {
       <div className="relative w-full max-w-md mx-auto overflow-hidden bg-popover text-popover-foreground border border-border rounded-2xl shadow-2xl">
         {/* Animated gradient background */}
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-primary/10 z-0">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(var(--primary-rgb),0.08),transparent_70%)]"></div>
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_rgba(var(--primary-rgb),0.08),transparent_70%)]"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_hsl(var(--primary)/0.08),transparent_70%)]"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_hsl(var(--primary)/0.08),transparent_70%)]"></div>
         </div>
         
         {/* Main content */}
