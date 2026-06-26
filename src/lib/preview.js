@@ -72,9 +72,9 @@ const stats = {
 
 const projectStats = {
   ratings: [
-    { role: 'author', project_id: 'p1', date: '2026-05-01', rating: 142 },
-    { role: 'author', project_id: 'p2', date: '2026-03-01', rating: 88 },
-    { role: 'contributor', project_id: 'p3', date: '2026-02-01', rating: 64 },
+    { project_id: 'p2', project: 'Forge UI', role: 'author', date: '2026-01-20', rating: 88, totalRating: 88 },
+    { project_id: 'p3', project: 'Standup Bot', role: 'contributor', date: '2026-02-15', rating: 64, totalRating: 152 },
+    { project_id: 'p1', project: 'Ledgerlite', role: 'author', date: '2026-05-01', rating: 142, totalRating: 294 },
   ],
   totalCommits: 1284,
   totalIssues: 86,

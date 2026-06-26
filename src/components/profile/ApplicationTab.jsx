@@ -47,7 +47,7 @@ const ApplicationTab = ({filteredApplications}) => {
                             <div className={cn(
                                 "px-2 sm:px-3 py-1 rounded-full text-[11px] sm:text-xs font-medium flex items-center gap-1",
                                 app.status === "pending" && "bg-warning/10 text-warning border border-warning/20",
-                                app.status === "accepted" && "bg-success/10 text-success border border-success/20",
+                                app.status === "accepted" && "bg-primary/10 text-primary border border-primary/20",
                                 app.status === "rejected" && "bg-destructive/10 text-destructive border border-destructive/20"
                             )}>
                                 {app.status === "pending" && <Clock className="w-2.5 h-2.5 sm:w-3 sm:h-3" />}

@@ -1,8 +1,7 @@
 // Local design-screenshot pipeline: drives the system Chrome headless against
-// the dev server, captures each route at given viewports/themes to PNGs.
-// In-app routes use preview mode (mock data + stubbed auth, dev only).
-// Usage: node shoot.mjs                 (all shots)
-//        node shoot.mjs profile         (filter by label/path substring)
+// the dev server, captures each route (in preview mode for authed pages) to PNGs.
+// Usage: node shoot.mjs            (all)
+//        node shoot.mjs profile    (filter by label/path substring)
 import puppeteer from 'puppeteer-core';
 import { mkdirSync } from 'fs';
 
@@ -15,23 +14,29 @@ mkdirSync(OUT, { recursive: true });
 
 const filter = process.argv[2] || '';
 
-// [path, label, theme, width, height, fullPage, preview]
+// each: { path, label, theme='light', w=1440, h=1000, full=true, preview=true, clicks=[] }
 const SHOTS = [
-  ['/idealist', 'idealist', 'light', 1440, 1000, true, true],
-  ['/idealist', 'idealist', 'dark', 1440, 1000, true, true],
-  ['/post-idea', 'post-idea', 'light', 1440, 1000, true, true],
-  ['/onboarding', 'onboarding', 'light', 1440, 1000, true, true],
-  ['/profile', 'profile', 'light', 1440, 1000, true, true],
-  ['/profile', 'profile', 'dark', 1440, 1000, true, true],
-  ['/details/i1', 'idea-details', 'light', 1440, 1000, true, true],
-  ['/manage-team/i1', 'manage', 'light', 1440, 1000, true, true],
-  ['/creators-lab/i1', 'creators-lab', 'light', 1440, 1000, true, true],
-  ['/admin', 'admin', 'light', 1440, 1000, true, true],
-  ['/idealist', 'idealist', 'light', 390, 844, true, true],
-  ['/profile', 'profile', 'light', 390, 844, true, true],
+  { path: '/idealist', label: 'idealist' },
+  { path: '/idealist', label: 'idealist', theme: 'dark' },
+  { path: '/idealist', label: 'idealist', w: 390, h: 844 },
+  { path: '/post-idea', label: 'post-idea' },
+  { path: '/onboarding', label: 'onboarding' },
+  { path: '/profile', label: 'profile-applications' },
+  { path: '/profile', label: 'profile-applications', theme: 'dark' },
+  { path: '/profile', label: 'profile-posted', clicks: ['Your Ideas'] },
+  { path: '/profile', label: 'profile-authored', clicks: ['Authored'] },
+  { path: '/profile', label: 'profile-contributed', clicks: ['Contributed'] },
+  { path: '/profile', label: 'profile-applications', w: 390, h: 844 },
+  { path: '/details/i1', label: 'idea-details' },
+  { path: '/manage-team/i1', label: 'manage-overview' },
+  { path: '/manage-team/i1', label: 'manage-details', clicks: ['Details'] },
+  { path: '/manage-team/i1', label: 'manage-contact', clicks: ['Contact'] },
+  { path: '/manage-team/i1', label: 'manage-submit', clicks: ['Submit'] },
+  { path: '/creators-lab/i1', label: 'creators-lab' },
+  { path: '/admin', label: 'admin' },
 ];
 
-const shots = SHOTS.filter(([p, label]) => !filter || label.includes(filter) || p.includes(filter));
+const shots = SHOTS.filter((s) => !filter || s.label.includes(filter) || s.path.includes(filter));
 
 const browser = await puppeteer.launch({
   executablePath: CHROME,
@@ -39,7 +44,16 @@ const browser = await puppeteer.launch({
   args: ['--no-sandbox', '--hide-scrollbars', '--force-color-profile=srgb'],
 });
 
-for (const [path, label, theme, w, h, full, preview] of shots) {
+async function clickByText(page, text) {
+  await page.evaluate((t) => {
+    const els = [...document.querySelectorAll('button, a, [role=tab]')];
+    const el = els.find((e) => (e.textContent || '').trim().toLowerCase().includes(t.toLowerCase()));
+    if (el) el.click();
+  }, text);
+}
+
+for (const s of shots) {
+  const { path, label, theme = 'light', w = 1440, h = 1000, full = true, preview = true, clicks = [] } = s;
   const page = await browser.newPage();
   await page.setViewport({ width: w, height: h, deviceScaleFactor: 1 });
   await page.evaluateOnNewDocument(
@@ -58,7 +72,11 @@ for (const [path, label, theme, w, h, full, preview] of shots) {
   } catch (e) {
     console.error('goto issue', path, e.message);
   }
-  await new Promise((r) => setTimeout(r, 3200)); // let auth stub + fetch + anims settle
+  await new Promise((r) => setTimeout(r, 3000));
+  for (const c of clicks) {
+    await clickByText(page, c);
+    await new Promise((r) => setTimeout(r, 1300));
+  }
   const file = `${OUT}/${label}-${theme}-${w}x${h}.png`;
   await page.screenshot({ path: file, fullPage: full });
   console.log('shot', file);
