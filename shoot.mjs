@@ -34,6 +34,13 @@ const SHOTS = [
   { path: '/manage-team/i1', label: 'manage-submit', clicks: ['Submit'] },
   { path: '/creators-lab/i1', label: 'creators-lab' },
   { path: '/admin', label: 'admin' },
+  // modals / overlays (click to open)
+  { path: '/profile', label: 'modal-edit-profile', clicks: ['Edit Profile'] },
+  { path: '/profile', label: 'modal-edit-profile', theme: 'dark', clicks: ['Edit Profile'] },
+  { path: '/profile', label: 'modal-application', clicks: ['Forge UI'] },
+  { path: '/details/i1', label: 'modal-edit-idea', clicks: ['Edit Idea'] },
+  { path: '/idealist', label: 'overlay-apply', clicks: ['Apply Now'] },
+  { path: '/idealist', label: 'overlay-apply', theme: 'dark', clicks: ['Apply Now'] },
 ];
 
 const shots = SHOTS.filter((s) => !filter || s.label.includes(filter) || s.path.includes(filter));
