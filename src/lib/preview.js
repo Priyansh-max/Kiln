@@ -116,9 +116,9 @@ const team = {
   repo_owner: 'averystone',
   updated_at: '2026-06-25T10:00:00Z',
   member_profiles: [
-    { id: 'm1', full_name: 'Avery Stone', email: 'avery@kiln.dev', avatar_url: AV('avery'), joined_at: '2026-04-01', github_url: 'https://github.com/averystone' },
-    { id: 'm2', full_name: 'Priya Nair', email: 'priya@kiln.dev', avatar_url: AV('priya'), joined_at: '2026-04-15', github_url: 'https://github.com/priyanair' },
-    { id: 'm3', full_name: 'Marco Diaz', email: 'marco@kiln.dev', avatar_url: AV('marco'), joined_at: '2026-05-02', github_url: 'https://github.com/marcodiaz' },
+    { id: 'm1', full_name: 'Avery Stone', email: 'avery@kiln.dev', avatar_url: AV('avery'), joined_at: '2026-04-01', github_url: 'https://github.com/averystone', github_username: 'averystone' },
+    { id: 'm2', full_name: 'Priya Nair', email: 'priya@kiln.dev', avatar_url: AV('priya'), joined_at: '2026-04-15', github_url: 'https://github.com/priyanair', github_username: 'priyanair' },
+    { id: 'm3', full_name: 'Marco Diaz', email: 'marco@kiln.dev', avatar_url: AV('marco'), joined_at: '2026-05-02', github_url: 'https://github.com/marcodiaz', github_username: 'marcodiaz' },
   ],
 };
 
@@ -143,6 +143,15 @@ function matchMock(url, method) {
   if (u.includes('/manage-team/check-team/')) return { success: true, exists: true, data: team };
   if (u.includes('/manage-team/get-team/')) return { success: true, data: team };
   if (u.includes('/github/repo-stats/')) return { success: true, data: repoStats };
+  if (u.includes('/github/member-stats/')) {
+    const gh = (u.match(/member-stats\/[^/]+\/[^/]+\/([^/?]+)/) || [])[1];
+    const byUser = {
+      averystone: { commits: 642, mergedPRs: 128, closedIssues: 44, total: 294 },
+      priyanair: { commits: 318, mergedPRs: 96, closedIssues: 21, total: 188 },
+      marcodiaz: { commits: 224, mergedPRs: 58, closedIssues: 17, total: 121 },
+    };
+    return { success: true, data: { ...(byUser[gh] || { commits: 0, mergedPRs: 0, closedIssues: 0, total: 0 }), lastUpdated: '2026-06-26T18:30:00Z', isCached: false } };
+  }
   if (u.includes('/manage-team/')) return { success: true };
   if (u.includes('/profile/get-project-details')) return { success: true, data: [...authoredProjects, ...contributedProjects] };
   if (u.includes('/profile/get-project-stats')) return { success: true, data: projectStats };
