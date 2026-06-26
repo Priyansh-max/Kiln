@@ -103,10 +103,21 @@ const applicationsSent = [
   { id: 'a3', status: 'rejected', pitch: 'Frontend-leaning, comfortable with Mapbox and large datasets. Would love to help with the live map.', created_at: '2026-06-12T10:00:00Z', idea: { id: 'i4', title: 'Mapline', founder: { full_name: 'Diego Park', avatar_url: AV('diego') } }, founder: { full_name: 'Diego Park', avatar_url: AV('diego') } },
 ];
 
+const applicationsReceived = [
+  { id: 'r1', status: 'pending', pitch: 'I shipped a similar double-entry engine last year and can move fast on the import flow and reconciliation. Would love to own the data model with you and get a first cut live this month.', created_at: '2026-06-22T10:00:00Z', profile: { full_name: 'Marco Diaz', avatar_url: AV('marco'), github_url: 'https://github.com/marcodiaz', portfolio_url: 'https://marco.dev', resume_url: 'https://example.com/r.pdf', skills: 'React, Node, Postgres', description: 'Backend-leaning full-stack dev who likes clean data models.' } },
+  { id: 'r2', status: 'accepted', pitch: 'Frontend specialist obsessed with fast, accessible UIs. My portfolio has a couple of fintech dashboards with heavy tables — exactly this kind of work.', created_at: '2026-06-21T10:00:00Z', profile: { full_name: 'Priya Nair', avatar_url: AV('priya'), github_url: 'https://github.com/priyanair', portfolio_url: 'https://priya.design', skills: 'React, TypeScript, Tailwind', description: 'Design-minded frontend engineer.' } },
+  { id: 'r3', status: 'rejected', pitch: 'Keen to help, mostly backend. Comfortable with Postgres and queues, can take on the sync layer.', created_at: '2026-06-18T10:00:00Z', profile: { full_name: 'Tom Becker', avatar_url: AV('tom'), github_url: 'https://github.com/tombecker', skills: 'Go, Postgres', description: 'Backend engineer.' } },
+];
+
 // ---------- endpoint router ----------
 function matchMock(url, method) {
   const u = url;
   if (u.includes('/idealist/verify-onboarding')) return { success: true, onboarding: true };
+  if (u.includes('/data/application-stats/')) return { success: true, data: { total: 3, accepted: 1, pending: 1, rejected: 1 } };
+  if (u.includes('/application/details/')) return { success: true, data: applicationsReceived };
+  if (u.includes('/manage-team/check-team/')) return { success: true, exists: false };
+  if (u.includes('/manage-team/get-team/')) return { success: true, data: { repo_name: null, members: [] } };
+  if (u.includes('/manage-team/')) return { success: true };
   if (u.includes('/profile/get-project-details')) return { success: true, data: [...authoredProjects, ...contributedProjects] };
   if (u.includes('/profile/get-project-stats')) return { success: true, data: projectStats };
   if (u.includes('/profile/details')) return { success: true, data: profile };

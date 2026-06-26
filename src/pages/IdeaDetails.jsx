@@ -293,7 +293,7 @@ const IdeaDetails = () => {
                         <div className="flex gap-4 items-center">
                                 <span className={`flex items-center gap-2 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium border
                                     ${idea.status === 'open'
-                                        ? 'bg-success/10 text-success border-success/20'
+                                        ? 'bg-primary/10 text-primary border-primary/20'
                                         : 'bg-destructive/10 text-destructive border-destructive/20'}`}>
                                     {idea.status === 'open' 
                                         ? <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4" /> 
@@ -516,7 +516,7 @@ const IdeaDetails = () => {
                                   <div className={cn(
                                       "px-3 py-1 rounded-full text-xs font-medium",
                                       app.status === "pending" && "bg-warning/10 text-warning",
-                                      app.status === "accepted" && "bg-success/10 text-success",
+                                      app.status === "accepted" && "bg-primary/10 text-primary",
                                       app.status === "rejected" && "bg-destructive/10 text-destructive"
                                   )}>
                                       {app.status}
@@ -651,7 +651,7 @@ const IdeaDetails = () => {
                   <div className={cn(
                     "px-2 py-1 rounded-full text-xs font-medium",
                     selectedApplication.status === "pending" && "bg-warning/10 text-warning",
-                    selectedApplication.status === "accepted" && "bg-success/10 text-success",
+                    selectedApplication.status === "accepted" && "bg-primary/10 text-primary",
                     selectedApplication.status === "rejected" && "bg-destructive/10 text-destructive"
                   )}>
                     {selectedApplication.status}
