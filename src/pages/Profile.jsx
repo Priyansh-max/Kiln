@@ -424,8 +424,8 @@ function Profile() {
                     content="Applications Sent"
                   />
                   {/* Hover Stats - Mobile: Bottom, Desktop: Right */}
-                  <div className="absolute sm:top-0 sm:left-full top-full left-1/2 -translate-x-1/2 sm:translate-x-0 w-auto opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                    <div className="flex flex-col gap-1 sm:ml-2 mt-2 sm:mt-0">
+                  <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-auto opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-30 pointer-events-none">
+                    <div className="flex flex-col gap-1">
                       <div className="bg-primary/10 text-primary border border-primary/20 px-2 py-1 rounded text-sm whitespace-nowrap">
                         Accepted: <span className="font-mono tnum">{stats.applications_sent.accepted}</span>
                       </div>
@@ -454,8 +454,8 @@ function Profile() {
                     content="Applications Received"
                   />
                   {/* Hover Stats - Mobile: Bottom, Desktop: Right */}
-                  <div className="absolute sm:top-0 sm:left-full top-full left-1/2 -translate-x-1/2 sm:translate-x-0 w-auto opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                    <div className="flex flex-col gap-1 sm:ml-2 mt-2 sm:mt-0">
+                  <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-auto opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-30 pointer-events-none">
+                    <div className="flex flex-col gap-1">
                       <div className="bg-primary/10 text-primary border border-primary/20 px-2 py-1 rounded text-sm whitespace-nowrap">
                         Accepted: <span className="font-mono tnum">{stats.applications_received.accepted}</span>
                       </div>

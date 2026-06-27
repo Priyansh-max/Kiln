@@ -83,8 +83,8 @@ const projectStats = {
 };
 
 const authoredProjects = [
-  { id: 'p1', title: 'Ledgerlite', project_type: 'web app', repo_url: 'https://github.com/averystone/ledgerlite', project_link: 'https://ledgerlite.app', duration: 96, created_at: '2026-02-01', date: '2026-05-01', dev_req: 'React, TypeScript, Postgres, Tailwind, Stripe, Vite', idea_desc: 'A dead-simple double-entry ledger for indie founders. Shipped with a clean import flow and reconciliation that actually works.', video_url: '', logo_url: '', rating: 142, role: 'author' },
-  { id: 'p2', title: 'Forge UI', project_type: 'library', repo_url: 'https://github.com/averystone/forge-ui', project_link: '', duration: 60, created_at: '2026-01-01', date: '2026-03-01', dev_req: 'CSS, Accessibility, Figma API, Rollup', idea_desc: 'An open component library generated from design tokens, with full keyboard and screen-reader support.', video_url: '', logo_url: '', rating: 88, role: 'author' },
+  { id: 'p1', title: 'Ledgerlite — a sample company name that runs quite long', project_type: 'web app', repo_url: 'https://github.com/averystone/ledgerlite', project_link: 'https://ledgerlite.app', duration: 96, created_at: '2026-02-01', date: '2026-05-01', dev_req: 'React, TypeScript, Postgres, Tailwind, Stripe, Vite', idea_desc: 'A dead-simple double-entry ledger for indie founders. Shipped with a clean import flow and reconciliation that actually works.', video_url: '', logo_url: 'https://picsum.photos/seed/ledger/300/620', rating: 142, role: 'author' },
+  { id: 'p2', title: 'Forge UI', project_type: 'library', repo_url: 'https://github.com/averystone/forge-ui', project_link: '', duration: 60, created_at: '2026-01-01', date: '2026-03-01', dev_req: 'CSS, Accessibility, Figma API, Rollup', idea_desc: 'An open component library generated from design tokens, with full keyboard and screen-reader support.', video_url: '', logo_url: 'https://picsum.photos/seed/forge/640/200', rating: 88, role: 'author' },
 ];
 
 const contributedProjects = [
