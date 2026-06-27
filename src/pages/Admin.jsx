@@ -347,9 +347,9 @@ const Admin = () => {
                             ? 'border-destructive border-dashed' 
                             : 'border-border hover:border-primary/50'
                         }`}>
-                          <div className="flex items-center gap-4">
+                          <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
                             {/* Avatar and Identity */}
-                            <div className="flex items-center gap-3 w-64">
+                            <div className="flex items-center gap-3 w-full sm:w-64">
                               <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
                                 member.avatar_url ? 'bg-primary/10' : 'bg-destructive/10'
                               }`}>
@@ -379,7 +379,7 @@ const Admin = () => {
                             </div>
 
                             {/* Stats */}
-                            <div className="flex items-center gap-6 flex-1">
+                            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 flex-1">
                               <div className="flex items-center gap-1">
                                 <GitCommitIcon className="w-4 h-4 text-primary" />
                                 <span className="text-sm font-mono tnum">{member.commits}</span>

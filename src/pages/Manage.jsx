@@ -453,8 +453,8 @@ export default function Manage() {
 
         {/* Tabs */}
         <div className="border-b border-border">
-          <div className="flex space-x-8 justify-between">
-            <div className="flex space-x-8">
+          <div className="flex flex-wrap gap-y-1 items-center justify-between">
+            <div className="flex space-x-4 sm:space-x-8 overflow-x-auto no-scrollbar">
               {['overview', 'details', 'contact', 'submit'].map((tab) => (
                 <button
                   key={tab}
