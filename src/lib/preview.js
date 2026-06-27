@@ -116,7 +116,7 @@ const team = {
   repo_owner: 'averystone',
   updated_at: '2026-06-25T10:00:00Z',
   member_profiles: [
-    { id: 'm1', full_name: 'Avery Stone', email: 'avery@kiln.dev', avatar_url: AV('avery'), joined_at: '2026-04-01', github_url: 'https://github.com/averystone', github_username: 'averystone' },
+    { id: 'm1', full_name: 'Avery Montgomery-Stonebridge the Third', email: 'avery.montgomery.stonebridge@kiln.dev', avatar_url: AV('avery'), joined_at: '2026-04-01', github_url: 'https://github.com/averystone', github_username: 'averystone' },
     { id: 'm2', full_name: 'Priya Nair', email: 'priya@kiln.dev', avatar_url: AV('priya'), joined_at: '2026-04-15', github_url: 'https://github.com/priyanair', github_username: 'priyanair' },
     { id: 'm3', full_name: 'Marco Diaz', email: 'marco@kiln.dev', avatar_url: AV('marco'), joined_at: '2026-05-02', github_url: 'https://github.com/marcodiaz', github_username: 'marcodiaz' },
   ],

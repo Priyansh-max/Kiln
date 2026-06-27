@@ -87,8 +87,8 @@ const ApplicationTab = ({filteredApplications}) => {
             </div>
 
             {selectedApplication && (
-                <div className="fixed inset-0 flex items-center justify-center bg-background/80 backdrop-blur-sm z-[1000] p-10">
-                    <div className="bg-popover text-popover-foreground p-6 rounded-2xl shadow-lg dark:shadow-primary/10 w-[600px] relative border border-border">
+                <div className="fixed inset-0 flex items-center justify-center bg-background/80 backdrop-blur-sm z-[1000] p-4 sm:p-6">
+                    <div className="bg-popover text-popover-foreground p-6 rounded-2xl shadow-lg dark:shadow-primary/10 w-full max-w-[600px] max-h-[90vh] overflow-y-auto modern-scrollbar relative border border-border">
                         {/* Close Button */}
                         <button
                             onClick={() => setSelectedApplication(null)}

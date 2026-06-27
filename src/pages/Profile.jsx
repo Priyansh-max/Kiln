@@ -700,9 +700,9 @@ function Profile() {
       {/* edit profile overlay */}
 
       {EditprofileOverlay && (
-      <div className="fixed inset-0 flex items-center justify-center bg-background/80 backdrop-blur-sm z-[1000] p-10">
+      <div className="fixed inset-0 flex items-center justify-center bg-background/80 backdrop-blur-sm z-[1000] p-4 sm:p-6">
         <div
-          className="bg-popover text-popover-foreground my-20 p-6 rounded-2xl shadow-lg dark:shadow-primary/10 w-[650px] max-h-[90vh] relative overflow-y-auto modern-scrollbar border border-border"
+          className="bg-popover text-popover-foreground p-6 rounded-2xl shadow-lg dark:shadow-primary/10 w-full max-w-[650px] max-h-[90vh] relative overflow-y-auto modern-scrollbar border border-border"
           onClick={(e) => e.stopPropagation()}
         >
           <button
