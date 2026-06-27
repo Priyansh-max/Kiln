@@ -12,23 +12,26 @@ const Authored = ({ authoredProjects }) => {
         return (
           <div
             key={project.id}
-            className="rounded-2xl border border-border bg-card text-card-foreground p-5 sm:p-6 hover:border-primary/50 transition-colors"
+            className="rounded-2xl border border-border bg-card text-card-foreground overflow-hidden hover:border-primary/50 transition-colors"
           >
-            {/* Header: logo · title/type · points */}
-            <div className="flex items-start gap-4">
-              {project.logo_url ? (
-                <img
-                  src={project.logo_url}
-                  alt={project.title}
-                  className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl object-cover border border-border shrink-0"
-                />
-              ) : (
-                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-                  <FileCode className="w-7 h-7 text-primary" />
-                </div>
-              )}
+            <div className="flex flex-col sm:flex-row">
+              {/* Media column — fills the full height of the content (no gap) */}
+              <div className="sm:w-44 lg:w-48 shrink-0 self-stretch border-b sm:border-b-0 sm:border-r border-border">
+                {project.logo_url ? (
+                  <img
+                    src={project.logo_url}
+                    alt={project.title}
+                    className="w-full h-40 sm:h-full object-cover"
+                  />
+                ) : (
+                  <div className="w-full h-40 sm:h-full min-h-[140px] bg-primary/10 flex items-center justify-center">
+                    <FileCode className="w-9 h-9 text-primary" />
+                  </div>
+                )}
+              </div>
 
-              <div className="flex-1 min-w-0">
+              {/* Content column */}
+              <div className="flex-1 min-w-0 p-5 sm:p-6">
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
                     <h3 className="text-base sm:text-lg font-bold text-foreground truncate">{project.title}</h3>
@@ -74,31 +77,31 @@ const Authored = ({ authoredProjects }) => {
                     </span>
                   )}
                 </div>
+
+                {/* Description */}
+                {project.idea_desc && (
+                  <p className="mt-4 text-sm text-muted-foreground line-clamp-2">{project.idea_desc}</p>
+                )}
+
+                {/* Skills */}
+                {skills.length > 0 && (
+                  <div className="flex flex-wrap items-center gap-2 mt-4">
+                    {skills.slice(0, 6).map((skill, i) => (
+                      <span key={i} className="font-mono text-xs px-2.5 py-1 rounded-full bg-primary/10 text-primary">
+                        {skill}
+                      </span>
+                    ))}
+                    {skills.length > 6 && (
+                      <span className="font-mono text-xs text-muted-foreground">+{skills.length - 6} more</span>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
 
-            {/* Description */}
-            {project.idea_desc && (
-              <p className="mt-4 text-sm text-muted-foreground line-clamp-2">{project.idea_desc}</p>
-            )}
-
-            {/* Skills */}
-            {skills.length > 0 && (
-              <div className="flex flex-wrap items-center gap-2 mt-4">
-                {skills.slice(0, 6).map((skill, i) => (
-                  <span key={i} className="font-mono text-xs px-2.5 py-1 rounded-full bg-primary/10 text-primary">
-                    {skill}
-                  </span>
-                ))}
-                {skills.length > 6 && (
-                  <span className="font-mono text-xs text-muted-foreground">+{skills.length - 6} more</span>
-                )}
-              </div>
-            )}
-
-            {/* Demo video */}
+            {/* Demo video — full width under the card */}
             {project.video_url && (
-              <details className="mt-4 group">
+              <details className="border-t border-border p-5 sm:p-6 pt-4">
                 <summary className="flex items-center gap-2 cursor-pointer text-sm font-medium text-foreground hover:text-primary transition-colors list-none">
                   <PlayCircle className="w-4 h-4 text-primary" />
                   Watch demo
