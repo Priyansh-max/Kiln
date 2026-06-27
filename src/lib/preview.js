@@ -88,7 +88,7 @@ const authoredProjects = [
 ];
 
 const contributedProjects = [
-  { id: 'p3', title: 'Standup Bot', project_type: 'bot', repo_url: 'https://github.com/sofia/standup-bot', project_link: 'https://standupbot.io', duration: 40, created_at: '2026-01-15', date: '2026-02-01', dev_req: 'Node, LLMs, Slack API', idea_desc: 'Async standups that summarise themselves — contributed the summarisation pipeline and Slack integration.', rating: 64, role: 'contributor' },
+  { id: 'p3', title: 'Standup Bot', project_type: 'team', repo_url: 'https://github.com/sofia/standup-bot', project_link: 'https://standupbot.io', duration: 40, created_at: '2026-01-15', date: '2026-02-01', dev_req: 'Node, LLMs, Slack API', idea_desc: 'Async standups that summarise themselves — contributed the summarisation pipeline and Slack integration.', logo_url: 'https://picsum.photos/seed/standup/400/400', rating: 64, role: 'contributor' },
 ];
 
 const userIdeas = [
