@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="vol" x1="0" y1="0" x2="0" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff" stop-opacity=".40"/><stop offset=".44" stop-color="#fff" stop-opacity="0"/>
+      <stop offset=".64" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".34"/>
+    </linearGradient>
+    <radialGradient id="sh" cx="32" cy="54.5" r="25" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#000" stop-opacity=".34"/><stop offset=".55" stop-color="#000" stop-opacity=".14"/><stop offset="1" stop-color="#000" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="pl" cx="32" cy="53.5" r="18" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE9AE" stop-opacity=".9"/><stop offset=".5" stop-color="#FFCB45" stop-opacity=".45"/><stop offset="1" stop-color="#FFCB45" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="bl" cx="32" cy="45" r="20" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFEFB0" stop-opacity=".85"/><stop offset=".4" stop-color="#FFCB45" stop-opacity=".4"/><stop offset=".72" stop-color="#E4F35C" stop-opacity=".16"/><stop offset="1" stop-color="#D7F23C" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="ml" cx="32" cy="46.5" r="9.5" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFEF8"/><stop offset=".4" stop-color="#FFE89C"/><stop offset=".75" stop-color="#FFC24E" stop-opacity=".7"/><stop offset="1" stop-color="#FFC24E" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="struct"><path d="M6 50 C5 29 16 9 32 9 C48 9 59 29 58 50 Z"/><path d="M27.5 11 L28.4 3.4 C28.45 2.6 29 2 29.8 2 L34.2 2 C35 2 35.55 2.6 35.6 3.4 L36.5 11 Z"/></clipPath>
+  </defs>
+  <ellipse cx="32" cy="54.5" rx="25" ry="5.5" fill="url(#sh)"/>
+  <path d="M27.5 11 L28.4 3.4 C28.45 2.6 29 2 29.8 2 L34.2 2 C35 2 35.55 2.6 35.6 3.4 L36.5 11 Z" fill="#C6E83F"/>
+  <path d="M6 50 C5 29 16 9 32 9 C48 9 59 29 58 50 Z" fill="#C6E83F"/>
+  <g clip-path="url(#struct)">
+    <path d="M6 50 C5 29 16 9 32 9 C48 9 59 29 58 50 Z" fill="url(#vol)"/>
+    <path d="M27.5 11 L28.4 3.4 C28.45 2.6 29 2 29.8 2 L34.2 2 C35 2 35.55 2.6 35.6 3.4 L36.5 11 Z" fill="url(#vol)"/>
+  </g>
+  <path d="M25 50 L25 40.5 C25 32.5 39 32.5 39 40.5 L39 50 Z" fill="#120d02"/>
+  <path d="M6 50 C5 29 16 9 32 9 C48 9 59 29 58 50 Z" fill="url(#bl)" clip-path="url(#struct)"/>
+  <path d="M25 50 L25 40.5 C25 32.5 39 32.5 39 40.5 L39 50 Z" fill="url(#ml)"/>
+  <ellipse cx="32" cy="53.5" rx="18" ry="4" fill="url(#pl)"/>
+</svg>
