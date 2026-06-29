@@ -17,6 +17,8 @@ dist-ssr
 task.txt
 pointsystem.md
 promo/
+Screenshot*.png
+DEPLOYMENT.md
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

@@ -1,30 +1,21 @@
-# Non-Commercial Use License Agreement  
+MIT License
 
-**Copyright (c) 2025 Priyansh Agarwal**  
+Copyright (c) 2026 Priyansh Agarwal
 
-This software and associated documentation files (the "Software") are the intellectual property of **Priyansh Agarwal** (the "Author").  
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-By using, copying, or modifying the Software, you agree to the following terms:  
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-## 1. Personal Use Allowed  
-You are free to use, modify, and distribute the Software for personal, non-commercial purposes.  
-
-## 2. No Commercial Use  
-You may **not** use the Software, in whole or in part, for any commercial purpose. This includes but is not limited to:  
-- Selling the Software or any derivative work.  
-- Using the Software in a product or service that generates revenue.  
-- Integrating the Software into proprietary software sold or licensed for a fee.  
-
-## 3. Attribution  
-If you share, modify, or distribute the Software, you must credit **Priyansh Agarwal** by including this license and a link to the original source.  
-
-## 4. No Warranty  
-The Software is provided **"as is"** without warranty of any kind. The Author is **not responsible** for any damages or issues resulting from its use.  
-
-## 5. Modification and Redistribution  
-You may modify and redistribute the Software **only** under this same license.  
-
-## 6. Termination  
-Any violation of this license will result in the **automatic termination** of your rights to use the Software.  
-
-By using the Software, you acknowledge and agree to these terms.  
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
