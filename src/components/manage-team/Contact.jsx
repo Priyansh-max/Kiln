@@ -45,14 +45,14 @@ const Contact = ({ session, ideaId, team }) => {
 
   return (
     <div className="space-y-6">
-      <div className="bg-card text-card-foreground p-6 rounded-lg border border-border shadow-sm">
+      <div className="bg-card text-card-foreground p-6 rounded-2xl border border-border shadow-sm">
         <h2 className="text-xl font-bold mb-6">Team Communication</h2>
 
         <div className='space-y-2 mb-4'>
           {/* WhatsApp Group */}
           <div className="space-y-2 mb-4">
             <label className="flex items-center gap-2 text-sm font-medium">
-              <FaWhatsapp className="w-4 h-4 text-green-500" />
+              <FaWhatsapp className="w-4 h-4 text-success" />
               WhatsApp Group Link
             </label>
             <div className="flex gap-2">
@@ -65,7 +65,7 @@ const Contact = ({ session, ideaId, team }) => {
                   setError('');
                 }}
                 placeholder="https://chat.whatsapp.com/..."
-                className="flex-1 px-3 py-2 bg-white dark:bg-background border border-border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                className="flex-1 px-3 py-2 bg-background border border-input rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary"
               />
             </div>
           </div>
@@ -86,7 +86,7 @@ const Contact = ({ session, ideaId, team }) => {
                   setError('');
                 }}
                 placeholder="https://join.slack.com/..."
-                className="flex-1 px-3 py-2 bg-white dark:bg-background border border-border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                className="flex-1 px-3 py-2 bg-background border border-input rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary"
               />
             </div>
           </div>
@@ -94,7 +94,7 @@ const Contact = ({ session, ideaId, team }) => {
           {/* Discord Server */}
           <div className="space-y-2 mb-4">
             <label className="flex items-center gap-2 text-sm font-medium">
-              <FaDiscord className="w-4 h-4 text-indigo-500" />
+              <FaDiscord className="w-4 h-4 text-info" />
               Discord Server Invite Link
             </label>
             <div className="flex gap-2">
@@ -107,7 +107,7 @@ const Contact = ({ session, ideaId, team }) => {
                   setError('');
                 }}
                 placeholder="https://discord.gg/..."
-                className="flex-1 px-3 py-2 bg-white dark:bg-background border border-border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                className="flex-1 px-3 py-2 bg-background border border-input rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary"
               />
             </div>
           </div>

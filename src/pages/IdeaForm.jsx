@@ -207,7 +207,7 @@ function IdeaForm() {
       return <Loader2 className="w-4 h-4 animate-spin text-primary" />;
     }
     if (status.valid === true) {
-      return <CheckCircle2 className="w-4 h-4 text-green-500" />;
+      return <CheckCircle2 className="w-4 h-4 text-success" />;
     }
     if (status.valid === false) {
       return <XCircle className="w-4 h-4 text-destructive" />;
@@ -235,6 +235,7 @@ function IdeaForm() {
             src={theme === 'dark' ? ideadark : idea}
             alt="Startup Team"
             className="w-full h-auto rounded-2xl"
+            style={{ filter: 'hue-rotate(-145deg) saturate(1.25)' }}
             animate={{ y: [0, -10, 0] }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
           />
@@ -318,7 +319,7 @@ function IdeaForm() {
                         <StatusIndicator status={fieldStatus.description} />
                       </div>
                     </div>
-                    <span className={`absolute bottom-2 italic right-2 text-sm ${
+                    <span className={`absolute bottom-2 italic right-2 text-sm font-mono tnum ${
                       formData.ideaDescription.length < 100 ? "text-destructive" : "text-primary"
                     }`}>
                       {formData.ideaDescription.length}/100

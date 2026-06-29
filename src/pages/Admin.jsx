@@ -227,7 +227,7 @@ const Admin = () => {
 
       <div className="grid gap-6">
         {submissions.map((submission) => (
-          <div key={submission.id} className="bg-card border border-border rounded-lg p-6 space-y-6">
+          <div key={submission.id} className="bg-card text-card-foreground border border-border rounded-2xl p-6 space-y-6">
             {/* Header Section */}
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-4">
@@ -276,14 +276,14 @@ const Admin = () => {
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => handleApprove(submission.id)}
-                  className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors flex items-center gap-2"
+                  className="px-4 py-2 bg-success text-success-foreground rounded-md hover:opacity-90 transition-colors flex items-center gap-2"
                 >
                   <CheckCircle className="w-4 h-4" />
                   Approve
                 </button>
                 <button
                   onClick={() => handleRequestChanges(submission.id)}
-                  className="px-4 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600 transition-colors flex items-center gap-2"
+                  className="px-4 py-2 bg-warning text-warning-foreground rounded-md hover:opacity-90 transition-colors flex items-center gap-2"
                 >
                   <AlertTriangle className="w-4 h-4" />
                   Request Changes
@@ -303,19 +303,19 @@ const Admin = () => {
                   <div className="grid grid-cols-4 gap-4">
                     <div className="flex items-center gap-2">
                       <GitCommitIcon className="w-4 h-4 text-primary" />
-                      <span className="text-sm">Commits: {submission.repo_stats.commitCount}</span>
+                      <span className="text-sm">Commits: <span className="font-mono tnum">{submission.repo_stats.commitCount}</span></span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <CircleDot className="w-4 h-4 text-yellow-500" />
-                      <span className="text-sm">Issues: {submission.repo_stats.issueCount}</span>
+                      <CircleDot className="w-4 h-4 text-warning" />
+                      <span className="text-sm">Issues: <span className="font-mono tnum">{submission.repo_stats.issueCount}</span></span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <GitPullRequest className="w-4 h-4 text-blue-500" />
-                      <span className="text-sm">PRs: {submission.repo_stats.pullCount}</span>
+                      <GitPullRequest className="w-4 h-4 text-info" />
+                      <span className="text-sm">PRs: <span className="font-mono tnum">{submission.repo_stats.pullCount}</span></span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Calendar className="w-4 h-4 text-green-500" />
-                      <span className="text-sm">Started: {new Date(submission.start_date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}</span>
+                      <Calendar className="w-4 h-4 text-success" />
+                      <span className="text-sm">Started: <span className="font-mono">{new Date(submission.start_date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}</span></span>
                     </div>
                   </div>
                 </div>
@@ -331,12 +331,12 @@ const Admin = () => {
                   <div className="space-y-2">
                     <div className="flex justify-between items-center mb-2">
                       <span className="text-xs text-muted-foreground">
-                        Showing {submission.mem_stats.length} members
+                        Showing <span className="font-mono">{submission.mem_stats.length}</span> members
                       </span>
                       {Object.values(spamMembers[submission.id] || {}).some(isSpam => isSpam) && (
                         <div className="text-xs bg-destructive/10 text-destructive px-2 py-1 rounded flex items-center gap-1">
                           <Flag className="w-3 h-3" />
-                          {Object.values(spamMembers[submission.id] || {}).filter(isSpam => isSpam).length} spam contributors marked
+                          <span className="font-mono">{Object.values(spamMembers[submission.id] || {}).filter(isSpam => isSpam).length}</span> spam contributors marked
                         </div>
                       )}
                     </div>
@@ -347,9 +347,9 @@ const Admin = () => {
                             ? 'border-destructive border-dashed' 
                             : 'border-border hover:border-primary/50'
                         }`}>
-                          <div className="flex items-center gap-4">
+                          <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
                             {/* Avatar and Identity */}
-                            <div className="flex items-center gap-3 w-64">
+                            <div className="flex items-center gap-3 w-full sm:w-64">
                               <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
                                 member.avatar_url ? 'bg-primary/10' : 'bg-destructive/10'
                               }`}>
@@ -370,7 +370,7 @@ const Admin = () => {
                                   href={`https://github.com/${member.github_username}`}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="text-xs text-primary hover:underline flex items-center gap-1"
+                                  className="text-xs text-primary hover:underline flex items-center gap-1 font-mono"
                                 >
                                   <Github className="w-3 h-3" />
                                   {member.github_username}
@@ -379,46 +379,46 @@ const Admin = () => {
                             </div>
 
                             {/* Stats */}
-                            <div className="flex items-center gap-6 flex-1">
+                            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 flex-1">
                               <div className="flex items-center gap-1">
                                 <GitCommitIcon className="w-4 h-4 text-primary" />
-                                <span className="text-sm">{member.commits}</span>
+                                <span className="text-sm font-mono tnum">{member.commits}</span>
                               </div>
 
                               <div className="flex flex-col items-center">
                                 <div className="flex items-center gap-2 text-sm">
-                                <CircleDot className="w-4 h-4 text-blue-500" />
-                                  <span className="text-green-500">{member.open_pull_requests}</span>
+                                <CircleDot className="w-4 h-4 text-info" />
+                                  <span className="text-success font-mono tnum">{member.open_pull_requests}</span>
                                   /
-                                  <span className="text-orange-500">{member.closed_pull_requests}</span>
+                                  <span className="text-warning font-mono tnum">{member.closed_pull_requests}</span>
                                 </div>
                               </div>
 
                               <div className="flex flex-col items-center">
                                 <div className="flex items-center gap-2 text-sm">
-                                <GitPullRequest className="w-4 h-4 text-blue-500" />
-                                  <span className="text-green-500">{member.open_issues}</span>
+                                <GitPullRequest className="w-4 h-4 text-info" />
+                                  <span className="text-success font-mono tnum">{member.open_issues}</span>
                                   /
-                                  <span className="text-orange-500">{member.closed_issues}</span>
+                                  <span className="text-warning font-mono tnum">{member.closed_issues}</span>
                                 </div>
                               </div>
 
                               <div className="flex items-center gap-1">
-                                <GitMerge className="w-4 h-4 text-blue-500" />
-                                <span className="text-sm">{member.merged_pull_requests}</span>
+                                <GitMerge className="w-4 h-4 text-info" />
+                                <span className="text-sm font-mono tnum">{member.merged_pull_requests}</span>
                               </div>
 
                               <div className={`px-2 py-1 rounded-full text-xs ${
-                                member.inactive_days > 0 
-                                  ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
-                                  : 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
+                                member.inactive_days > 0
+                                  ? 'bg-destructive/10 text-destructive'
+                                  : 'bg-success/10 text-success'
                               }`}>
-                                Inactive for {member.inactive_days}d
+                                Inactive for <span className="font-mono tnum">{member.inactive_days}</span>d
                               </div>
 
                               <div className="flex items-center gap-1">
-                                <Clock className="w-4 h-4 text-blue-500" />
-                                <span className="text-sm"> {new Date(member.joined_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}</span>
+                                <Clock className="w-4 h-4 text-info" />
+                                <span className="text-sm font-mono"> {new Date(member.joined_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}</span>
                               </div>
 
                               {/* Mark as Spam Button */}
@@ -426,8 +426,8 @@ const Admin = () => {
                                 onClick={() => handleToggleSpamMember(submission.id, index)}
                                 className={`ml-auto px-2 py-1 rounded text-xs font-medium flex items-center gap-1 ${
                                   spamMembers[submission.id]?.[index]
-                                    ? 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'
-                                    : 'bg-red-100 text-red-700 hover:bg-red-200 dark:bg-red-900/30 dark:text-red-400 dark:hover:bg-red-900/50'
+                                    ? 'bg-muted text-muted-foreground hover:bg-muted/80'
+                                    : 'bg-destructive/10 text-destructive hover:bg-destructive/20'
                                 }`}
                               >
                                 {spamMembers[submission.id]?.[index] ? (

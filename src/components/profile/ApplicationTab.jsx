@@ -28,7 +28,7 @@ const ApplicationTab = ({filteredApplications}) => {
                 filteredApplications.map((app, index) => (
                     <div key={app.id} className="flex flex-row items-center justify-between gap-2 p-2 sm:p-3 bg-card border border-border rounded-lg hover:border-primary/50 transition-all group">
                         {/* Number - Hidden on mobile */}
-                        <span className="hidden sm:flex w-8 h-8 items-center justify-center rounded-full bg-primary/10 text-primary text-sm font-medium">
+                        <span className="hidden sm:flex w-8 h-8 items-center justify-center rounded-full bg-primary/10 text-primary text-sm font-medium font-mono tnum">
                             {index + 1}
                         </span>
                         
@@ -46,9 +46,9 @@ const ApplicationTab = ({filteredApplications}) => {
                         <div className="flex flex-row items-center gap-2">
                             <div className={cn(
                                 "px-2 sm:px-3 py-1 rounded-full text-[11px] sm:text-xs font-medium flex items-center gap-1",
-                                app.status === "pending" && "bg-yellow-500/20 text-yellow-500",
-                                app.status === "accepted" && "bg-green-500/20 text-green-500",
-                                app.status === "rejected" && "bg-red-500/20 text-red-500"
+                                app.status === "pending" && "bg-warning/10 text-warning border border-warning/20",
+                                app.status === "accepted" && "bg-primary/10 text-primary border border-primary/20",
+                                app.status === "rejected" && "bg-destructive/10 text-destructive border border-destructive/20"
                             )}>
                                 {app.status === "pending" && <Clock className="w-2.5 h-2.5 sm:w-3 sm:h-3" />}
                                 {app.status === "accepted" && <CheckCircle className="w-2.5 h-2.5 sm:w-3 sm:h-3" />}
@@ -87,8 +87,8 @@ const ApplicationTab = ({filteredApplications}) => {
             </div>
 
             {selectedApplication && (
-                <div className="fixed inset-0 flex items-center justify-center bg-background/80 backdrop-blur-sm z-[1000] p-10">
-                    <div className="bg-card text-card-foreground p-6 rounded-lg shadow-lg dark:shadow-primary/10 w-[600px] relative border border-border">
+                <div className="fixed inset-0 flex items-center justify-center bg-background/80 backdrop-blur-sm z-[1000] p-4 sm:p-6">
+                    <div className="bg-popover text-popover-foreground p-6 rounded-2xl shadow-lg dark:shadow-primary/10 w-full max-w-[600px] max-h-[90vh] overflow-y-auto modern-scrollbar relative border border-border">
                         {/* Close Button */}
                         <button
                             onClick={() => setSelectedApplication(null)}

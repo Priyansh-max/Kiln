@@ -5,34 +5,29 @@ import { useTheme } from '@/context/ThemeContext';
 
 ChartJS.register(ArcElement, Tooltip);
 
+// Read a theme token from the live CSS variables so the chart follows
+// light/dark automatically (theme dependency keeps this in sync on toggle).
+const cssVar = (name) =>
+  `hsl(${getComputedStyle(document.documentElement).getPropertyValue(name).trim()})`;
+
 const CircularProgress = ({ total, accepted, pending, rejected, content }) => {
   const { theme } = useTheme();
   const isZero = total === 0;
 
-  // Define colors for light and dark themes
-  const colors = {
-    light: {
-      empty: "#e5e7eb",
-      accepted: "#22c55e", // green-500
-      pending: "#eab308", // yellow-500
-      rejected: "#ef4444", // red-500
-    },
-    dark: {
-      empty: "#374151", // gray-700
-      accepted: "#15803d", // green-700
-      pending: "#a16207", // yellow-700
-      rejected: "#b91c1c", // red-700
-    },
+  // Map status colors to theme tokens
+  const currentColors = {
+    empty: cssVar('--muted'),
+    accepted: cssVar('--primary'),
+    pending: cssVar('--warning'),
+    rejected: cssVar('--destructive'),
   };
-
-  const currentColors = colors[theme || 'light'];
 
   const data = {
     datasets: [
       {
         data: isZero ? [1] : [accepted, pending, rejected],
-        backgroundColor: isZero 
-          ? [currentColors.empty] 
+        backgroundColor: isZero
+          ? [currentColors.empty]
           : [currentColors.accepted, currentColors.pending, currentColors.rejected],
         borderWidth: 0,
         hoverOffset: 4,

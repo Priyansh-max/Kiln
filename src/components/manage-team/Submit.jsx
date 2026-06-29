@@ -523,7 +523,7 @@ const Submit = ({ session, ideaId, team: initialTeam, repostats: initialRepostat
       return <Loader2 className="w-4 h-4 animate-spin text-primary" />;
     }
     if (status.valid === true) {
-      return <CheckCircle2 className="w-4 h-4 text-green-500" />;
+      return <CheckCircle2 className="w-4 h-4 text-success" />;
     }
     if (status.valid === false) {
       return <XCircle className="w-4 h-4 text-destructive" />;
@@ -550,7 +550,7 @@ const Submit = ({ session, ideaId, team: initialTeam, repostats: initialRepostat
             <Loader2 className="h-4 w-4 animate-spin text-primary" />
             Submission Progress
           </span>
-          {currentSubmissionStep === 'success' && <CheckCircle className="h-4 w-4 text-green-500" />}
+          {currentSubmissionStep === 'success' && <CheckCircle className="h-4 w-4 text-success" />}
           {currentSubmissionStep === 'error' && <AlertCircle className="h-4 w-4 text-destructive" />}
         </h4>
         
@@ -591,7 +591,7 @@ const Submit = ({ session, ideaId, team: initialTeam, repostats: initialRepostat
           </div>
           
           {isActive('success') && (
-            <div className="flex items-center gap-2 text-green-500 font-medium mt-2">
+            <div className="flex items-center gap-2 text-success font-medium mt-2">
               <CheckCircle className="h-3 w-3" />
               <span>Submission completed successfully!</span>
             </div>
@@ -613,19 +613,19 @@ const Submit = ({ session, ideaId, team: initialTeam, repostats: initialRepostat
             </div>
             <div className="grid grid-cols-2 gap-x-2 gap-y-1 text-xs">
               <span className="text-muted-foreground">Repository:</span>
-              <span className="truncate font-medium">{team?.repo_name}</span>
-              
+              <span className="truncate font-medium font-mono">{team?.repo_name}</span>
+
               <span className="text-muted-foreground">Commits:</span>
-              <span className="font-medium">{repostats?.commitCount || 0}</span>
-              
+              <span className="font-medium font-mono tabular-nums">{repostats?.commitCount || 0}</span>
+
               <span className="text-muted-foreground">Pull Requests:</span>
-              <span className="font-medium">{repostats?.pullCount || 0}</span>
-              
+              <span className="font-medium font-mono tabular-nums">{repostats?.pullCount || 0}</span>
+
               <span className="text-muted-foreground">Issues:</span>
-              <span className="font-medium">{repostats?.issueCount || 0}</span>
-              
+              <span className="font-medium font-mono tabular-nums">{repostats?.issueCount || 0}</span>
+
               <span className="text-muted-foreground">Team Members:</span>
-              <span className="font-medium">{team?.member_profiles?.length || 0}</span>
+              <span className="font-medium font-mono tabular-nums">{team?.member_profiles?.length || 0}</span>
             </div>
           </div>
         )}
@@ -636,7 +636,7 @@ const Submit = ({ session, ideaId, team: initialTeam, repostats: initialRepostat
   return (
     <div className="space-y-6">
       {/* Main form card */}
-      <div className="bg-card text-card-foreground rounded-lg border border-border p-6 shadow-sm">
+      <div className="bg-card text-card-foreground rounded-2xl border border-border p-6 shadow-sm">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-semibold">Project Submission</h2>
           <button
@@ -662,15 +662,15 @@ const Submit = ({ session, ideaId, team: initialTeam, repostats: initialRepostat
             </p>
           </div>
         ) : team && team.repo_name ? (
-          <div className="bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-900 rounded-md p-3 mb-6">
-            <div className="flex items-center gap-2 text-sm text-blue-800 dark:text-blue-400">
+          <div className="bg-info/10 border border-info/20 rounded-md p-3 mb-6">
+            <div className="flex items-center gap-2 text-sm text-info">
               <Github className="h-4 w-4" />
-              <span>Connected to repository: <strong>{team.repo_name}</strong></span>
+              <span>Connected to repository: <strong className="font-mono">{team.repo_name}</strong></span>
             </div>
           </div>
         ) : (
-          <div className="bg-yellow-50 dark:bg-yellow-950/30 border border-yellow-200 dark:border-yellow-900 rounded-md p-3 mb-6">
-            <div className="flex items-center gap-2 text-sm text-yellow-800 dark:text-yellow-400">
+          <div className="bg-warning/10 border border-warning/20 rounded-md p-3 mb-6">
+            <div className="flex items-center gap-2 text-sm text-warning">
               <AlertCircle className="h-4 w-4" />
               <span>Please connect a GitHub repository before submitting your project.</span>
             </div>
@@ -725,7 +725,7 @@ const Submit = ({ session, ideaId, team: initialTeam, repostats: initialRepostat
                   value={projectLink}
                   onChange={(e) => setProjectLink(e.target.value)}
                   placeholder="https://your-project-link.com"
-                    className="flex-1 px-3 py-2 bg-white dark:bg-background border border-border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary w-full pr-8"
+                    className="flex-1 px-3 py-2 bg-background border border-input rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary w-full pr-8"
                   required
                 />
                   <div className="absolute right-2 top-1/2 -translate-y-1/2">
@@ -749,7 +749,7 @@ const Submit = ({ session, ideaId, team: initialTeam, repostats: initialRepostat
                   value={videoLink}
                   onChange={(e) => setVideoLink(e.target.value)}
                   placeholder="https://youtube.com/your-demo"
-                    className="flex-1 px-3 py-2 bg-white dark:bg-background border border-border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary w-full pr-8"
+                    className="flex-1 px-3 py-2 bg-background border border-input rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary w-full pr-8"
                   />
                   <div className="absolute right-2 top-1/2 -translate-y-1/2">
                     <StatusIndicator status={fieldStatus.videoLink} />
@@ -769,12 +769,12 @@ const Submit = ({ session, ideaId, team: initialTeam, repostats: initialRepostat
                             Project Description
                     </span>
                     </div>
-                   <span className={`text-xs ${
-                    wordCount < 300 
-                      ? 'text-destructive' 
-                      : wordCount > 500 
-                        ? 'text-destructive' 
-                        : 'text-blue-500'
+                   <span className={`text-xs font-mono tabular-nums ${
+                    wordCount < 300
+                      ? 'text-destructive'
+                      : wordCount > 500
+                        ? 'text-destructive'
+                        : 'text-info'
                   }`}>
                     {wordCount}/500 characters
                   </span>
@@ -784,7 +784,7 @@ const Submit = ({ session, ideaId, team: initialTeam, repostats: initialRepostat
                   value={description}
                   onChange={handleDescriptionChange}
                     placeholder="Describe your project (minimum 300 characters, maximum 500 characters)..."
-                    className="flex-1 px-3 py-2 bg-white dark:bg-background border border-border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary w-full min-h-[150px] pr-8"
+                    className="flex-1 px-3 py-2 bg-background border border-input rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary w-full min-h-[150px] pr-8"
                   required
                 />
                   <div className="absolute right-2 top-6">
@@ -799,7 +799,7 @@ const Submit = ({ session, ideaId, team: initialTeam, repostats: initialRepostat
               {/* Logo Upload */}
               <div className="space-y-2">
                 <label className="block text-sm font-medium text-foreground mb-1">
-                  Project Logo <span className='text-red-500'>*</span>
+                  Project Logo <span className='text-destructive'>*</span>
                 </label>
                 <div className="relative">
                       <input
@@ -819,7 +819,7 @@ const Submit = ({ session, ideaId, team: initialTeam, repostats: initialRepostat
                         <motion.div
                           initial={{ scale: 0 }}
                           animate={{ scale: 1 }}
-                          className="text-green-500"
+                          className="text-success"
                         >
                           <CheckCircle2 className="w-8 h-8" />
                         </motion.div>
@@ -843,7 +843,7 @@ const Submit = ({ session, ideaId, team: initialTeam, repostats: initialRepostat
                                 fileInputRef.current.value = '';
                               }
                             }}
-                            className="absolute -top-2 -right-2 p-1 bg-destructive rounded-full text-white hover:bg-destructive/90"
+                            className="absolute -top-2 -right-2 p-1 bg-destructive rounded-full text-destructive-foreground hover:opacity-90"
                           >
                             <XCircle className="w-4 h-4" />
                           </button>
@@ -859,7 +859,7 @@ const Submit = ({ session, ideaId, team: initialTeam, repostats: initialRepostat
                               <motion.span
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
-                                className="text-green-500 text-xs"
+                                className="text-success text-xs"
                               >
                                 (Upload Complete)
                               </motion.span>
@@ -947,27 +947,27 @@ const Submit = ({ session, ideaId, team: initialTeam, repostats: initialRepostat
               <div className="space-y-2 text-sm">
                 <div className="flex items-center justify-between">
                   <span className="text-muted-foreground">Commits:</span>
-                  <span className="font-medium">{repostats?.commitCount || 0}</span>
+                  <span className="font-medium font-mono tabular-nums">{repostats?.commitCount || 0}</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-muted-foreground">Pull Requests:</span>
-                  <span className="font-medium">{repostats?.pullCount || 0}</span>
+                  <span className="font-medium font-mono tabular-nums">{repostats?.pullCount || 0}</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-muted-foreground">Issues:</span>
-                  <span className="font-medium">{repostats?.issueCount || 0}</span>
+                  <span className="font-medium font-mono tabular-nums">{repostats?.issueCount || 0}</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-muted-foreground">Data Freshness:</span>
-                  <span className={`font-medium ${repostats?.isCached ? 'text-yellow-500' : 'text-green-500'}`}>
+                  <span className={`font-medium ${repostats?.isCached ? 'text-warning' : 'text-success'}`}>
                     {repostats?.isCached ? 'Cached' : 'Fresh'}
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-muted-foreground">Last Updated:</span>
-                  <span className="font-medium text-xs">
-                    {repostats?.lastUpdated 
-                      ? new Date(repostats.lastUpdated).toLocaleString() 
+                  <span className="font-medium text-xs font-mono">
+                    {repostats?.lastUpdated
+                      ? new Date(repostats.lastUpdated).toLocaleString()
                       : 'Not available'}
                   </span>
                 </div>
@@ -980,22 +980,22 @@ const Submit = ({ session, ideaId, team: initialTeam, repostats: initialRepostat
               <div className="space-y-2 text-sm">
                 <div className="flex items-center justify-between">
                   <span className="text-muted-foreground">Team Members:</span>
-                  <span className="font-medium">{team?.member_profiles?.length || 0}</span>
+                  <span className="font-medium font-mono tabular-nums">{team?.member_profiles?.length || 0}</span>
                 </div>
-                
+
                 {team?.member_profiles?.slice(0, 3).map((member, index) => (
                   <div key={index} className="flex items-center justify-between">
-                    <span className="text-muted-foreground truncate max-w-[150px]">
+                    <span className="text-muted-foreground truncate max-w-[150px] font-mono">
                       {member.github_username || member.full_name}:
                     </span>
-                    <span className="font-medium">
+                    <span className="font-medium font-mono tabular-nums">
                       {member.stats?.commits || 0} commits
                     </span>
                   </div>
                 ))}
-                
+
                 {team?.member_profiles?.length > 3 && (
-                  <div className="text-xs text-muted-foreground text-center mt-1">
+                  <div className="text-xs text-muted-foreground text-center mt-1 font-mono">
                     +{team.member_profiles.length - 3} more team members
                   </div>
                 )}
@@ -1005,7 +1005,7 @@ const Submit = ({ session, ideaId, team: initialTeam, repostats: initialRepostat
           
           <div className="mt-4 text-center">
             <span className="text-xs text-muted-foreground px-3 py-1.5 bg-background border border-border rounded-full inline-block">
-              These statistics reflect all activity since the repository was connected on {new Date(team?.updated_at).toLocaleDateString()}
+              These statistics reflect all activity since the repository was connected on <span className="font-mono">{new Date(team?.updated_at).toLocaleDateString()}</span>
             </span>
           </div>
         </div>

@@ -247,7 +247,7 @@ function IdeasList() {
       return <Loader2 className="w-4 h-4 animate-spin text-primary" />;
     }
     if (status.valid === true) {
-      return <CheckCircle2 className="w-4 h-4 text-green-500" />;
+      return <CheckCircle2 className="w-4 h-4 text-success" />;
     }
     if (status.valid === false) {
       return <XCircle className="w-4 h-4 text-destructive" />;
@@ -281,7 +281,7 @@ function IdeasList() {
               placeholder="Search by idea name or description..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 w-full bg-white dark:bg-background hover:border-primary/50 focus:border-primary transition-colors"
+              className="pl-10 w-full bg-background hover:border-primary/50 focus:border-primary transition-colors"
             />
           </div>
           
@@ -298,7 +298,7 @@ function IdeasList() {
               <select
                 value={filter}
                 onChange={(e) => setFilter(e.target.value)}
-                className="h-10 rounded-md border border-input bg-white dark:bg-background px-3 py-2 text-sm hover:border-primary/50 focus:border-primary transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/20"
+                className="h-10 rounded-md border border-input bg-background px-3 py-2 text-sm hover:border-primary/50 focus:border-primary transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/20"
               >
                 <option value="all">All Ideas</option>
                 <option value="open">Open</option>
@@ -321,20 +321,20 @@ function IdeasList() {
 
       {showOnboardingWarning && (
         <div className="max-w-7xl mx-auto mb-8">
-          <Alert className="bg-gradient-to-r from-yellow-50/80 to-orange-50/80 dark:from-yellow-900/20 dark:to-orange-900/20 border-yellow-200 dark:border-yellow-900/50">
+          <Alert className="bg-warning/10 border-warning/20">
             <div className="flex items-center gap-3">
-              <AlertTriangle className="w-5 h-5 text-yellow-600 dark:text-yellow-500 flex-shrink-0 mt-0" />
+              <AlertTriangle className="w-5 h-5 text-warning flex-shrink-0 mt-0" />
               <div className="flex-1">
-                <h3 className="text-lg font-semibold text-yellow-800 dark:text-yellow-400">
+                <h3 className="text-lg font-semibold text-warning">
                   Chief, Complete Your Profile! 🚀
                 </h3>
-                <p className="text-yellow-700 dark:text-yellow-300 mt-1">
+                <p className="text-warning mt-1">
                   Take a moment to complete your onboarding and unlock the full potential of our platform.
                 </p>
               </div>
-              <Button 
+              <Button
                 variant="outline"
-                className="bg-yellow-100 dark:bg-yellow-900/40 border-yellow-300 dark:border-yellow-800 text-yellow-800 dark:text-yellow-300 hover:bg-yellow-200 dark:hover:bg-yellow-900/60 transition-colors ml-2"
+                className="bg-warning/10 border-warning/20 text-warning hover:bg-warning/20 transition-colors ml-2"
                 onClick={() => navigate('/onboarding')}
               >
                 Complete Now
@@ -401,7 +401,7 @@ function IdeasList() {
                     )}
                     <div className="flex items-center text-sm text-muted-foreground">
                       <Calendar className="w-4 h-4 mr-2 text-primary" />
-                      <span>Posted {new Date(idea.created_at).toLocaleDateString()}</span>
+                      <span>Posted <span className="font-mono">{new Date(idea.created_at).toLocaleDateString()}</span></span>
                     </div>
                   </div>
 
@@ -436,7 +436,7 @@ function IdeasList() {
 
       {applyOverlay && (
         <div className="fixed inset-0 flex items-center justify-center bg-background/80 backdrop-blur-sm z-[1000]">
-          <div className="bg-card text-card-foreground p-6 rounded-lg shadow-lg dark:shadow-primary/10 w-[600px] relative border border-border">
+          <div className="bg-card text-card-foreground p-6 rounded-lg shadow-lg dark:shadow-primary/10 w-full max-w-[600px] mx-4 relative border border-border">
             <button
               onClick={closeApplyOverlay}
               className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors"
@@ -462,8 +462,8 @@ function IdeasList() {
                   </div>
                 </div>
                 <div className="flex justify-between text-xs text-muted-foreground">
-                  <span>{pitchText.length} characters</span>
-                  <span className={pitchText.length < 200 ? "text-red-500" : "text-green-500"}>
+                  <span className="font-mono tnum">{pitchText.length} characters</span>
+                  <span className={pitchText.length < 200 ? "text-destructive" : "text-success"}>
                     {pitchText.length < 200 ? `${200 - pitchText.length} more characters needed` : "Minimum length reached"}
                   </span>
                 </div>

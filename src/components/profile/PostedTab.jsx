@@ -59,100 +59,78 @@ const PostedTab = ({ideas , session}) => {
     return (
         <div className="space-y-3">
           {localIdeas.filter(idea => idea.completion_status !== 'approved').map((idea) => (
-            <div key={idea.id} className="flex flex-row items-center justify-between gap-2 p-2 sm:p-3 bg-card border border-border rounded-lg hover:border-primary/50 transition-all group">
-              {/* Icon - Hidden on mobile */}
-              <div className="hidden sm:block flex-shrink-0">
-                <div className={`w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-300 group-hover:scale-110 ${
-                  idea.status === 'open' 
-                    ? 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400' 
-                    : 'bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400'
+            <div key={idea.id} className="flex items-center justify-between gap-3 p-3 sm:p-4 bg-card border border-border rounded-xl hover:border-primary/50 transition-colors group">
+              {/* Icon + title + status */}
+              <div className="flex items-center gap-3 min-w-0">
+                <div className={`hidden sm:flex w-11 h-11 rounded-xl items-center justify-center shrink-0 transition-colors ${
+                  idea.status === 'open' ? 'bg-primary/10 text-primary' : 'bg-muted text-muted-foreground'
                 }`}>
-                  <Lightbulb className="w-5 h-5 transition-transform duration-300 group-hover:rotate-12 group-hover:animate-pulse" />
+                  <Lightbulb className="w-5 h-5" />
+                </div>
+
+                <div className="min-w-0">
+                  <h3 className="text-sm sm:text-base font-semibold text-foreground truncate">{idea.title}</h3>
+                  <div className="flex items-center gap-2 mt-1">
+                    <span
+                      className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium ${
+                        idea.completion_status === 'review'
+                          ? "bg-info/10 text-info"
+                          : idea.status === "open"
+                            ? "bg-primary/10 text-primary"
+                            : "bg-muted text-muted-foreground"
+                      }`}
+                    >
+                      {idea.completion_status === 'review' ? (
+                        <><Info className="w-3 h-3 mr-1" /> Under Review</>
+                      ) : idea.status === "open" ? (
+                        <><span className="w-1.5 h-1.5 rounded-full bg-primary mr-1.5" /> Open</>
+                      ) : (
+                        <><XCircle className="w-3 h-3 mr-1" /> Closed</>
+                      )}
+                    </span>
+                    <span className="hidden sm:flex font-mono text-xs text-muted-foreground items-center gap-1">
+                      <Clock className="w-3 h-3" />
+                      {new Date(idea.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+                    </span>
+                  </div>
                 </div>
               </div>
 
-              {/* Title and Date */}
-              <div className="flex-1 min-w-0">
-                <h3 className="text-sm sm:text-lg font-semibold text-foreground truncate pr-2 sm:pr-4">{idea.title}</h3>
-                <span className="hidden sm:flex text-xs text-muted-foreground items-center gap-1 mt-1">
-                  <Clock className="w-3 h-3" />
-                  {new Date(idea.created_at).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'short',
-                    day: 'numeric'
-                  })}
-                </span>
-              </div>
+              {/* Actions */}
+              <div className="flex items-center gap-2 shrink-0">
+                {idea.completion_status === 'review' ? (
+                  <span className="text-xs sm:text-sm text-muted-foreground">
+                    <span className="hidden sm:inline">Contact support for queries</span>
+                    <span className="sm:hidden">Support</span>
+                  </span>
+                ) : (
+                  <>
+                    <button
+                      onClick={() => viewDetails(idea.id)}
+                      className="inline-flex items-center gap-1.5 px-3 sm:px-4 py-1.5 text-xs sm:text-sm font-medium text-primary-foreground bg-primary hover:opacity-90 rounded-full transition-opacity whitespace-nowrap"
+                    >
+                      <GrView className="w-3.5 h-3.5" />
+                      <span className="hidden sm:inline">View applications</span>
+                      <span className="sm:hidden">View</span>
+                    </button>
 
-              {/* Status and Actions */}
-              <div className="flex flex-row items-center gap-2">
-                <span
-                  className={`flex-shrink-0 flex items-center px-2 sm:px-3 py-1 rounded-full text-[11px] sm:text-xs font-medium ${
-                    idea.completion_status === 'review'
-                      ? "bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-100"
-                      : idea.status === "open"
-                        ? "bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-100"
-                        : "bg-red-100 dark:bg-red-900/50 text-red-800 dark:text-red-100"
-                  }`}
-                >
-                  {idea.completion_status === 'review' ? (
-                    <>
-                      <Info className="w-2.5 h-2.5 sm:w-3 sm:h-3 mr-1" />
-                      <span className="hidden sm:inline">Under Review</span>
-                      <span className="sm:hidden">Review</span>
-                    </>
-                  ) : idea.status === "open" ? (
-                    <>
-                      <CheckCircle className="w-2.5 h-2.5 sm:w-3 sm:h-3 mr-1" />
-                      Open
-                    </>
-                  ) : (
-                    <>
-                      <XCircle className="w-2.5 h-2.5 sm:w-3 sm:h-3 mr-1" />
-                      Closed
-                    </>
-                  )}
-                </span>
-
-                <div className="flex items-center gap-1 sm:gap-2">
-                  {idea.completion_status === 'review' ? (
-                    <div className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground">
-                      <span className="hidden sm:inline">Contact support for queries</span>
-                      <span className="sm:hidden">Contact Support</span>
-                    </div>
-                  ) : (
-                    <>
-                      <button 
-                        onClick={() => viewDetails(idea.id)}
-                        className="px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm font-medium text-white bg-blue-500 hover:bg-blue-600 rounded-md transition-colors whitespace-nowrap"
-                      >
-                        <span className="hidden sm:inline">View Applications</span>
-                        <span className="sm:hidden">View</span>
-                      </button>
-
-                      <button 
-                        onClick={() => handleIdeaStatus(idea.id)}
-                        className={`px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm font-medium rounded-md transition-colors whitespace-nowrap ${
-                          idea.status === "open"
-                            ? "bg-orange-500 hover:bg-orange-600 text-white"
-                            : "bg-green-500 hover:bg-green-600 text-white"
-                        }`}
-                      >
-                        {idea.status === "open" ? (
-                          <>
-                            <span className="hidden sm:inline">Stop Receiving</span>
-                            <span className="sm:hidden">Stop</span>
-                          </>
-                        ) : (
-                          <>
-                            <span className="hidden sm:inline">Start Receiving</span>
-                            <span className="sm:hidden">Start</span>
-                          </>
-                        )}
-                      </button>
-                    </>
-                  )}
-                </div>
+                    <button
+                      onClick={() => handleIdeaStatus(idea.id)}
+                      title={idea.status === "open" ? "Stop receiving applications" : "Start receiving applications"}
+                      className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-xs sm:text-sm font-medium rounded-full border transition-colors whitespace-nowrap ${
+                        idea.status === "open"
+                          ? "border-border text-muted-foreground hover:border-destructive hover:text-destructive"
+                          : "border-border text-muted-foreground hover:border-primary hover:text-primary"
+                      }`}
+                    >
+                      {idea.status === "open" ? (
+                        <><AiOutlineStop className="w-3.5 h-3.5" /> <span className="hidden sm:inline">Stop</span></>
+                      ) : (
+                        <><PlayCircle className="w-3.5 h-3.5" /> <span className="hidden sm:inline">Start</span></>
+                      )}
+                    </button>
+                  </>
+                )}
               </div>
             </div>
           ))}

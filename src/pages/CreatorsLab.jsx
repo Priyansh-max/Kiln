@@ -202,7 +202,7 @@ const CreatorsLab = () => {
     <div className="max-w-8xl mx-auto px-3 sm:px-4 py-4 sm:py-8">
       <div className="flex flex-col space-y-4 sm:space-y-8">
         {/* Header with Repo Info and Communication Links */}
-        <div className="bg-card px-3 rounded-lg text-card-foreground py-3 sm:py-4 border  border-border shadow-sm">
+        <div className="bg-card px-3 rounded-2xl text-card-foreground py-3 sm:py-4 border  border-border shadow-sm">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 mb-3 sm:mb-4">
             <div>
               <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Creators Lab</h1>
@@ -213,14 +213,14 @@ const CreatorsLab = () => {
             {contactInfo?.repo_name && (
               <div className="flex items-center">
                 <div className="relative group w-full sm:w-auto">
-                  <div className="absolute -inset-[1px] rounded-md bg-gradient-to-r from-primary via-purple-500 to-primary opacity-75 blur-[2px] group-hover:opacity-100 transition-all duration-300 animate-border-glow"></div>
+                  <div className="absolute -inset-[1px] rounded-md bg-gradient-to-r from-primary via-primary/40 to-primary opacity-75 blur-[2px] group-hover:opacity-100 transition-all duration-300 animate-border-glow"></div>
                   <div className="relative flex items-center space-x-2 px-3 sm:px-4 py-2 bg-background rounded-md border border-transparent">
                     <Github className="w-4 h-4 sm:w-5 sm:h-5" />
-                    <a 
-                      href={contactInfo.repo_url} 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
-                      className="text-sm sm:text-base text-foreground hover:text-primary transition-colors truncate"
+                    <a
+                      href={contactInfo.repo_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm sm:text-base text-foreground hover:text-primary transition-colors truncate font-mono"
                     >
                       {contactInfo.repo_name}
                     </a>
@@ -248,9 +248,9 @@ const CreatorsLab = () => {
                   href={contactInfo.whatsapp}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-muted-foreground hover:text-green-500 transition-colors"  
+                  className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-muted-foreground hover:text-success transition-colors"
                 >
-                  <FaWhatsapp className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-500" />
+                  <FaWhatsapp className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-success" />
                   <span>WhatsApp</span>
                 </a>
               )}
@@ -272,9 +272,9 @@ const CreatorsLab = () => {
                   href={contactInfo.discord}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-muted-foreground hover:text-indigo-500 transition-colors"
+                  className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-muted-foreground hover:text-info transition-colors"
                 >
-                  <FaDiscord className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-indigo-500" />
+                  <FaDiscord className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-info" />
                   <span>Discord</span>
                 </a>
               )}
@@ -351,8 +351,8 @@ const CreatorsLab = () => {
           </div>
           {lastUpdated && (
             <div className="flex items-center space-x-1">
-              <span className={`inline-block w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full animate-pulse mr-1.5 sm:mr-2 ${isCached ? 'bg-yellow-400' : 'bg-green-400'}`}></span>
-              <span className="whitespace-nowrap text-xs sm:text-sm">
+              <span className={`inline-block w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full animate-pulse mr-1.5 sm:mr-2 ${isCached ? 'bg-warning' : 'bg-success'}`}></span>
+              <span className="whitespace-nowrap text-xs sm:text-sm font-mono">
                 Last updated: {new Date(lastUpdated).toLocaleTimeString('en-US', { 
                   month: 'short', 
                   day: 'numeric', 
@@ -365,12 +365,12 @@ const CreatorsLab = () => {
         </div>
 
         {/* Team Members Section */}
-        <div className="bg-card text-card-foreground rounded-lg border border-border p-4 sm:p-6 shadow-sm">
+        <div className="bg-card text-card-foreground rounded-2xl border border-border p-4 sm:p-6 shadow-sm">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-lg sm:text-xl font-semibold">Team Members</h2>
             <div className="flex items-center space-x-3">
               <div className="text-sm sm:text-sm text-muted-foreground">
-                Total Members: {memberStats.length || 0}
+                Total Members: <span className="font-mono tabular-nums">{memberStats.length || 0}</span>
               </div>
             </div>
           </div>
@@ -395,9 +395,9 @@ const CreatorsLab = () => {
                     <td className="px-4 py-3">
                       <div className="flex items-center justify-center">
                         {index === 0 ? (
-                          <Trophy className="w-5 h-5 text-yellow-500" />
+                          <Trophy className="w-5 h-5 text-warning" />
                         ) : (
-                          <span className="text-muted-foreground">#{index + 1}</span>
+                          <span className="text-muted-foreground font-mono">#{index + 1}</span>
                         )}
                       </div>
                     </td>
@@ -418,28 +418,28 @@ const CreatorsLab = () => {
                         </div>
                         <div>
                           <div className="font-medium">{member.full_name || 'Unknown'}</div>
-                          <div className="text-xs text-primary">{member.github_username || 'No GitHub username'}</div>
+                          <div className="text-xs text-primary font-mono">{member.github_username || 'No GitHub username'}</div>
                         </div>
                       </div>
                     </td>
-                    <td className="px-4 py-3 text-sm text-muted-foreground">
-                      {member.joined_at ? new Date(member.joined_at).toLocaleDateString('en-US', { 
+                    <td className="px-4 py-3 text-sm text-muted-foreground font-mono">
+                      {member.joined_at ? new Date(member.joined_at).toLocaleDateString('en-US', {
                         month: 'short',
                         day: 'numeric',
                         year: 'numeric'
                       }) : 'Unknown'}
                     </td>
                     <td className="px-4 py-3 text-center">
-                      <span className="font-medium">{member.stats?.commits || 0}</span>
+                      <span className="font-medium font-mono tabular-nums">{member.stats?.commits || 0}</span>
                     </td>
                     <td className="px-4 py-3 text-center">
-                      <span className="text-green-500 font-medium">{member.stats?.merged_prs || 0}</span>
+                      <span className="text-success font-medium font-mono tabular-nums">{member.stats?.merged_prs || 0}</span>
                     </td>
                     <td className="px-4 py-3 text-center">
-                      <span className="text-blue-500 font-medium">{member.stats?.closed_issues || 0}</span>
+                      <span className="text-info font-medium font-mono tabular-nums">{member.stats?.closed_issues || 0}</span>
                     </td>
                     <td className="px-4 py-3 text-center">
-                      <span className="font-bold">
+                      <span className="font-bold font-mono tabular-nums">
                         {(member.stats?.commits || 0) + (member.stats?.merged_prs || 0) + (member.stats?.closed_issues || 0)}
                       </span>
                     </td>
@@ -462,11 +462,11 @@ const CreatorsLab = () => {
                     <div className="flex items-center space-x-3">
                       <div className="flex-shrink-0">
                         {index === 0 ? (
-                          <div className="w-8 h-8 rounded-full bg-yellow-500/10 flex items-center justify-center">
-                            <Trophy className="w-5 h-5 text-yellow-500" />
+                          <div className="w-8 h-8 rounded-full bg-warning/10 flex items-center justify-center">
+                            <Trophy className="w-5 h-5 text-warning" />
                           </div>
                         ) : (
-                          <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-sm font-medium text-primary">
+                          <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-sm font-medium text-primary font-mono">
                             #{index + 1}
                           </div>
                         )}
@@ -489,37 +489,37 @@ const CreatorsLab = () => {
                     {/* Name and Username */}
                     <div>
                       <div className="text-sm font-medium">{member.full_name || 'Unknown'}</div>
-                      <div className="text-xs text-primary">{member.github_username || 'No GitHub username'}</div>
+                      <div className="text-xs text-primary font-mono">{member.github_username || 'No GitHub username'}</div>
                     </div>
                   </div>
                 </div>
 
                 {/* Stats Grid */}
                 <div className="grid grid-cols-2 gap-3">
-                  <div className="bg-muted-foreground/10 rounded-lg p-2">
+                  <div className="bg-muted rounded-lg p-2">
                     <div className="text-xs text-muted-foreground">Commits</div>
-                    <div className="font-medium">{member.stats?.commits || 0}</div>
+                    <div className="font-medium font-mono tabular-nums">{member.stats?.commits || 0}</div>
                   </div>
-                  <div className="bg-muted-foreground/10 rounded-lg p-2">
+                  <div className="bg-muted rounded-lg p-2">
                     <div className="text-xs text-muted-foreground">Merged PRs</div>
-                    <div className="font-medium text-green-500">{member.stats?.merged_prs || 0}</div>
+                    <div className="font-medium text-success font-mono tabular-nums">{member.stats?.merged_prs || 0}</div>
                   </div>
-                  <div className="bg-muted-foreground/10 rounded-lg p-2">
+                  <div className="bg-muted rounded-lg p-2">
                     <div className="text-xs text-muted-foreground">Closed Issues</div>
-                    <div className="font-medium text-blue-500">{member.stats?.closed_issues || 0}</div>
+                    <div className="font-medium text-info font-mono tabular-nums">{member.stats?.closed_issues || 0}</div>
                   </div>
                   <div className="bg-primary/10 rounded-lg p-2">
                     <div className="text-xs text-primary">Total Contributions</div>
-                    <div className="font-bold text-primary">
+                    <div className="font-bold text-primary font-mono tabular-nums">
                       {(member.stats?.commits || 0) + (member.stats?.merged_prs || 0) + (member.stats?.closed_issues || 0)}
                     </div>
                   </div>
                 </div>
 
                 {/* Joined Date */}
-                <div className="text-xs text-muted-foreground flex items-center">
+                <div className="text-xs text-muted-foreground flex items-center font-mono">
                   <Calendar className="w-3 h-3 mr-1" />
-                  Joined: {member.joined_at ? new Date(member.joined_at).toLocaleDateString('en-US', { 
+                  Joined: {member.joined_at ? new Date(member.joined_at).toLocaleDateString('en-US', {
                     month: 'short',
                     day: 'numeric',
                     year: 'numeric'
