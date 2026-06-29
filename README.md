@@ -2,7 +2,7 @@
 
 # 🔥 Kiln
 
-### **Post a startup idea, find the people who'll actually build it, and ship it on GitHub.**
+### **Post a project/product idea, find the people who'll actually build it, and ship it on GitHub.**
 
 *An idea → a team that builds · Commits & merged PRs → measurable merit — your contribution, on the record.*
 **Merit you can measure.**
