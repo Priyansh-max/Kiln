@@ -14,6 +14,7 @@ import Admin from './pages/Admin';
 import { ThemeProvider } from './context/ThemeContext';
 import { Toaster } from 'react-hot-toast';
 import { toast } from 'react-hot-toast';
+import { Analytics } from '@vercel/analytics/react';
 
 function App() {
   console.log("app rendered")
@@ -71,6 +72,7 @@ function App() {
             </Routes>
           </main>
           <Toaster position="bottom-right" />
+          <Analytics />
         </div>
       </Router>
     </ThemeProvider>
