@@ -235,7 +235,7 @@ function IdeaForm() {
             src={theme === 'dark' ? ideadark : idea}
             alt="Startup Team"
             className="w-full h-auto rounded-2xl"
-            style={{ filter: 'hue-rotate(-145deg) saturate(1.25)' }}
+            style={{ filter: 'hue-rotate(-143deg) saturate(1.6) brightness(1.12)' }}
             animate={{ y: [0, -10, 0] }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
           />

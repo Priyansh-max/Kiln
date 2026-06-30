@@ -423,17 +423,20 @@ function Profile() {
                     rejected={stats.applications_sent.rejected}
                     content="Applications Sent"
                   />
-                  {/* Hover Stats - Mobile: Bottom, Desktop: Right */}
-                  <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-auto opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-30 pointer-events-none">
-                    <div className="flex flex-col gap-1">
-                      <div className="bg-primary/10 text-primary border border-primary/20 px-2 py-1 rounded text-sm whitespace-nowrap">
-                        Accepted: <span className="font-mono tnum">{stats.applications_sent.accepted}</span>
+                  {/* Hover breakdown — centered inside the ring so it never overlaps the next wheel */}
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-30 pointer-events-none">
+                    <div className="flex flex-col gap-1 rounded-xl border border-border bg-card/95 backdrop-blur px-2.5 py-2 shadow-lg">
+                      <div className="flex items-center justify-between gap-3 text-xs sm:text-sm whitespace-nowrap">
+                        <span className="flex items-center gap-1.5 text-muted-foreground"><span className="w-2 h-2 rounded-full bg-primary"></span>Accepted</span>
+                        <span className="font-mono tnum text-foreground">{stats.applications_sent.accepted}</span>
                       </div>
-                      <div className="bg-warning/10 text-warning border border-warning/20 px-2 py-1 rounded text-sm whitespace-nowrap">
-                        Pending: <span className="font-mono tnum">{stats.applications_sent.pending}</span>
+                      <div className="flex items-center justify-between gap-3 text-xs sm:text-sm whitespace-nowrap">
+                        <span className="flex items-center gap-1.5 text-muted-foreground"><span className="w-2 h-2 rounded-full bg-warning"></span>Pending</span>
+                        <span className="font-mono tnum text-foreground">{stats.applications_sent.pending}</span>
                       </div>
-                      <div className="bg-destructive/10 text-destructive border border-destructive/20 px-2 py-1 rounded text-sm whitespace-nowrap">
-                        Rejected: <span className="font-mono tnum">{stats.applications_sent.rejected}</span>
+                      <div className="flex items-center justify-between gap-3 text-xs sm:text-sm whitespace-nowrap">
+                        <span className="flex items-center gap-1.5 text-muted-foreground"><span className="w-2 h-2 rounded-full bg-destructive"></span>Rejected</span>
+                        <span className="font-mono tnum text-foreground">{stats.applications_sent.rejected}</span>
                       </div>
                     </div>
                   </div>
@@ -453,17 +456,20 @@ function Profile() {
                     rejected={stats.applications_received.rejected}
                     content="Applications Received"
                   />
-                  {/* Hover Stats - Mobile: Bottom, Desktop: Right */}
-                  <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-auto opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-30 pointer-events-none">
-                    <div className="flex flex-col gap-1">
-                      <div className="bg-primary/10 text-primary border border-primary/20 px-2 py-1 rounded text-sm whitespace-nowrap">
-                        Accepted: <span className="font-mono tnum">{stats.applications_received.accepted}</span>
+                  {/* Hover breakdown — centered inside the ring so it never overlaps the next wheel */}
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-30 pointer-events-none">
+                    <div className="flex flex-col gap-1 rounded-xl border border-border bg-card/95 backdrop-blur px-2.5 py-2 shadow-lg">
+                      <div className="flex items-center justify-between gap-3 text-xs sm:text-sm whitespace-nowrap">
+                        <span className="flex items-center gap-1.5 text-muted-foreground"><span className="w-2 h-2 rounded-full bg-primary"></span>Accepted</span>
+                        <span className="font-mono tnum text-foreground">{stats.applications_received.accepted}</span>
                       </div>
-                      <div className="bg-warning/10 text-warning border border-warning/20 px-2 py-1 rounded text-sm whitespace-nowrap">
-                        Pending: <span className="font-mono tnum">{stats.applications_received.pending}</span>
+                      <div className="flex items-center justify-between gap-3 text-xs sm:text-sm whitespace-nowrap">
+                        <span className="flex items-center gap-1.5 text-muted-foreground"><span className="w-2 h-2 rounded-full bg-warning"></span>Pending</span>
+                        <span className="font-mono tnum text-foreground">{stats.applications_received.pending}</span>
                       </div>
-                      <div className="bg-destructive/10 text-destructive border border-destructive/20 px-2 py-1 rounded text-sm whitespace-nowrap">
-                        Rejected: <span className="font-mono tnum">{stats.applications_received.rejected}</span>
+                      <div className="flex items-center justify-between gap-3 text-xs sm:text-sm whitespace-nowrap">
+                        <span className="flex items-center gap-1.5 text-muted-foreground"><span className="w-2 h-2 rounded-full bg-destructive"></span>Rejected</span>
+                        <span className="font-mono tnum text-foreground">{stats.applications_received.rejected}</span>
                       </div>
                     </div>
                   </div>
