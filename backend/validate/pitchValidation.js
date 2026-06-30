@@ -10,7 +10,7 @@ router.post("/pitch", async (req, res) => {
   const { pitch } = req.body;
 
   try {
-    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
     const prompt = `
       Analyze the given pitch and check if:

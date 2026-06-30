@@ -14,7 +14,7 @@ router.post("/idea", async (req, res) => {
   }
 
   try {
-    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
     const prompt = `
       Analyze the given inputs and check if:

@@ -10,7 +10,7 @@ router.post("/submit-project", async (req, res) => {
   const { projectLink, videoLink, description } = req.body;
 
   try {
-    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
     const prompt = `
       Analyze the given project information and check if:

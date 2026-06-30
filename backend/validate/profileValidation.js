@@ -10,7 +10,7 @@ router.post("/profile", async (req, res) => {
   const { fullName, skills, portfolioUrl, description } = req.body;
 
   try {
-    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
     const prompt = `
       Analyze the given profile information and check if:
