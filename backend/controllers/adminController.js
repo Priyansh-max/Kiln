@@ -104,13 +104,14 @@ const approveSubmission = async (req, res) => {
         //get the author of the idea
         const {data, error} = await supabase
         .from('ideas')
-        .select('founder_id')
+        .select('founder_id, title')
         .eq('id', idea_id)
         .single();
 
         if(error) throw error;
 
         const author = data.founder_id;
+        const projectTitle = projectDetails.title || data.title || 'Untitled Project';
 
         console.log("Author:", author);
 
@@ -297,7 +298,7 @@ const approveSubmission = async (req, res) => {
 
         const {data: profileData, error: profileError} = await supabase
         .from('profiles')
-        .select('project_completion')
+        .select('project_completion, total_commits, total_pull_requests, total_issues, total_merged_pr')
         .eq('id', author)
         .single();
 
@@ -313,7 +314,7 @@ const approveSubmission = async (req, res) => {
         //use the last element of the array as 
         const project_completion = {
             project_id: idea_id,
-            project_title: projectDetails.title,
+            project_title: projectTitle,
             rating : author_points,
             totalRating: previous_rating + author_points,
             date: new Date().toISOString(),
@@ -331,12 +332,20 @@ const approveSubmission = async (req, res) => {
         // Add new project completion record
         updatedProjectCompletion.push(project_completion);
 
+        const authorContribution = mem_details.find(member => member.id === author) || {};
+        const authorNewPullRequests = (authorContribution.open_pull_requests || 0) + (authorContribution.closed_pull_requests || 0);
+        const authorNewIssues = (authorContribution.open_issues || 0) + (authorContribution.closed_issues || 0);
+
         // Update author's profile
         const { error: authorUpdateError } = await supabase
             .from('profiles')
             .update({
                 project_completion: updatedProjectCompletion,
-                project_rating: previous_rating + author_points
+                project_rating: previous_rating + author_points,
+                total_commits: (profileData.total_commits || 0) + (authorContribution.commits || 0),
+                total_pull_requests: (profileData.total_pull_requests || 0) + authorNewPullRequests,
+                total_issues: (profileData.total_issues || 0) + authorNewIssues,
+                total_merged_pr: (profileData.total_merged_pr || 0) + (authorContribution.merged_pull_requests || 0)
             })
             .eq('id', author);
 
@@ -368,7 +377,7 @@ const approveSubmission = async (req, res) => {
                     // Create project completion record for team member
                     const memberCompletionRecord = {
                         project_id: idea_id,
-                        project_title: projectDetails.title,
+                        project_title: projectTitle,
                         rating: points,
                         totalRating: previousRating + points,
                         date: new Date().toISOString(),

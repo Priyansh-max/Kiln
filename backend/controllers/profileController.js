@@ -6,6 +6,30 @@ const supabase = createClient(
   process.env.SUPABASE_ANON_KEY
 );
 
+const asNumber = (value) => Number(value) || 0;
+
+const getMemberId = (member) => member?.id || member?.profile_id || member?.user_id || member?.team_member_id;
+
+const getMemberTotals = (member = {}) => ({
+  commits: asNumber(member.commits),
+  pullRequests:
+    asNumber(member.open_pull_requests) +
+    asNumber(member.closed_pull_requests) +
+    asNumber(member.open_prs) +
+    asNumber(member.closed_prs),
+  issues:
+    asNumber(member.open_issues) +
+    asNumber(member.closed_issues),
+  mergedPRs: asNumber(member.merged_pull_requests) + asNumber(member.merged_prs)
+});
+
+const addTotals = (current, next) => ({
+  commits: current.commits + next.commits,
+  pullRequests: current.pullRequests + next.pullRequests,
+  issues: current.issues + next.issues,
+  mergedPRs: current.mergedPRs + next.mergedPRs
+});
+
 // Create or update profile
 const createProfile = async (req, res) => {
   try {
@@ -139,11 +163,63 @@ const getProjectStats = async (req, res) => {
 
     const { data, error } = await supabase
       .from('profiles')
-      .select('project_completion, project_rating, total_commits, total_pull_req, total_issues, total_merged_pr')
+      .select('project_completion, project_rating, total_commits, total_pull_requests, total_issues, total_merged_pr')
       .eq('id', userId)
       .single();
 
     if (error) throw error;
+
+    const projectIds = new Set(
+      Array.isArray(data.project_completion)
+        ? data.project_completion.map(project => project.project_id).filter(Boolean)
+        : []
+    );
+
+    const { data: submissionsData, error: submissionsError } = await supabase
+      .from('projectSubmission')
+      .select('idea_id, mem_stats, submitted_on, status')
+      .eq('status', 'approved');
+
+    if (submissionsError) throw submissionsError;
+
+    let matchingSubmissionCount = 0;
+
+    const submissionTotals = (submissionsData || []).reduce((totals, submission) => {
+      if (!Array.isArray(submission.mem_stats)) return totals;
+
+      const currentMember = submission.mem_stats.find(member => getMemberId(member) === userId);
+      if (!currentMember) return totals;
+
+      matchingSubmissionCount += 1;
+
+      if (submission.idea_id) {
+        projectIds.add(submission.idea_id);
+      }
+
+      return addTotals(totals, getMemberTotals(currentMember));
+    }, {
+      commits: 0,
+      pullRequests: 0,
+      issues: 0,
+      mergedPRs: 0
+    });
+
+    const hasSubmissionStats = matchingSubmissionCount > 0;
+
+    let ideaTitleById = {};
+    if (projectIds.size > 0) {
+      const { data: ideasData, error: ideasError } = await supabase
+        .from('ideas')
+        .select('id, title')
+        .in('id', Array.from(projectIds));
+
+      if (ideasError) throw ideasError;
+
+      ideaTitleById = (ideasData || []).reduce((map, idea) => {
+        map[idea.id] = idea.title;
+        return map;
+      }, {});
+    }
 
     // Format project completion data for frontend
     let ratings = [];
@@ -155,11 +231,11 @@ const getProjectStats = async (req, res) => {
 
       // Map to the format expected by frontend
       ratings = sortedProjects.map(project => ({
-        project: project.project_title,
+        project: project.project_title || ideaTitleById[project.project_id] || 'Untitled Project',
         project_id: project.project_id,
-        rating: project.rating,
-        totalRating: project.totalRating,
-        date: project.date.split('T')[0], // Format date as YYYY-MM-DD
+        rating: asNumber(project.rating),
+        totalRating: asNumber(project.totalRating),
+        date: project.date ? project.date.split('T')[0] : null, // Format date as YYYY-MM-DD
         role: project.role,
       }));
     }
@@ -170,10 +246,10 @@ const getProjectStats = async (req, res) => {
       success: true,
       data: {
         ratings,
-        totalCommits: data.total_commits || 0,
-        totalIssues: data.total_issues || 0,
-        totalPRs: data.total_pull_requests || 0,
-        mergedPRs: data.total_merged_pr || 0
+        totalCommits: hasSubmissionStats ? submissionTotals.commits : data.total_commits || 0,
+        totalIssues: hasSubmissionStats ? submissionTotals.issues : data.total_issues || 0,
+        totalPRs: hasSubmissionStats ? submissionTotals.pullRequests : data.total_pull_requests || 0,
+        mergedPRs: hasSubmissionStats ? submissionTotals.mergedPRs : data.total_merged_pr || 0
       }
     });
   } catch (error) {
@@ -277,4 +353,4 @@ module.exports = {
   uploadResume,
   getProjectStats,
   getProjectDetails
-}; 
+};
