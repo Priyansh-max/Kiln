@@ -12,7 +12,7 @@ import { useDemoMode } from '../context/DemoModeContext';
 const Navbar = ({user}) => {
   const navigate = useNavigate();
   const { theme, toggleTheme } = useTheme();
-  const { isDemoMode, setIsDemoMode } = useDemoMode();
+  const { isDemoMode, canUseDemoMode, setIsDemoMode } = useDemoMode();
   const [isOpen, setIsOpen] = useState(false);
 
   // Close mobile menu when route changes
@@ -147,20 +147,24 @@ const Navbar = ({user}) => {
                   <FaSignOutAlt className="w-4 h-4" />
                   Sign Out
                 </button>
-                <span className="w-px h-6 bg-border mx-2" />
-                <button
-                  type="button"
-                  onClick={handleDemoMode}
-                  aria-label={isDemoMode ? 'Exit demo mode' : 'Preview demo data'}
-                  title={isDemoMode ? 'Exit demo mode' : 'Preview demo data'}
-                  className={`p-2 rounded-full transition-colors ${
-                    isDemoMode
-                      ? 'bg-primary/15 text-primary ring-1 ring-primary/30'
-                      : 'text-muted-foreground/60 hover:text-foreground hover:bg-accent'
-                  }`}
-                >
-                  <FlaskConical className="w-4 h-4" />
-                </button>
+                {canUseDemoMode && (
+                  <>
+                    <span className="w-px h-6 bg-border mx-2" />
+                    <button
+                      type="button"
+                      onClick={handleDemoMode}
+                      aria-label={isDemoMode ? 'Exit demo mode' : 'Preview demo data'}
+                      title={isDemoMode ? 'Exit demo mode' : 'Preview demo data'}
+                      className={`p-2 rounded-full transition-colors ${
+                        isDemoMode
+                          ? 'bg-primary/15 text-primary ring-1 ring-primary/30'
+                          : 'text-muted-foreground/60 hover:text-foreground hover:bg-accent'
+                      }`}
+                    >
+                      <FlaskConical className="w-4 h-4" />
+                    </button>
+                  </>
+                )}
               </>
             ) : (
               <button
@@ -213,18 +217,20 @@ const Navbar = ({user}) => {
           <div className="px-4 py-3 space-y-1">
             {user ? (
               <>
-                <button
-                  type="button"
-                  onClick={handleDemoMode}
-                  className={`flex items-center gap-3 w-full text-sm font-medium py-2.5 px-3 rounded-md transition-colors ${
-                    isDemoMode
-                      ? 'bg-primary/10 text-primary'
-                      : 'text-muted-foreground hover:text-foreground hover:bg-accent'
-                  }`}
-                >
-                  <FlaskConical className="w-4 h-4" />
-                  {isDemoMode ? 'Exit demo mode' : 'Preview demo data'}
-                </button>
+                {canUseDemoMode && (
+                  <button
+                    type="button"
+                    onClick={handleDemoMode}
+                    className={`flex items-center gap-3 w-full text-sm font-medium py-2.5 px-3 rounded-md transition-colors ${
+                      isDemoMode
+                        ? 'bg-primary/10 text-primary'
+                        : 'text-muted-foreground hover:text-foreground hover:bg-accent'
+                    }`}
+                  >
+                    <FlaskConical className="w-4 h-4" />
+                    {isDemoMode ? 'Exit demo mode' : 'Preview demo data'}
+                  </button>
+                )}
                 <button
                   onClick={handlePostIdea}
                   className="flex items-center gap-3 w-full text-muted-foreground hover:text-foreground hover:bg-accent text-sm font-medium py-2.5 px-3 rounded-md transition-colors"

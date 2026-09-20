@@ -163,7 +163,7 @@ const getProjectStats = async (req, res) => {
 
     const { data, error } = await supabase
       .from('profiles')
-      .select('project_completion, project_rating, total_commits, total_pull_requests, total_issues, total_merged_pr')
+      .select('project_completion, project_rating, total_commits, total_pull_req, total_issues, total_merged_pr')
       .eq('id', userId)
       .single();
 
@@ -248,7 +248,9 @@ const getProjectStats = async (req, res) => {
         ratings,
         totalCommits: hasSubmissionStats ? submissionTotals.commits : data.total_commits || 0,
         totalIssues: hasSubmissionStats ? submissionTotals.issues : data.total_issues || 0,
-        totalPRs: hasSubmissionStats ? submissionTotals.pullRequests : data.total_pull_requests || 0,
+        totalPRs: hasSubmissionStats
+          ? submissionTotals.pullRequests
+          : data.total_pull_req || data.total_pull_requests || 0,
         mergedPRs: hasSubmissionStats ? submissionTotals.mergedPRs : data.total_merged_pr || 0
       }
     });

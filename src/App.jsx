@@ -26,7 +26,7 @@ function App() {
 
   return (
     <ThemeProvider>
-      <DemoModeProvider>
+      <DemoModeProvider user={user}>
         <Router>
         <AuthHandler user={user} setUser={setUser} setIsLoading={setIsLoading} />
         <div className="min-h-screen bg-background text-foreground transition-colors duration-200">
