@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from 'react-hot-toast';
 
-const PostedTab = ({ideas , session}) => {
+const PostedTab = ({ ideas, session, isDemoMode = false }) => {
     const navigate = useNavigate();
     const [localIdeas, setLocalIdeas] = useState([]);
     const apiUrl = import.meta.env.VITE_BACKEND_URL;
@@ -42,7 +42,13 @@ const PostedTab = ({ideas , session}) => {
           };
           
           setLocalIdeas(updatedIdeas);
-          toast.success(`Idea ${newStatus === 'open' ? 'reopened' : 'closed'} successfully`);
+          toast.success(
+            isDemoMode
+              ? `Demo idea ${newStatus === 'open' ? 'reopened' : 'closed'} locally`
+              : `Idea ${newStatus === 'open' ? 'reopened' : 'closed'} successfully`
+          );
+
+          if (isDemoMode) return;
           
           await axios.put(`${apiUrl}/api/idea/status/${ideaId}`, { status: newStatus }, {
             headers: {

@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaUser, FaLightbulb, FaSignOutAlt, FaGithub } from 'react-icons/fa';
-import { Moon, Sun, Menu, X } from 'lucide-react';
+import { FlaskConical, Moon, Sun, Menu, X } from 'lucide-react';
 import supabase from "../lib/supabase";
 import { toast } from 'react-hot-toast';
 import { useTheme } from '../context/ThemeContext';
 import { cn } from "@/lib/utils";
 import { Logo } from "@/components/ui/Logo";
+import { useDemoMode } from '../context/DemoModeContext';
 
 const Navbar = ({user}) => {
   const navigate = useNavigate();
   const { theme, toggleTheme } = useTheme();
+  const { isDemoMode, setIsDemoMode } = useDemoMode();
   const [isOpen, setIsOpen] = useState(false);
 
   // Close mobile menu when route changes
@@ -78,6 +80,11 @@ const Navbar = ({user}) => {
       return;
     }
 
+    if (isDemoMode) {
+      toast('Posting is disabled while demo mode is active');
+      return;
+    }
+
     try {
       const { data: profile, error } = await supabase
         .from('profiles')
@@ -91,6 +98,18 @@ const Navbar = ({user}) => {
     } catch (error) {
       console.error('Error checking founder status:', error);
       toast.error('Something went wrong. Please try again.');
+    }
+  };
+
+  const handleDemoMode = () => {
+    const nextMode = !isDemoMode;
+    setIsDemoMode(nextMode);
+    if (nextMode) {
+      navigate('/profile');
+      toast.success('Demo projects loaded');
+    } else {
+      navigate('/profile');
+      toast.success('Back to your live data');
     }
   };
 
@@ -129,6 +148,19 @@ const Navbar = ({user}) => {
                   Sign Out
                 </button>
                 <span className="w-px h-6 bg-border mx-2" />
+                <button
+                  type="button"
+                  onClick={handleDemoMode}
+                  aria-label={isDemoMode ? 'Exit demo mode' : 'Preview demo data'}
+                  title={isDemoMode ? 'Exit demo mode' : 'Preview demo data'}
+                  className={`p-2 rounded-full transition-colors ${
+                    isDemoMode
+                      ? 'bg-primary/15 text-primary ring-1 ring-primary/30'
+                      : 'text-muted-foreground/60 hover:text-foreground hover:bg-accent'
+                  }`}
+                >
+                  <FlaskConical className="w-4 h-4" />
+                </button>
               </>
             ) : (
               <button
@@ -181,6 +213,18 @@ const Navbar = ({user}) => {
           <div className="px-4 py-3 space-y-1">
             {user ? (
               <>
+                <button
+                  type="button"
+                  onClick={handleDemoMode}
+                  className={`flex items-center gap-3 w-full text-sm font-medium py-2.5 px-3 rounded-md transition-colors ${
+                    isDemoMode
+                      ? 'bg-primary/10 text-primary'
+                      : 'text-muted-foreground hover:text-foreground hover:bg-accent'
+                  }`}
+                >
+                  <FlaskConical className="w-4 h-4" />
+                  {isDemoMode ? 'Exit demo mode' : 'Preview demo data'}
+                </button>
                 <button
                   onClick={handlePostIdea}
                   className="flex items-center gap-3 w-full text-muted-foreground hover:text-foreground hover:bg-accent text-sm font-medium py-2.5 px-3 rounded-md transition-colors"

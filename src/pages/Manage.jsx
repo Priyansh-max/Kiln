@@ -4,6 +4,8 @@ import supabase from "../lib/supabase";
 import { 
   Github,
   ArrowLeft,
+  CheckCircle2,
+  LockKeyhole,
 } from "lucide-react";
 import { toast } from "react-hot-toast";
 import axios from "axios";
@@ -11,6 +13,9 @@ import Contact from "../components/manage-team/Contact";
 import Details from "../components/manage-team/Details";
 import Overview from "../components/manage-team/Overview";
 import Submit from "../components/manage-team/Submit";
+import DemoBanner from "../components/DemoBanner";
+import { useDemoMode } from "../context/DemoModeContext";
+import { getDemoProjectBundle, isDemoProjectId } from "../data/demoData";
 
 // Set document title
 document.title = "Team Management | Kiln";
@@ -18,6 +23,8 @@ document.title = "Team Management | Kiln";
 export default function Manage() {
   const navigate = useNavigate();
   const { ideaId } = useParams();
+  const { isDemoMode } = useDemoMode();
+  const isDemoView = isDemoMode && isDemoProjectId(ideaId);
   // State Management
   const [session, setSession] = useState(null);
   const [idea, setIdea] = useState(null);
@@ -42,6 +49,18 @@ export default function Manage() {
           return;
         }
 
+        setSession(session);
+
+        if (isDemoView) {
+          const demo = getDemoProjectBundle(ideaId);
+          if (!demo) throw new Error('Demo project not found');
+          setIdea(demo.project);
+          setTeam(demo.team);
+          setRepoStats(demo.repoStats);
+          setDailyCommitData(demo.dailyCommitData);
+          return;
+        }
+
         // 2. Check if GitHub token is missing or expired
         if (!localStorage.getItem('provider_token')) {
           //set delay of 2 seconds before signing out
@@ -53,9 +72,6 @@ export default function Manage() {
           });
           return;
         }
-
-        // 3. Store session in state
-        setSession(session);
 
         // 4. Fetch team and idea data
         const [ideaResponse, teamResponse] = await Promise.all([
@@ -105,7 +121,7 @@ export default function Manage() {
     };
 
     fetchAllData();
-  }, [ideaId, navigate]);
+  }, [ideaId, navigate, isDemoMode]);
 
   const getRepoStats = async (currentSession, currentTeam) => {
     try {
@@ -335,13 +351,15 @@ export default function Manage() {
   const renderTabContent = () => {
     switch (activeTab) {
       case 'contact': 
-        return <Contact session={session} ideaId={ideaId} team={team} />
+        return <Contact session={session} ideaId={ideaId} team={team} readOnly={isDemoView} />
       case 'overview':
         return <Overview session={session} repostats={repostats} team={team} dailyCommitData={dailyCommitData} />     
       case 'details':
         return <Details team={team} />
       case 'submit':
-        return <Submit session={session} ideaId={ideaId} team={team} repostats={repostats} />
+        return isDemoView
+          ? <DemoSubmission project={idea} />
+          : <Submit session={session} ideaId={ideaId} team={team} repostats={repostats} />
       default:
         return null;
     }
@@ -358,6 +376,9 @@ export default function Manage() {
 
   return (
     <div className="max-w-8xl mx-auto px-4 py-8">
+      {isDemoView && (
+        <DemoBanner message="Repository activity, collaborators, and delivery status are generated sample data. This workspace is read-only." />
+      )}
       <div className="flex flex-col space-y-6">
         {/* Header */}
         <div>
@@ -563,6 +584,38 @@ export default function Manage() {
           background: hsl(var(--primary) / 0.3);
         }
       `}</style>
+    </div>
+  );
+}
+
+function DemoSubmission({ project }) {
+  return (
+    <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
+      <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
+        <div>
+          <div className="mb-2 flex items-center gap-2 text-primary">
+            <CheckCircle2 className="h-5 w-5" />
+            <span className="text-sm font-semibold">Sample submission complete</span>
+          </div>
+          <h2 className="text-xl font-bold text-foreground">{project?.title}</h2>
+          <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
+            The project link, team activity, repository metrics, and delivery notes have been packaged for review.
+          </p>
+        </div>
+        <span className="inline-flex items-center gap-1.5 self-start rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+          <LockKeyhole className="h-3.5 w-3.5" />
+          Read-only demo
+        </span>
+      </div>
+
+      <div className="mt-6 grid gap-3 sm:grid-cols-3">
+        {['Project details verified', 'Repository metrics attached', 'Team contributions included'].map((item) => (
+          <div key={item} className="flex items-center gap-2 rounded-lg border border-border bg-muted/30 p-3 text-sm text-foreground">
+            <CheckCircle2 className="h-4 w-4 shrink-0 text-success" />
+            {item}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

@@ -8,7 +8,7 @@ import { Loader2 } from 'lucide-react';
 
 import axios from 'axios';
 
-const Contact = ({ session, ideaId, team }) => {
+const Contact = ({ session, ideaId, team, readOnly = false }) => {
   const [whatsappLink, setWhatsappLink] = useState(team?.whatsapp_url || '');
   const [slackLink, setSlackLink] = useState(team?.slack_url || '');
   const [discordLink, setDiscordLink] = useState(team?.discord_url || '');
@@ -18,6 +18,11 @@ const Contact = ({ session, ideaId, team }) => {
   const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
   const handleContactSubmit = async () => {
+    if (readOnly) {
+      toast('Communication links are read-only in demo mode');
+      return;
+    }
+
     setContactLoading(true);
     try {
       const response = await axios.put(`${apiUrl}/api/manage-team/contact-info/${ideaId}`, {
@@ -60,9 +65,9 @@ const Contact = ({ session, ideaId, team }) => {
                 type="url"
                 name="whatsapp"
                 value={whatsappLink}
+                disabled={readOnly}
                 onChange={(e) => {
                   setWhatsappLink(e.target.value);
-                  setError('');
                 }}
                 placeholder="https://chat.whatsapp.com/..."
                 className="flex-1 px-3 py-2 bg-background border border-input rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary"
@@ -81,9 +86,9 @@ const Contact = ({ session, ideaId, team }) => {
                 type="url"
                 name="slack"
                 value={slackLink}
+                disabled={readOnly}
                 onChange={(e) => {
                   setSlackLink(e.target.value);
-                  setError('');
                 }}
                 placeholder="https://join.slack.com/..."
                 className="flex-1 px-3 py-2 bg-background border border-input rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary"
@@ -102,9 +107,9 @@ const Contact = ({ session, ideaId, team }) => {
                 type="url"
                 name="discord"
                 value={discordLink}
+                disabled={readOnly}
                 onChange={(e) => {
                   setDiscordLink(e.target.value);
-                  setError('');
                 }}
                 placeholder="https://discord.gg/..."
                 className="flex-1 px-3 py-2 bg-background border border-input rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary"
@@ -116,11 +121,11 @@ const Contact = ({ session, ideaId, team }) => {
           <div className="pt-4">
             <button
               type="submit"
-              disabled={contactLoading}
+              disabled={contactLoading || readOnly}
               onClick={handleContactSubmit}
               className="bg-primary text-primary-foreground hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed px-4 py-2 rounded-md text-sm font-medium transition-colors"
             >
-                {contactLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Save Communication Links'}
+                {contactLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : readOnly ? 'Read-only demo' : 'Save Communication Links'}
             </button>
           </div>
         </div>

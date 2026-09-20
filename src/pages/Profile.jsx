@@ -20,9 +20,19 @@ import Authored from '../components/profile/Authored';
 import PostedTab from '../components/profile/PostedTab';
 import ApplicationTab from '../components/profile/ApplicationTab';
 import ContributedTab from '../components/profile/ContributedTab';
+import DemoBanner from '../components/DemoBanner';
+import { useDemoMode } from '../context/DemoModeContext';
+import {
+  DEMO_PROFILE_STATS,
+  DEMO_PROJECTS,
+  DEMO_PROJECT_STATS,
+  DEMO_USER_APPLICATIONS,
+  getDemoProfile,
+} from '../data/demoData';
 
 function Profile() {
   const navigate = useNavigate();
+  const { isDemoMode } = useDemoMode();
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
   const [session, setSession] = useState(null);
@@ -68,7 +78,7 @@ function Profile() {
 
   useEffect(() => {
     checkUser();
-  }, []);
+  }, [isDemoMode]);
 
   function handleOverlay(){
     setEditprofileOverlay(true);
@@ -76,6 +86,7 @@ function Profile() {
 
   async function checkUser() {
     setLoading(true);
+    setError(null);
     console.log(apiUrl);
     try {
       const { data: { session } } = await supabase.auth.getSession();
@@ -87,6 +98,18 @@ function Profile() {
 
       setUser(session.user);
       setSession(session);
+
+      if (isDemoMode) {
+        setProfile(getDemoProfile(session.user));
+        setApplications(DEMO_USER_APPLICATIONS);
+        setIdeas(DEMO_PROJECTS.filter((project) => project.role === 'author'));
+        setStats(DEMO_PROFILE_STATS);
+        setProjectStats(DEMO_PROJECT_STATS);
+        setAuthoredProjects(DEMO_PROJECTS.filter((project) => project.role === 'author'));
+        setContributedProjects(DEMO_PROJECTS.filter((project) => project.role === 'contributor'));
+        setActiveTab('posted');
+        return;
+      }
       
       // Create an array of promises for parallel fetching
       const fetchPromises = [
@@ -268,6 +291,7 @@ function Profile() {
   // Load project details when tab changes
   useEffect(() => {
     const loadProjectDetails = async () => {
+      if (isDemoMode) return;
       try {
         const { data: { session } } = await supabase.auth.getSession();
         if (!session) return;
@@ -297,7 +321,7 @@ function Profile() {
     };
     
     loadProjectDetails();
-  }, [activeTab, projectStats.ratings]);
+  }, [activeTab, projectStats.ratings, isDemoMode]);
 
   if (error) {
     return <ErrorPage error={error} resetError={resetError} />;
@@ -313,6 +337,9 @@ function Profile() {
 
   return (
     <div className="max-w-8xl mx-auto px-2 sm:px-4 py-4 sm:py-8">
+      {isDemoMode && (
+        <DemoBanner message="Three sample projects, applications, ratings, and contribution metrics are loaded locally. No live records are being changed." />
+      )}
       <div className="flex flex-col lg:flex-row gap-4 lg:gap-8">
         <div className='w-full lg:w-1/3 flex flex-col h-fit lg:sticky lg:top-8'>
           <div className="bg-card text-card-foreground p-4 sm:p-6 rounded-2xl shadow-sm dark:shadow-primary/10 border border-border">
@@ -327,7 +354,9 @@ function Profile() {
               </div>
               <div>
                 <h2 className="text-lg sm:text-xl font-bold mb-1 text-foreground">{profile.full_name}</h2>
-                <p className="text-xs sm:text-sm text-muted-foreground">{profile.email}</p>
+                <p className="text-xs sm:text-sm text-muted-foreground">
+                  {isDemoMode ? '@Priyansh-max · GitHub' : profile.email}
+                </p>
               </div>
             </div>
             <div className='pt-2'>
@@ -351,11 +380,13 @@ function Profile() {
             )}
 
             {/* Edit Profile Button */}
-            <button 
-              className="w-full mt-3 sm:mt-4 bg-primary hover:opacity-90 text-primary-foreground font-medium py-2 rounded-md transition-colors text-sm"
+            <button
+              className="w-full mt-3 sm:mt-4 bg-primary hover:opacity-90 text-primary-foreground font-medium py-2 rounded-md transition-colors text-sm disabled:cursor-not-allowed disabled:opacity-50"
               onClick={handleOverlay}
+              disabled={isDemoMode}
+              title={isDemoMode ? 'Profile editing is disabled in demo mode' : undefined}
             >
-              Edit Profile
+              {isDemoMode ? 'Read-only demo profile' : 'Edit Profile'}
             </button>
 
             {/* Location & Github */}
@@ -644,7 +675,7 @@ function Profile() {
           {activeTab === 'posted' && (
             <div className="bg-card text-card-foreground p-3 sm:p-4 md:p-6 rounded-2xl shadow-sm dark:shadow-primary/10 border border-border">
               <h2 className="text-lg sm:text-xl font-bold mb-4 text-foreground">Your Posted Ideas</h2>
-              <PostedTab ideas={ideas} session={session}/>
+              <PostedTab ideas={ideas} session={session} isDemoMode={isDemoMode}/>
               {ideas.length === 0 && (
                 <div className="text-center p-6">
                 <AlertTriangle className="w-12 h-12 text-muted-foreground mx-auto mb-4 opacity-50" />

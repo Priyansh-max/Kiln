@@ -10,8 +10,12 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import SkillSelect from '@/components/ui/SkillSelect';
 import ErrorPage from '../components/ErrorPage';
 import { Textarea } from "@/components/ui/textarea";
+import DemoBanner from '../components/DemoBanner';
+import { useDemoMode } from '../context/DemoModeContext';
+import { DEMO_PROJECTS, getDemoProfile } from '../data/demoData';
 
 function IdeasList() {
+  const { isDemoMode } = useDemoMode();
   const [ideas, setIdeas] = useState([]);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
@@ -35,7 +39,7 @@ function IdeasList() {
   useEffect(() => {
     console.log('Component mounted');
     checkUser();
-  }, []);
+  }, [isDemoMode]);
 
   const checkUser = async () => {
     setLoading(true);
@@ -48,6 +52,17 @@ function IdeasList() {
 
       setSession(session);
       setUser(session.user);
+
+      if (isDemoMode) {
+        const demoFounder = getDemoProfile(session.user);
+        setIdeas(DEMO_PROJECTS.map((project) => ({
+          ...project,
+          founder: { ...demoFounder, full_name: `${demoFounder.full_name} (demo)` },
+        })));
+        setShowOnboardingWarning(false);
+        setBoarded(true);
+        return;
+      }
       
       try {
         // Run both functions in parallel but handle their errors individually
@@ -132,6 +147,11 @@ function IdeasList() {
   
 
   async function handleApply(ideaId) {
+    if (isDemoMode) {
+      navigate(`/details/${ideaId}`);
+      return;
+    }
+
     if (!session.user) {
       toast.error('Please sign in to apply');
       return;
@@ -216,7 +236,7 @@ function IdeasList() {
     //randomize the ideas
     setRefreshLoading(true);
     setTimeout(() => {
-      const shuffledIdeas = ideas.sort(() => Math.random() - 0.5);
+      const shuffledIdeas = [...ideas].sort(() => Math.random() - 0.5);
       setIdeas(shuffledIdeas);
       setRefreshLoading(false);
     }, 1500); // Slightly longer to show the animation
@@ -270,6 +290,9 @@ function IdeasList() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
+      {isDemoMode && (
+        <DemoBanner message="These three project cards open complete sample application and team dashboards. All data stays in your browser." />
+      )}
       <div className="max-w-4xl mx-auto mb-8">
         <div className="flex flex-col gap-4">
           <div className="relative w-full">
@@ -416,7 +439,11 @@ function IdeasList() {
                       focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 
                       disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                   >
-                    {submitting ? 'Applying...' : (
+                    {submitting ? 'Applying...' : isDemoMode ? (
+                      <>
+                        View Demo Project <ArrowRight className="ml-2 w-4 h-4" />
+                      </>
+                    ) : (
                       <>
                         Apply Now <ArrowRight className="ml-2 w-4 h-4" />
                       </>

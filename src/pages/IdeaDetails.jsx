@@ -9,10 +9,15 @@ import axios from 'axios';
 import { cn } from '@/lib/utils';
 import Initializing from '../props/Initializing'; // Import the Initializing component
 import { toast } from 'react-hot-toast';
+import DemoBanner from '../components/DemoBanner';
+import { useDemoMode } from '../context/DemoModeContext';
+import { getDemoProjectBundle, isDemoProjectId } from '../data/demoData';
 
 const IdeaDetails = () => {
   const { id } = useParams(); // Extracts idea ID from URL
   const navigate = useNavigate();
+  const { isDemoMode } = useDemoMode();
+  const isDemoView = isDemoMode && isDemoProjectId(id);
   const [applications, setApplications] = useState([]);
   const [teamCreation, setTeamCreation] = useState(false);
   const [idea, setIdea] = useState(null);
@@ -36,7 +41,7 @@ const IdeaDetails = () => {
   const apiUrl = import.meta.env.VITE_BACKEND_URL;
   useEffect(() => {
     fetchSession();
-  }, [id]); // Runs when `id` changes
+  }, [id, isDemoMode]); // Runs when `id` or the data source changes
 
   const resetError = () => {
     setError(null);
@@ -56,6 +61,23 @@ const IdeaDetails = () => {
       
       // Store session in state
       setAuthSession(session);
+
+      if (isDemoView) {
+        const demo = getDemoProjectBundle(id);
+        if (!demo) throw new Error('Demo project not found');
+
+        const counts = demo.applications.reduce((result, application) => {
+          result[application.status] += 1;
+          result.total += 1;
+          return result;
+        }, { total: 0, accepted: 0, pending: 0, rejected: 0 });
+
+        setIdea(demo.project);
+        setApplications(demo.applications);
+        setStats(counts);
+        setTeamCreation(true);
+        return;
+      }
 
       // Use the same session for all API calls
       await Promise.all([
@@ -80,6 +102,11 @@ const IdeaDetails = () => {
   }
 
   async function handleOverlayViewMyTeam(){
+    if (isDemoView) {
+      navigate(`/manage-team/${id}`);
+      return;
+    }
+
     if(teamCreation){
       navigate(`/manage-team/${id}`);
     } else {
@@ -200,6 +227,25 @@ const IdeaDetails = () => {
     : applications.filter((app) => app.status === filter);
 
   const handleStatusUpdate = async (applicationId, newStatus) => {
+    if (isDemoView) {
+      setApplications((currentApplications) => {
+        const updatedApplications = currentApplications.map((application) =>
+          application.id === applicationId
+            ? { ...application, status: newStatus }
+            : application
+        );
+        const counts = updatedApplications.reduce((result, application) => {
+          result[application.status] += 1;
+          result.total += 1;
+          return result;
+        }, { total: 0, accepted: 0, pending: 0, rejected: 0 });
+        setStats(counts);
+        return updatedApplications;
+      });
+      toast.success(`Demo application marked ${newStatus}`);
+      return;
+    }
+
     try {
       // Use stored session instead of fetching a new one
       if (!authSession) {
@@ -257,6 +303,9 @@ const IdeaDetails = () => {
 
   return (
     <div className="max-w-8xl mx-auto px-4 py-8 flex flex-col gap-8">
+      {isDemoView && (
+        <DemoBanner message="This project, its applicants, and team activity are sample data. Actions are simulated locally." />
+      )}
       {/* Warning Banner */}
       {!teamCreation && (
         <div className="w-full bg-warning/10 border border-warning/20 rounded-lg p-4 mb-2">
@@ -337,10 +386,12 @@ const IdeaDetails = () => {
                 
                 <div className='w-full mt-4'>
                     <button 
-                        className='w-full mt-3 sm:mt-4 bg-primary hover:bg-primary/90 text-primary-foreground font-medium py-2 rounded-md transition-colors text-sm'
+                        className='w-full mt-3 sm:mt-4 bg-primary hover:bg-primary/90 text-primary-foreground font-medium py-2 rounded-md transition-colors text-sm disabled:cursor-not-allowed disabled:opacity-50'
                         onClick={handleOverlayEditIdea}
+                        disabled={isDemoView}
+                        title={isDemoView ? 'Editing is disabled for demo projects' : undefined}
                     >
-                      Edit Idea
+                      {isDemoView ? 'Read-only demo project' : 'Edit Idea'}
                     </button>
                 </div>
                 {/* Replace CircularProgress with Stat Cards */}

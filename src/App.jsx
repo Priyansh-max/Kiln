@@ -15,6 +15,7 @@ import { ThemeProvider } from './context/ThemeContext';
 import { Toaster } from 'react-hot-toast';
 import { toast } from 'react-hot-toast';
 import { Analytics } from '@vercel/analytics/react';
+import { DemoModeProvider } from './context/DemoModeContext';
 
 function App() {
   console.log("app rendered")
@@ -25,7 +26,8 @@ function App() {
 
   return (
     <ThemeProvider>
-      <Router>
+      <DemoModeProvider>
+        <Router>
         <AuthHandler user={user} setUser={setUser} setIsLoading={setIsLoading} />
         <div className="min-h-screen bg-background text-foreground transition-colors duration-200">
           <Navbar user={user} />
@@ -74,7 +76,8 @@ function App() {
           <Toaster position="bottom-right" />
           <Analytics />
         </div>
-      </Router>
+        </Router>
+      </DemoModeProvider>
     </ThemeProvider>
   );
 }
